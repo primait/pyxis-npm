@@ -1,0 +1,25 @@
+.m-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.m-table__header,
+.m-table__body,
+.m-table__body__row {
+  margin: 0;
+  padding: 0;
+}
+
+.m-table.m-table--alternateRows .m-table__body__row:nth-child(odd) {
+  background: color(background, dark);
+}
+
+.m-table__header__item,
+.m-table__body__row__col {
+  padding: 5px;
+  text-align: left;
+}
+
+.m-table__header__item.m-table__header__item--sortable {
+  cursor: pointer;
+}

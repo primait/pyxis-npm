@@ -1,0 +1,40 @@
+.a-form__field__input {
+  background: color(background);
+  border: map-get($formConfig, borderWidth) solid color(shape);
+  border-radius: map-get($formConfig, borderRadius);
+  color: color(text, dark);
+  height: map-get($formConfig, fieldHeight);
+  margin: 0;
+  padding: map-get($formConfig, fieldPadding);
+  -webkit-text-fill-color: color(text, dark);
+
+  &:focus,
+  &.is-pristine:focus {
+    border: map-get($formConfig, borderWidth) solid color(brandAlt);
+    box-shadow: map-get($formConfig, fieldShadow);
+  }
+
+  &.is-valid:not(:focus):not(.is-pristine),
+  &.is-touched:not(.is-invalid):not(:focus) {
+    border-color: color(brandAlt, dark);
+    color: color(brandAlt, dark);
+    -webkit-text-fill-color: color(brandAlt, dark);
+  }
+
+  &.is-invalid.is-touched:not(:focus) {
+    border-color: color(error);
+    color: color(error);
+    -webkit-text-fill-color: color(error);
+  }
+
+  &.is-pristine {
+    border: map-get($formConfig, borderWidth) solid color(shape);
+  }
+
+  &.is-disabled,
+  &[disabled] {
+    background-color: color(background, dark);
+    opacity: map-get($formConfig, fieldDisabledOpacity);
+    pointer-events: none;
+  }
+}

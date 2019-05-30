@@ -1,0 +1,42 @@
+.m-message {
+  align-items: center;
+  background-color: color(shape, light);
+  border: map-get($formConfig, borderWidth) solid color(shape);
+  border-radius: map-get($formConfig, borderRadius);
+  display: flex;
+  flex: 1 0 auto;
+
+  .m-message__icon {
+    align-items: center;
+    align-self: stretch;
+    border-right: map-get($formConfig, borderWidth) solid color(shape);
+    display: flex;
+    flex: 0 0 map-get($formConfig, fieldHeight);
+    justify-content: center;
+    min-height: map-get($formConfig, fieldHeight);
+    position: relative;
+  }
+
+  .m-message__icon .a-icon {
+    color: color(brand, dark);
+    font-size: size(large);
+    line-height: map-get($formConfig, fieldHeight);
+    text-align: center;
+  }
+
+  .m-message__text {
+    color: color(text, dark);
+    font-size: size(base);
+    font-family: font(light);
+    line-height: size(large);
+    padding: 10px 20px;
+  }
+
+  &.m-message--success .m-message__icon .a-icon {
+    color: color(brandAlt, dark);
+  }
+
+  &.m-message--error .m-message__icon .a-icon {
+    color: color(error);
+  }
+}

@@ -1,0 +1,117 @@
+.o-modal {
+  align-items: center;
+  background: color(background, base);
+  border-radius: map-get($modalConfig, borderRadius);
+  display: flex;
+  flex-direction: column;
+  left: 50%;
+  max-width: map-get($modalConfig, maxWidthDefault);
+  padding: map-get($modalConfig, paddingMobile);
+  position: absolute;
+  transform: translate3d(-50%, -50%, 0);
+  top: 50%;
+  width: map-get($modalConfig, width);
+
+  @include mq(small) {
+    padding: map-get($modalConfig, padding);
+  }
+
+  &.o-modal--small {
+    max-width: map-get($modalConfig, maxWidthSmall);
+  }
+
+  &.o-modal--medium {
+    max-width: map-get($modalConfig, maxWidthMedium);
+  }
+
+  &.o-modal--large {
+    max-width: map-get($modalConfig, maxWidthLarge);
+  }
+
+  .m-btnGroup {
+    justify-content: space-around;
+    width: 100%;
+  }
+}
+
+.o-modal.o-modal--dark {
+  background: color(backgroundAlt, light);
+  color: color(textAlt, light);
+
+  .o-modal__title,
+  .o-modal__content {
+    color: color(textAlt, light);
+  }
+
+  .a-btn--primary {
+    background-color: color(background, base);
+    color: color(backgroundAlt, light);
+
+    &:hover {
+      background-color: color(shape);
+    }
+  }
+
+  .a-btn--primary,
+  .a-btn--secondary {
+    border-color: color(background, base);
+
+    &:hover {
+      border-color: color(shape);
+    }
+  }
+
+  .a-btn--secondary,
+  .a-btn--tertiary {
+    background-color: transparent;
+    color: color(textAlt, light);
+
+    &:hover {
+      color: color(shape);
+    }
+  }
+
+  .o-modal__close {
+    border-color: color(background, base);
+    color: color(textAlt, light);
+  }
+}
+
+.o-modal__close {
+  align-items: center;
+  border: 1px solid;
+  border-color: color(brandAlt, dark);
+  border-radius: map-get($modalConfig, closeButtonSize) * 2;
+  color: color(brandAlt, dark);
+  display: flex;
+  height: map-get($modalConfig, closeButtonSizeMobile);
+  justify-content: center;
+  position: absolute;
+  right: map-get($modalConfig, closeButtonSizeMobile);
+  top: map-get($modalConfig, closeButtonSizeMobile);
+  width: map-get($modalConfig, closeButtonSizeMobile);
+
+  @include mq(small) {
+    height: map-get($modalConfig, closeButtonSize);
+    right: map-get($modalConfig, closeButtonSize);
+    top: map-get($modalConfig, closeButtonSize);
+    width: map-get($modalConfig, closeButtonSize);
+  }
+}
+
+.o-modal__title {
+  color: color(text, dark);
+  font-size: size(large);
+  margin: 0;
+  padding: map-get($modalConfig, titlePadding);
+  text-align: center;
+}
+
+.o-modal__content {
+  color: color(text, base);
+  font-size: size(base);
+  line-height: lineHeight(base);
+  max-height: calc(70vh - 150px);
+  margin-bottom: 20px;
+  width: 90%;
+}

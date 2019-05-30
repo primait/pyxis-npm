@@ -1,0 +1,13 @@
+// Default Pyxis Entry point, you can start from here to build your Custom Theme
+
+@import
+  '../assets/pyxisIconset/style.css';
+
+@import
+  '01_base/_root',
+
+  '02_atoms/_root',
+
+  '03_molecules/_root',
+
+  '04_organisms/_root';

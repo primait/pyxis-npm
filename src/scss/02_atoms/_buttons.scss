@@ -1,0 +1,174 @@
+.a-btn {
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  border: 1px solid transparent;
+  border-radius: map-get($formConfig, buttonHeight) * 2;
+  cursor: pointer;
+  display: flex;
+  font-family: font(heavy);
+  font-size: 14px;
+  justify-content: center;
+  letter-spacing: 0.8px;
+  line-height: map-get($formConfig, buttonHeight);
+  min-height: map-get($formConfig, buttonHeight);
+  min-width: map-get($formConfig, buttonMinWidth);
+  outline: none;
+  padding: 0 25px;
+  text-transform: uppercase;
+  transition: background 0.2s ease, border 0.2s ease, color 0.2s ease;
+
+  & + & {
+    margin-left: 15px;
+  }
+
+  &:disabled,
+  &[disabled],
+  &.is-disabled {
+    opacity: map-get($formConfig, buttonDisabledOpacity);
+    pointer-events: none;
+  }
+
+  &.a-btn--primary {
+    background: color(brandAlt, dark);
+    border-color: color(brandAlt, dark);
+    color: color(textAlt, light);
+
+    &:hover {
+      background: lighten(color(brandAlt, dark), 5%);
+      border-color: lighten(color(brandAlt, dark), 5%);
+    }
+  }
+
+  &.a-btn--secondary {
+    background: color(background);
+    border-color: color(brandAlt, dark);
+    color: color(brandAlt, dark);
+
+    &:hover {
+      border-color: lighten(color(brandAlt, dark), 5%);
+      color: lighten(color(brandAlt, dark), 5%);
+    }
+  }
+
+  &.a-btn--tertiary {
+    background: color(background);
+    border-color: color(shape);
+    color: color(brandAlt, dark);
+
+    &:hover {
+      border-color: color(brandAlt, dark);
+      color: color(brandAlt, dark);
+    }
+  }
+
+  &.a-btn--attention {
+    background: color(background);
+    border-color: color(error);
+    color: color(error);
+
+    &:hover {
+      border-color: lighten(color(error), 10%);
+      color: lighten(color(error), 10%);
+    }
+  }
+
+  .a-icon {
+    margin-top: -2px;
+    margin: 0 7px;
+  }
+
+  &.a-btn--circle {
+    align-items: center;
+    background: color(brand, light);
+    border-radius: map-get($formConfig, circleRadius);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    cursor: pointer;
+    flex: 0 0 auto;
+    min-height: map-get($formConfig, circleDimension);
+    min-width: map-get($formConfig, circleDimension);
+    padding: 0;
+    position: relative;
+    transition: all .2s ease-in-out;
+    justify-content: center;
+    z-index: 100;
+
+    &:before {
+      animation: internal-circle 2s linear infinite alternate;
+      background: rgba(color(brand, light), 0.3);
+      border-radius: map-get($formConfig, circleRadius) + 10px;
+      content: "";
+      min-height: map-get($formConfig, circleDimension) + 20px;
+      min-width: map-get($formConfig, circleDimension) + 20px;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &:after {
+      animation: external-circle 2s linear infinite alternate;
+      background: rgba(color(brand, light), 0.3);
+      border-radius: map-get($formConfig, circleRadius);
+      content: "";
+      min-height: map-get($formConfig, circleExternalDimension);
+      min-width: map-get($formConfig, circleExternalDimension);
+      opacity: 1;
+      position: absolute;
+      z-index: -1;
+    }
+
+    @keyframes internal-circle {
+      0% {
+        transform: scale(1);
+        border-width: 0;
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1.05);
+        border-width: 1px;
+        opacity: 0.5;
+      }
+    }
+
+    @keyframes external-circle {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+
+    .a-icon {
+      color: color(textAlt, light);
+      margin: 0;
+      padding-left: 1px;
+      padding-top: 2px;
+      position: absolute;
+
+      .is-active & {
+        transform: rotate(180deg);
+        top: map-get($formConfig, buttonIconOffset);
+      }
+
+      .is-IE & {
+        left: map-get($formConfig, buttonIconOffset);
+        top: map-get($formConfig, buttonIconOffset);
+      }
+    }
+
+    &:hover {
+      &:after {
+        background: color(brand, light);
+      }
+
+      &:before {
+        background: rgba(color(brand, light), 0.3);
+      }
+    }
+
+  }
+}

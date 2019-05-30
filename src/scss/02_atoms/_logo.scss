@@ -1,0 +1,14 @@
+.a-logo {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.a-logo img,
+.a-logo svg {
+  width: 85px;
+
+  @include mq(small) {
+    width: 120px
+  }
+}

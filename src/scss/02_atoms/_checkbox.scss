@@ -1,0 +1,96 @@
+.a-form__field__checkbox {
+  @extend .visuallyHidden;
+}
+
+.a-form__field__checkbox__label {
+  color: color(text, dark);
+  cursor: pointer;
+  display: flex;
+  line-height: map-get($formConfig, fieldHeight);
+  margin-right: 20px;
+  padding-left: 30px;
+  position: relative;
+  width: auto;
+
+  .a-form__field__checkbox[disabled] + & {
+    opacity: map-get($formConfig, fieldDisabledOpacity);
+    pointer-events: none;
+  }
+
+  &:hover,
+  .a-form__field__checkbox:focus + & {
+    color: color(brandAlt, dark);
+  }
+
+  &:before,
+  &:after {
+    display: flex;
+    font-family: font(monospace);
+    font-size: 16px;
+    height: 20px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 20px;
+  }
+
+  &:before {
+    background-color: color(background);
+    border: map-get($formConfig, borderWidth) solid color(brandAlt);
+    border-radius: 3px;
+    content: '';
+    left: 0;
+    transform: translateY(-50%);
+    transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(.78,-1.22,.17,1.89);
+  }
+
+  &:after {
+    clip-path: inset( 0 100% 0 0 );
+    color: color(brandAlt, dark);
+    content: "\e915";
+    font-family: 'pyxisIconset';
+    font-size: 16px;
+    left: 2px;
+    line-height: 20px;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: clip-path 0.3s linear, opacity 0.2s linear;
+  }
+
+  .a-form__field__checkbox:checked + & {
+    color: color(brandAlt, dark);
+  }
+
+  &:hover:after,
+  .a-form__field__checkbox:checked + &:after {
+    clip-path: inset( 0 0 0 0 );
+    opacity: 1;
+  }
+
+  .a-form__field__checkbox:not(:checked) + &:hover:before {
+    transform: scale(1.05) translateY(-50%);
+
+    .isTouchDevice & {
+      transform: scale(1) translateY(-50%);
+    }
+  }
+
+  .a-form__field__checkbox:not(:checked) + &:hover:after {
+    clip-path: inset( 0 0 0 0 );
+    opacity: map-get($formConfig, fieldDisabledOpacity);
+
+    .isTouchDevice & {
+      opacity: 0;
+    }
+  }
+}
+
+.checkboxFullText {
+  padding-left: 30px;
+
+  .a-form__field__label {
+    flex: 1;
+    order: 2;
+    text-align: left;
+  }
+}

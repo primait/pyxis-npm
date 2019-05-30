@@ -1,0 +1,57 @@
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}
+
+@function capitalize($str) {
+  @return to_upper_case(str_slice($str, 1, 1)) + str_slice($str, 2, -1);
+}
+
+@function color($color, $variation: base) {
+  @if( map-has-key($colors, $color) ) {
+    @return map-deep-get($colors, $color, $variation);
+  }
+  @else {
+    @error "Color `#{$color}` not found in `$colors` map.";
+  }
+}
+
+@function font($font) {
+  @if( map-has-key($fonts, $font) ) {
+    @return map-get($fonts, $font);
+  }
+  @else {
+    @error "Font `#{$font}` not found in `$fonts` map.";
+  }
+}
+
+@function size($size, $map: $fontSizes) {
+  @if( map-has-key($map, $size) ) {
+    @return map-get($map, $size);
+  }
+  @else {
+    @error "Font `#{$size}` not found in `$map` map.";
+  }
+}
+
+@function lineHeight($size) {
+  @if( map-has-key($fontSizes, $size) ) {
+    @return map-get($fontSizes, $size) * $goldenRatio;
+  }
+  @else {
+    @error "Font `#{$size}` not found in `$fontSizes` map.";
+  }
+}
+
+@function zIndex($key) {
+  @return index($zIndexes, $key);
+}
+
+@mixin ignorePyxis {
+  html:not(.ignorePyxis),
+  body:not(.ignorePyxis) {
+    @content;
+  }
+}

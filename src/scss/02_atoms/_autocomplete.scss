@@ -1,0 +1,106 @@
+.a-form__field__autocomplete {
+  cursor: pointer;
+  position: relative;
+
+  @include mqDown(small) {
+    flex: 1;
+  }
+
+  &:before {
+    border-left: map-get($formConfig, borderWidth) solid color(shape);
+    bottom: 1px;
+    color: color(brandAlt, dark);
+    content: "\e912";
+    font-family: 'pyxisIconset';
+    font-size: 25px;
+    line-height: map-get($formConfig, fieldHeight);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 1px;
+    width: map-get($formConfig, fieldHeight);
+  }
+
+  &.is-open .a-form__field__input,
+  &.is-open .a-form__field__input:focus {
+    border-color: color(brandAlt);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &.is-open .a-form__field__input,
+  &.is-open .a-form__field__autocomplete__list {
+    box-shadow: map-get($formConfig, fieldShadow);
+  }
+
+  .a-form__field__input {
+    padding-right: 60px;
+
+    &:focus {
+      border-color: color(brandAlt);
+    }
+  }
+
+  .a-form__field__input.is-valid.is-touched {
+    border-color: color(brandAlt, dark);
+  }
+}
+
+.a-form__field__autocomplete__list {
+  background: color(background);
+  border: map-get($formConfig, borderWidth) solid color(shape);
+  border-radius: 0 0 map-get($formConfig, borderRadius) map-get($formConfig, borderRadius);
+  display: none;
+  flex-direction: column;
+  left: 0;
+  list-style: none;
+  margin: -1px 0 0 0;
+  max-height: map-get($formConfig, fieldHeight) * 4 + map-get($formConfig, fieldHeight) * 0.5;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 1;
+
+  .is-open & {
+    border-color: color(brandAlt);
+    border-top-color: color(shape);
+    display: flex;
+  }
+}
+
+.a-form__field__autocomplete__list__item {
+  align-items: center;
+  color: color(text, dark);
+  display: flex;
+  flex: 0 0 100%;
+  min-height: map-get($formConfig, fieldHeight);
+  outline: none;
+  padding: 0 15px;
+
+  &.is-selected,
+  &.is-selected:hover,
+  &.is-selected:focus {
+    background: color(brandAlt, light);
+    color: color(brandAlt, dark);
+  }
+
+  &:hover,
+  &:focus {
+    background: color(background, dark);
+  }
+}
+
+.a-form__field__autocomplete__list__noResults {
+  align-items: center;
+  color: color(text);
+  cursor: default;
+  display: flex;
+  font-size: 12px;
+  height: map-get($formConfig, fieldHeight);
+  padding: 0 10px;
+  pointer-events: none;
+}

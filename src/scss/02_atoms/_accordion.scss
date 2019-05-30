@@ -1,0 +1,131 @@
+.a-accordion {
+  background: inherit;
+  color: inherit;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  padding: (map-get($accordionConfig, accordionPadding) / 2) map-get($accordionConfig, accordionPadding) 0  map-get($accordionConfig, accordionPadding);
+  position: relative;
+
+  &--light {
+    background: color(background, light);
+    color: color(text, dark);
+  }
+
+  &--dark {
+    background: color(backgroundAlt, dark);
+    color: color(text, light);
+  }
+
+  &--base {
+    background: color(background, dark);
+    color: color(text, dark);
+  }
+
+  &.is-open {
+    background: color(background, dark);
+    padding-top: ((map-get($accordionConfig, accordionPadding) / 2) + 1px);
+    top: -1px;
+    transition: all 0.3s ease;
+
+    .m-group--dark & {
+      background: color(backgroundAlt, light);
+    }
+
+    .a-icon:after {
+      transform: rotate(-225deg);
+    }
+
+    .a-icon:before {
+      transform: rotate(225deg);
+    }
+
+    &.a-accordion--light {
+      background: color(background, dark);
+    }
+
+    &.a-accordion--dark {
+      background: color(backgroundAlt, light);
+    }
+
+    &.a-accordion--base {
+      background: color(background, base);
+    }
+  }
+}
+
+.a-accordion__toggle {
+  align-items: center;
+  border-bottom: 1px solid color(shape);
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: map-get($accordionConfig, accordionPadding) 0;
+  text-decoration: none;
+  width: 100%;
+
+  .m-group--dark & {
+    border-bottom: 1px solid color(shape, dark);
+  }
+
+  .a-accordion--dark & {
+    border-bottom: 1px solid color(shape, dark);
+  }
+}
+
+.a-accordion .a-icon {
+  cursor: pointer;
+  height: map-get($accordionConfig, iconHeight);
+  width: map-get($accordionConfig, iconWidth);
+  padding: 0 (map-get($accordionConfig, accordionPadding) / 2);
+
+  &:before, &:after {
+    background: color(shape);
+    content: ' ';
+    position: absolute;
+    height: map-get($accordionConfig, iconHeight);
+    width: map-get($accordionConfig, iconWidth);
+  }
+
+  &:before {
+    transform: rotate(90deg);
+  }
+
+  &--arrow:after {
+    content: '\E902';
+  }
+}
+
+.a-accordion--dark .a-icon:after,
+.a-accordion--dark .a-icon:before {
+  background: color(shape, dark);
+}
+
+.a-accordion .a-icon:after,
+.a-accordion .a-icon:before {
+
+  .m-group--dark & {
+    background: color(shape, dark);
+  }
+}
+
+.a-accordion__content {
+  height: 0;
+  opacity: 0;
+  padding: 0;
+  transition: transform 1s, opacity 0.5s;
+  transform: translateY(25%) rotateX(-35deg);
+  visibility: hidden;
+
+  .is-open & {
+    display: flex;
+    height: auto;
+    opacity: 1;
+    padding: map-get($accordionConfig, accordionPadding) 0;
+    transform: rotateX(0deg);
+    visibility: visible;
+  }
+}

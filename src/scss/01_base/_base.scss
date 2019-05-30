@@ -1,0 +1,48 @@
+html {
+ box-sizing: border-box;
+ font-size: size(root);
+
+   @include mq(medium) {
+     font-size: size(root);
+     line-height: lineHeight(root);
+   }
+
+   @include mqUp(xlarge) {
+     font-size: map-get($fontSizes, root) * $largeScreenRatio;
+   }
+}
+
+*,* :before, *:after {
+ box-sizing: inherit;
+}
+
+body {
+ box-sizing: border-box;
+ font-family: font(light);
+ font-size: inherit;
+ height: 100%;
+ width: 100%;
+ -webkit-font-smoothing: antialiased;
+}
+
+input,
+textarea,
+select,
+button {
+  font-size: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+hr {
+  background-color: color(shape, base);
+  border: none;
+  height: 1px;
+  margin: 30px 0;
+
+  @include mq(small) {
+    margin: 40px 0;
+  }
+}

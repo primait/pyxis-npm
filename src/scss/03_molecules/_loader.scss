@@ -1,0 +1,134 @@
+.m-loader {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	&--small {
+		align-items: normal;
+	}
+}
+
+.a-loader__text {
+	flex-direction: column;
+	padding-top: 20px;
+}
+
+.a-loader__spinner {
+  animation: loaderSpin 1s infinite linear;
+  border: map-get($loaderConfig, borderRadius) solid rgba(color(brand, light), 0.2);
+  border-radius: 50%;
+  border-top-color: color(brand, base);
+  height: map-get($loaderConfig, height);
+  width: map-get($loaderConfig, with);
+
+	.m-loader--small & {
+		border-width: map-get($loaderConfig, borderRadiusSmall);
+		height: map-get($loaderConfig, heightSmall);
+	  width: map-get($loaderConfig, withSmall);
+	}
+
+	&--green {
+		border-color: color(shape, base);
+		border-top-color: color(brandAlt, dark);
+	}
+
+}
+
+.a-loader__car {
+
+	.is-IE & {
+		@extend .a-loader__spinner;
+
+		.a-loader__car__group {
+			display: none;
+		}
+	}
+}
+
+.a-loader__car__group {
+  fill-rule: evenodd;
+  stroke-linecap: round;
+  stroke-linejoin:round;
+  transform: scale(0.4);
+
+  .a-loader__car--small & {
+    transform: scale(0.2);
+  }
+
+	&__body {
+		animation: loaderShake 0.2s ease-in-out infinite alternate;
+		fill: color(brand);
+	}
+
+	&__wheel {
+		fill: color(brand);
+	}
+
+	&__line {
+		animation: loaderLine 0.8s ease-in-out infinite;
+		animation-fill-mode: both;
+		stroke-dasharray: 100;
+		stroke-width: 7;
+		transform-origin: center right;
+
+		&--top {
+			animation-delay: 0s;
+			stroke: color(brand);
+		}
+
+		&--middle {
+			animation-delay: 0.2s;
+			stroke: color(brand);
+		}
+
+		&--bottom {
+			animation-delay: 0.4s;
+			stroke: color(brand);
+		}
+	}
+}
+
+@keyframes loaderSpin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes loaderShake {
+	0% {
+		transform: translateY(-1%);
+	}
+	100% {
+		transform: translateY(3%);
+	}
+}
+
+@keyframes loaderLine {
+	0% {
+		stroke-dashoffset: -100;
+	}
+
+	25% {
+		stroke-dashoffset: -100;
+	}
+
+	50% {
+		stroke-dashoffset: 0;
+	}
+
+	51% {
+		stroke-dashoffset: 0;
+	}
+
+	80% {
+		stroke-dashoffset: 100;
+	}
+
+	100% {
+		stroke-dashoffset: 100;
+	}
+}

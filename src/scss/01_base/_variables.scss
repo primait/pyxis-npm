@@ -1,0 +1,83 @@
+$colors: (
+  
+  brand: (
+    light: #b967d9,
+    base:  #8334c2,
+    dark:  #7230ac,
+  ),
+
+  brandAlt: (
+    light: #ecf8fa,
+    base:  #99d7df,
+    dark:  #10a1b4,
+  ),
+
+  shape: (
+    light: #f7f7f7,
+    base:  #e0e0e0,
+    dark:  #4d5969,
+  ),
+
+  text: (
+    light: #e0e0e0,
+    base:  #7E8890,
+    dark:  #4d5969,
+  ),
+
+  textAlt: (
+    light: #fff,
+    base:  rgba(255,255,255,0.5),
+    dark:  rgba(255,255,255,0.3),
+  ),
+
+  background: (
+    base:  #fff,
+    dark:  #f7f7f7,
+  ),
+
+  backgroundAlt: (
+    light: #3c4355,
+    base:  #343a4b,
+    dark:  #1e2331,
+  ),
+
+  action: (
+    base:  #21c7a7,
+    dark:  #1db396,
+  ),
+
+  error: (
+    base:  #e74c3c,
+  ),
+
+  alert: (
+    base: #f7da7e,
+  ),
+
+) !default;
+
+$fonts: (
+  light:     ('avenirltstd-book', Helvetica, Verdana, sans-serif),
+  base:      ('avenirltstd-medium', Helvetica, Verdana, sans-serif),
+  heavy:     ('avenirltstd-heavy', Helvetica, Verdana, sans-serif),
+  monospace: ('Courier New', Courier, monospace),
+) !default;
+
+$fontSizes: (
+  root:     16px,
+  xsmall:   0.75rem,   // 12px
+  small:    0.875rem,  // 14px
+  base:     1rem,      // 16px
+  medium:   1.125rem,  // 18px
+  large:    1.375rem,  // 22px
+  xlarge:   1.5625rem, // 25px
+  xxlarge:  2rem,      // 32px
+) !default;
+
+$largeScreenRatio: 1.125 !default;
+
+$goldenRatio: 1.618 !default; // https://medium.com/@zkareemz/golden-ratio-62b3b6d4282a
+$zIndexes: tooltip !default;
+
+//Relative font asset path
+$fontPath: "../assets/fonts" !default;

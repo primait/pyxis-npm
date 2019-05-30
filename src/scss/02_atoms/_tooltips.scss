@@ -1,0 +1,112 @@
+:root {
+  --tooltipColor: #{color(backgroundAlt, base)};
+}
+
+.tooltip {
+  background: var(--tooltipColor);
+  border-radius: map-get($tooltipConfig, borderRadius);
+  color: color(textAlt, light);
+  padding: map-get($tooltipConfig, padding);
+  position: absolute;
+  width: map-get($tooltipConfig, width);
+  z-index: zIndex(tooltip);
+
+  &:before {
+    content: '';
+    height: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  p {
+    margin: 0;
+    font-size: size(small);
+    line-height: lineHeight(small);
+  }
+
+  &.tooltip--info {
+    --tooltipColor: #{color(brand, light)};
+    color: color(textAlt, light);
+  }
+}
+
+.tooltip__wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  right: -30px;
+  top: 0;
+  bottom: 0;
+
+  .tooltip {
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s;
+  }
+
+  &:hover .tooltip {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.tooltip.tooltip--up {
+  bottom: 100%;
+  left: 50%;
+  transform: translate(-50%, -(map-get($tooltipConfig, margin)));
+
+  &:before {
+    border-left: map-get($tooltipConfig, arrowSize) solid transparent;
+    border-right: map-get($tooltipConfig, arrowSize) solid transparent;
+    border-top: map-get($tooltipConfig, arrowSize) solid var(--tooltipColor);
+    bottom: -(map-get($tooltipConfig, arrowSize));
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+.tooltip.tooltip--right {
+  left: 100%;
+  top: 50%;
+  transform: translate(map-get($tooltipConfig, margin), -50%);
+
+  &:before {
+    border-bottom: map-get($tooltipConfig, arrowSize) solid transparent;
+    border-right: map-get($tooltipConfig, arrowSize) solid var(--tooltipColor);
+    border-top: map-get($tooltipConfig, arrowSize) solid transparent;
+    left: -(map-get($tooltipConfig, arrowSize));
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.tooltip.tooltip--left {
+  right: 100%;
+  top: 50%;
+  transform: translate(-(map-get($tooltipConfig, margin)), -50%);
+
+  &:before {
+    border-bottom: map-get($tooltipConfig, arrowSize) solid transparent;
+    border-left: map-get($tooltipConfig, arrowSize) solid var(--tooltipColor);
+    border-top: map-get($tooltipConfig, arrowSize) solid transparent;
+    right: -(map-get($tooltipConfig, arrowSize));
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.tooltip.tooltip--down {
+  left: 50%;
+  top: 100%;
+  transform: translate(-50%, map-get($tooltipConfig, margin));
+
+  &:before {
+    border-bottom: map-get($tooltipConfig, arrowSize) solid var(--tooltipColor);
+    border-left: map-get($tooltipConfig, arrowSize) solid transparent;
+    border-right: map-get($tooltipConfig, arrowSize) solid transparent;
+    left: 50%;
+    top: -(map-get($tooltipConfig, arrowSize));
+    transform: translateX(-50%);
+  }
+}

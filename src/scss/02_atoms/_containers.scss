@@ -1,0 +1,46 @@
+.a-container {
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+
+  @include mq(xsmall) {
+   max-width: map-get($containerConfig, xsmall);
+   width: 100%;
+  }
+
+  @include mq(small) {
+    max-width: map-get($containerConfig, small);
+  }
+
+  @include mq(medium) {
+    max-width: map-get($containerConfig, medium);
+  }
+
+  @include mq(large) {
+    max-width: map-get($containerConfig, large);
+  }
+
+  @include mq(xlarge) {
+    max-width: map-get($containerConfig, xlarge);
+  }
+
+  &.a-container--fluid {
+    width: 100%;
+  }
+
+  &.a-container--xsmall {
+
+    @include mq(xsmall) {
+      max-width: map-get($containerConfig, xsmall);
+      width: 100%;
+    }
+  }
+
+  &.a-container--small {
+
+    @include mq(small) {
+      max-width: map-get($containerConfig, small);
+      width: 100%;
+    }
+  }
+}

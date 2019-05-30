@@ -1,0 +1,74 @@
+.o-login {
+  background: color(background);
+  flex-direction: column;
+  padding: 20px;
+
+  @include mq(small) {
+    box-shadow: map-get($loginConfig, loginShadow);
+    min-height: map-get($loginConfig, minWidth);
+    padding: 50px;
+  }
+
+  .o-login__title {
+    color: color(text);
+    margin: 30px 0;
+    text-align: center;
+  }
+
+  .o-login__link {
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  .a-form__field {
+    
+    @include mq(small) {
+      justify-content: center
+    }
+  }
+
+  .a-form__field,
+  .a-form__field:hover {
+    background-color: transparent;
+  }
+
+  .a-form__field__label {
+    flex: 0 0 map-get($formConfig, fieldMaxWidth);
+    margin-left: 0;
+    padding: 0;
+  }
+
+  .a-form__field__error {
+    flex: 1;
+    padding: 0;
+  }
+
+  .a-form__field__label {
+    font-size: size(small);
+    margin-bottom: 5px;
+    padding: 0;
+    text-align: left;
+  }
+
+  .o-login__message {
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .o-login__message--info {
+    color: color(brandAlt, dark)
+  }
+
+  .o-login__message--error {
+    color: color(error)
+  }
+
+  .a-btn {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .m-message {
+    margin-bottom: 20px;
+  }
+}

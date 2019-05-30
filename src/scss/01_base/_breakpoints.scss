@@ -1,0 +1,59 @@
+/************************************
+  Upper bound of any mediaQuery
+*************************************/
+$breakpoints: (
+  xsmall:  576px,
+  small:   768px,
+  medium:  992px,
+  large:   1200px,
+  xlarge:  1920px,
+
+  boundDiff: 0.2px,
+) !default;
+
+@mixin mq($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  @else {
+    @warn "Cannot find the key #{$breakpoint} in the $breakpoints object (/atom/01_base/_breakpoints.scss)";
+  }
+}
+
+@mixin mqUp($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  @else {
+    @warn "Cannot find the key #{$breakpoint} in the $breakpoints object (/atom/01_base/_breakpoints.scss)";
+  }
+}
+
+@mixin mqBetween($lowerBound, $upperBound) {
+  @if not map-has-key($breakpoints, $lowerBound) {
+    @warn "Cannot find the key #{$lowerBound} in the $breakpoints object (/atom/01_base/_breakpoints.scss)";
+  }
+  @else if not map-has-key($breakpoints, $upperBound) {
+    @warn "Cannot find the key #{$upperBound} in the $breakpoints object (/atom/01_base/_breakpoints.scss)";
+  }
+  @else {
+    @media screen and (min-width: map-get($breakpoints, $lowerBound)) and (max-width: map-get($breakpoints, $upperBound) - map-get($breakpoints, boundDiff)) {
+      @content;
+    }
+  }
+}
+
+@mixin mqDown($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: map-get($breakpoints, $breakpoint) - map-get($breakpoints, boundDiff)) {
+      @content;
+    }
+  }
+  @else {
+    @warn "Cannot find the key #{$breakpoint} in the $breakpoints object (/atom/01_base/_breakpoints.scss)";
+  }
+}

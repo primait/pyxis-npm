@@ -1,0 +1,27 @@
+.m-pills {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.m-pills__text {
+  align-items: center;
+  background: linear-gradient(to right, color(brand, light) , color(brand));
+  border-radius: map-get($pillsConfig, borderRadius);
+  color: color(textAlt, light);
+  display: flex;
+  padding: map-get($pillsConfig, paddingPills) (map-get($pillsConfig, paddingPills) * 4);
+
+  @include mq(small) {
+    background: none;
+    color: color(brand);
+    padding: 0;
+  }
+}
+
+.m-pills__text .a-icon {
+  font-size: size(medium);
+  padding-right: map-get($pillsConfig, paddingPills);
+  text-align: center;
+}

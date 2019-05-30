@@ -1,0 +1,196 @@
+/************************
+  Tablet/Desktop component
+*************************/
+.a-form__field__customSelect {
+  background: color(background);
+  border: map-get($formConfig, borderWidth) solid color(shape);
+  border-radius: map-get($formConfig, borderRadius);
+  color: color(brandAlt, dark);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+  position: relative;
+
+  &.is-valid:not(.is-open),
+  &.is-touched:not(.is-open) {
+    border-color: color(brandAlt, dark);
+  }
+
+  &:focus,
+  &.is-pristine:focus,
+  &.is-pristine:not(.is-open):focus {
+    border: map-get($formConfig, borderWidth) solid color(brandAlt);
+    box-shadow: map-get($formConfig, fieldShadow);
+  }
+
+  &.is-invalid.is-touched:not(.is-open):not(:focus) {
+    border-color: color(error);
+    color: color(error);
+  }
+
+  &.is-pristine:not(.is-open) {
+    border: map-get($formConfig, borderWidth) solid color(shape);
+    color: color(brandAlt, dark);
+  }
+
+  &.is-disabled {
+    background: color(background, dark);
+    opacity: map-get($formConfig, fieldDisabledOpacity);
+    pointer-events: none;
+  }
+
+  &.is-open {
+    border: map-get($formConfig, borderWidth) solid color(brandAlt);
+    box-shadow: map-get($formConfig, fieldShadow);
+
+    @include mq(medium) {
+      border-radius: map-get($formConfig, borderRadius) map-get($formConfig, borderRadius) 0px 0px;
+    }
+  }
+
+  @include mq(medium) {
+    pointer-events: auto;
+  }
+}
+
+.a-form__field__customSelect__status {
+  align-items: center;
+  border-color: inherit;
+  color: color(text);
+  display: flex;
+  height: map-get($formConfig, fieldHeight);
+  padding: map-get($formConfig, fieldPadding);
+  position: relative;
+
+  &:after {
+    color: color(brandAlt, dark);
+    content: "\e90a";
+    font-family: 'pyxisIconset';
+    font-size: map-get($formConfig, iconSize);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+    transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
+    right: 10px;
+  }
+
+  .is-invalid.is-touched & {
+    color: color(error);
+    opacity: 1;
+  }
+
+  .is-valid:not(.is-pristine) & {
+    color: color(brandAlt, dark);
+    opacity: 1;
+  }
+
+  .is-open &:after {
+    transform: translateY(-50%) rotate(-180deg);
+  }
+
+  .is-invalid.is-touched:not(.is-open):not(:focus) &:after {
+    color: color(error);
+  }
+}
+
+.a-form__field__customSelect__list {
+  background: color(background);
+  border: map-get($formConfig, borderWidth) solid color(shape);
+  border-radius: 0 0 map-get($formConfig, borderRadius) map-get($formConfig, borderRadius);
+  border-top: none;
+  display: none;
+  flex-direction: column;
+  left: -1px;
+  list-style: none;
+  margin: -1px 0 0 0;
+  max-height: map-get($formConfig, fieldHeight) * 4 + map-get($formConfig, fieldHeight) * 0.5;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  right: -1px;
+  top: 100%;
+  z-index: 3;
+
+  .is-open & {
+    border: 1px solid color(brandAlt);
+    border-top-color: color(shape);
+    box-shadow: map-get($formConfig, fieldShadow);
+    display: none;
+
+    @include mq(medium) {
+      display: flex;
+    }
+  }
+}
+
+.a-form__field__customSelect__list__item {
+  align-items: center;
+  color: color(text, dark);
+  display: flex;
+  flex: 0 0 100%;
+  min-height: map-get($formConfig, fieldHeight);
+  outline: none;
+  padding: map-get($formConfig, fieldPadding);
+
+  &.is-selected,
+  &.is-selected:hover,
+  &.is-selected:focus {
+    background: color(brandAlt, light);
+    color: color(brandAlt, dark);
+  }
+
+  &:hover,
+  &:focus {
+    background: color(background, dark);
+  }
+}
+
+/************************
+  Mobile component
+*************************/
+.a-form__field__select {
+  background: color(background);
+  border: map-get($formConfig, borderWidth) solid color(shape);
+  border-radius: map-get($formConfig, borderRadius);
+  bottom: 10px;
+  color: color(brandAlt, dark);
+  display: flex;
+  font-size: size(small);
+  height: map-get($formConfig, fieldHeight);
+  margin: 0;
+  outline: none;
+  opacity: 0;
+  padding: map-get($formConfig, fieldPadding);
+  position: absolute;
+
+  @include mq(medium) {
+    display: none;
+  }
+
+  &:focus {
+    border-color: color(brandAlt);
+  }
+
+  &.is-valid,
+  &.is-touched {
+    border-color: color(brandAlt, dark);
+  }
+
+  &.is-invalid {
+    border-color: color(error);
+    color: color(error);
+  }
+
+  &.is-disabled,
+  &[disabled] {
+    background: color(background, dark);
+    opacity: map-get($formConfig, fieldDisabledOpacity);
+    pointer-events: none;
+  }
+
+  option {
+    color: color(text, dark);
+  }
+}

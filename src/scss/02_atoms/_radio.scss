@@ -1,0 +1,107 @@
+.a-form__field__radio {
+  @extend .visuallyHidden;
+}
+
+.a-form__field__radio__label {
+  border-radius: map-get($formConfig, borderRadius);
+  color: color(text, dark);
+  cursor: pointer;
+  display: flex;
+  line-height: map-get($formConfig, fieldHeight);
+  margin-right: 20px;
+  padding-left: 40px;
+  padding-right: 20px;
+  position: relative;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  width: auto;
+
+  @include mq(small) {
+    border: map-get($formConfig, borderWidth) solid transparent;
+  }
+
+  &:last-child {
+    margin-right: 0px;
+  }
+
+  &:hover,
+  .a-form__field__radio:focus + & {
+    border-color: color(brandAlt);
+    color: color(brandAlt, dark);
+
+    @include mq(small) {
+      background: color(background);
+    }
+  }
+
+  .a-form__field__radio[disabled] + & {
+    opacity: map-get($formConfig, fieldDisabledOpacity);
+    pointer-events: none;
+  }
+
+  .a-form__field__radio:checked + & {
+    color: color(brandAlt, dark);
+  }
+
+  &:before,
+  &:after {
+    border-radius: 20px;
+    display: flex;
+    font-family: font(monospace);
+    font-size: 16px;
+    height: 20px;
+    position: absolute;
+    text-align: center;
+    width: 20px;
+    transform-origin: center center;
+  }
+
+  &:before {
+    background-color: color(background);
+    border: map-get($formConfig, borderWidth) solid color(brandAlt);
+    content: '';
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  &:after {
+    background: color(brandAlt, dark);
+    content: '';
+    left: 15px;
+    height: 10px;
+    top: 20px;
+    transform: scale(0);
+    transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
+    width: 10px;
+  }
+
+  &:hover:after,
+  .a-form__field__radio:checked + &:after {
+    transform: scale(1);
+  }
+
+  .a-form__field__radio:not(:checked) + &:hover:after {
+    opacity: map-get($formConfig, fieldDisabledOpacity);
+  }
+}
+
+.a-form__field__radioOptions {
+  display: flex;
+  flex-direction: row;
+
+  &.is-vertical {
+    flex-direction: column;
+  }
+}
+
+.radioFullText {
+  .a-form__field__label {
+    flex: 1;
+    text-align: left;
+  }
+
+  .a-form__field__error {
+    margin-top: 0;
+    text-align: right;
+  }
+}

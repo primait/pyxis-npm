@@ -1,0 +1,182 @@
+.alignCenter {
+  text-align: center;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+.border {
+  border: 1px solid color(shape);
+}
+
+.borderBottom {
+  border-bottom: 1px solid color(shape);
+}
+
+.borderLeft {
+  border-left: 1px solid color(shape);
+}
+
+.borderRadius {
+  border-radius: map-get($formConfig,borderRadius);
+}
+
+.borderRight {
+  border-right: 1px solid color(shape);
+}
+
+.borderTop {
+  border-top: 1px solid color(shape);
+}
+
+.directionColumn {
+  flex-direction: column;
+}
+
+.directionRow {
+  flex-direction: row;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.displayFlex {
+  display: flex;
+}
+
+.displayInline {
+  display: inline;
+}
+
+.displayInlineBlock {
+  display: inline-block;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.is-unscrollable {
+  overflow: hidden;
+  position: fixed;
+}
+
+.lineThrough {
+  text-decoration: line-through;
+}
+
+.lowercase {
+  text-transform: lowercase;
+}
+
+.marginXAuto {
+  margin: 0 auto;
+}
+
+.marginYAuto {
+  margin: auto 0;
+}
+
+.noDecoration {
+  text-decoration: none;
+}
+
+.noListStyle {
+  list-style: none;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.noWrap {
+  white-space: nowrap;
+}
+
+.normalWrap {
+  white-space: normal;
+}
+
+.overflowHidden {
+  overflow: hidden;
+}
+
+.overflowScroll {
+  overflow: scroll;
+}
+
+.overflowXHidden {
+  overflow-x: hidden;
+}
+
+.overflowXScroll {
+  overflow-x: scroll;
+}
+
+.overflowYHidden {
+  overflow-y: hidden;
+}
+
+.overflowYScroll {
+  overflow-y: scroll;
+}
+
+.sticky {
+  position: sticky;
+}
+
+.stickyBottom {
+  bottom: 0;
+  position: sticky;
+}
+
+.stickyTop {
+  position: sticky;
+  top: 0;
+}
+
+.preWrap {
+  white-space: pre-wrap;
+}
+
+.textEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.visuallyHidden {
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.wordBreakAll {
+  word-break: break-all;
+}
+
+.wordBreakWord {
+  word-break: break-word;
+}

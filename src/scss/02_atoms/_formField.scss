@@ -1,0 +1,119 @@
+.a-form__field {
+  align-items: center;
+  border-radius: map-get($formConfig, borderRadius);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-height: 70px;
+  padding: 10px;
+  position: relative;
+  transition: background 0.3s;
+
+  &:hover {
+    @include mq(medium) {
+      background: color(background, dark);
+    }
+  }
+}
+
+.a-form__field__input,
+.a-form__field__date,
+.a-form__field__textarea,
+.a-form__field__select,
+.a-form__field__customSelect {
+  font-family: font(light);
+  min-width: 100%;
+  outline: none;
+
+  @include mq(small) {
+    min-width: map-get($formConfig, fieldMaxWidth);
+  }
+
+  &.fieldSmall {
+    min-width: calc(50% - 5px);
+
+    @include mq(small) {
+      min-width: map-get($formConfig, fieldMaxWidthSmall);
+      width: map-get($formConfig, fieldMaxWidthSmall);
+    }
+  }
+
+  &.fieldLarge {
+    min-width: map-get($formConfig, fieldMaxWidthLarge);
+  }
+
+  & + & {
+    @include mq(small) {
+      margin-left: 10px;
+    }
+  }
+
+  .a-form__field__error + & {
+    margin-left: 10px;
+  }
+}
+
+.a-form__field__input,
+.a-form__field__date,
+.a-form__field__select {
+  transition: background 0.3s, border 0.3s, color 0.3s;
+  -webkit-appearance: none;
+}
+
+.a-form__field__input,
+.a-form__field__date,
+.a-form__field__textarea,
+.a-form__field__autocomplete,
+.a-form__field__customSelect {
+  font-size: 14px;
+}
+
+.a-form__field__error {
+  color: color(error);
+  flex: 0 0 100%;
+  font-family: font(base);
+  font-size: 12px;
+  order: 1;
+
+  @include mq(small) {
+    margin-top: map-get($formConfig, errorMargin);
+    padding-left: calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
+  }
+
+  .a-form__field__input:focus + &,
+  .a-form__field__date:focus + &,
+  .a-form__field__textarea:focus + &,
+  .a-form__field__autocomplete:focus + &,
+  .a-form__field__select:focus + & {
+    display: none;
+  }
+}
+
+::-webkit-input-placeholder {
+  color: color(text);
+  opacity: 0.6;
+}
+
+::-moz-placeholder {
+  color: color(text);
+  opacity: 0.6;
+}
+
+:-ms-input-placeholder {
+  color: color(text);
+  opacity: 0.6;
+}
+
+:-moz-placeholder {
+  color: color(text);
+  opacity: 0.6;
+}
+
+::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+   display: none;
+ }
