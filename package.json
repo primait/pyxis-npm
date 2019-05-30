@@ -2,7 +2,6 @@
   "name": "@prima/pyxis-npm",
   "version": "2.0.0",
   "description": "Pyxis SASS provided by a simple NPM package",
-  "main": "pyxis.js",
   "scripts": {
     "test": "test.js",
     "build": "./node_modules/.bin/webpack"
@@ -18,7 +17,7 @@
     "design",
     "css"
   ],
-  "author": "Ivan Gori",
+  "author": "Pyxis Core crazy mantainers can be found here: https://github.com/primait/pyxis-npm",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/primait/pyxis-npm/issues"
