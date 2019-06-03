@@ -22,5 +22,5 @@ After install launch webpack dev server in watch mode on your machine
 yarn serve:dev
 ````
 your pyxis is served at http://localhost:8080/pyxis.css. You can include it directly in your local projects
-###Contribute
+### Contribute
 Pyxis  abstraction is a complex task far from being perfect so if you think we could do something better you can contact us or open a PR
