@@ -1,8 +1,8 @@
-##PYXIS-NPM
+## PYXIS-NPM
 
 Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima
 
-###HOWTO
+### HOWTO
 #### Include Pyxis CSS as dependency
 Under dist folder you can find your last built of pyxis.css
 #### Include Pyxis SASS and build your Pyxis Theme
