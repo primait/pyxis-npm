@@ -4,6 +4,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = (env, argv) => {
     const devMode =  argv.mode !== 'production'
+    console.log('devMode?', devMode)
     let conf = {
 
         context: path.resolve(__dirname, 'src'),
@@ -66,7 +67,12 @@ module.exports = (env, argv) => {
         plugins: [
             new CleanWebpackPlugin(),
             new MiniCssExtractPlugin({filename: '[name].css'}),
-        ]
+        ],
+        devServer: {
+            contentBase: path.join(__dirname, 'dist'),
+            compress: false,
+            port: 8080
+        }
     }
 
     if (devMode) {
