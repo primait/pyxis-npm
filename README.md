@@ -8,6 +8,7 @@ Under dist folder you can find your last built of pyxis.css
 #### Include Pyxis SASS and build your Pyxis Theme
 
 #### Build Pyxis on your machine
+This is aimed to be used for test purpose on pyxis branch directly, you shouldn't use out of the box transpiler in your project
 ````bash
 yarn build:dev
 ````
