@@ -1,6 +1,6 @@
 ## PYXIS-NPM
 
-Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima
+Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima. To use it in your project as npm dependency ask to mantainers to join *prima-assicurazioni* organization and login your machine with *npm login* 
 
 ### Structure
 - Pyxis is structured with **BEM** in mind. From a main root entry point (*pyxis.scss*) 4 partials *_root.scss* are imported. There are imported respectively base, atoms, molecules and organisms partials
