@@ -63,7 +63,7 @@ Example if you need to tune up variables and don't import the whole 01_base part
 The following commands can be launched directly from root of the git project (or the node_modules if you've downloaded it via NPM).
 
 ### Build Pyxis on your machine
-Pyxis-NPM ships out with a full configurated transpiler with so you can build your pyxis.css and serve it locally
+Pyxis-NPM ships out with a full configurated transpiler so you can build your pyxis.css and serve it locally
 ````bash
 yarn build:dev
 ````
