@@ -1,12 +1,30 @@
-## PYXIS-NPM
+# PYXIS-NPM
 
-Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima. To use it in your project as npm dependency ask to mantainers to join *prima-assicurazioni* organization and login your machine with *npm login* 
+Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima. To use it in your project as npm dependency ask to mantainers or devops to join *prima-assicurazioni* organization on npm and login your machine with *npm login*. Then you can simply ask for pyxis as dependency with ```npm install ```
 
-### Structure
-- Pyxis is structured with **BEM** in mind. From a main root entry point (*pyxis.scss*) 4 partials *_root.scss* are imported. There are imported respectively base, atoms, molecules and organisms partials
+[Costellazione della bussola](https://it.wikipedia.org/wiki/Bussola_(costellazione))
+
+
+## Pyxis Rules:
+
+- Rules sorted by **alphabetic** order
+- *@include*(s) and *@extend*(s) after pure rules
+- No more than two nesting levels
+- No implicit rules
+- No vendor prefixes
+- Atoms must be **predictable** and **independent**
+- Atoms must have only internal spacing
+- Atoms must have active modifiers *(i.e. is-active, is-selected )*
+- Stay **DRY**
+- Think **mobile-first**
+- SCSS **only** (no css, less, sass...)
+
+## Project Structure
+- Pyxis is structured with **BEM** in mind. From a main root entry point (*pyxis.scss*) 4 partials *_root.scss* are imported: base, atoms, molecules and organisms
 - Order is important since **all** pyxis partials are built depending on mixins, functions and variables declared in *01_base*.
 
-#### Include Pyxis CSS as dependency
+## HOWTO
+### Include Pyxis CSS as dependency
 Under dist folder you can find your last built of pyxis.css. This is the whole pyxis, is built with an high polyfill load with the following browserlist configuration.
 ```bash
 > 0.05%
@@ -14,12 +32,13 @@ ie 10-11
 ```
 You can copy the whole folder in your project assets but probably it's not the best choice
 
-#### Include Pyxis SASS or build your Pyxis Theme
+### Include Pyxis SASS or build your Pyxis Theme
 To include pyxis as sass you can simply import pyxis.scss from your application sass entry point.
 Depending on your transpiler configuration you may need to redefine **$fontPath** variable before and make it point to pyxis-npm fonts folder.
 This variable is used to resolve file import of fonts with a relative path that changes from your configuration, remember that usually
 in sass transpiler the paths are relative from the first entry point not related to specific partials.
-##### Build your Pyxis theme
+
+### Build your Pyxis theme
 If you need to customise pyxis try to respect pyxis folder structure in the parts that you need to change.
 
 Example if you need to tune up variables and don't import the whole 01_base partials list
@@ -41,9 +60,10 @@ Example if you need to tune up variables and don't import the whole 01_base part
   'pyxis-npm/scss/04_organisms/_root';
 ```
 
-### Package related
-The following are commands that can be launched directly from the package.
-#### Build Pyxis on your machine
+## For project mantainers
+The following commands can be launched directly from root of the git project (or the node_modules if you've downloaded it via NPM).
+
+### Build Pyxis on your machine
 Pyxis-NPM ships out with a full configurated transpiler with so you can build your pyxis.css and serve it locally
 ````bash
 yarn build:dev
@@ -53,11 +73,12 @@ Or (minified without source maps)
 yarn build:prod
 ````
 
-#### Serve a custom Pyxis on your local machine
+### Serve a custom Pyxis on your local machine
 After install launch webpack dev server in watch mode on your machine
 ````bash
 yarn serve:dev
 ````
 your pyxis is served at http://localhost:8080/pyxis.css. You can include it directly in your local projects
-### Contribute
-Pyxis  abstraction is a complex task far from being perfect so if you think we could do something better you can contact us or open a PR
+
+## Contribute
+Pyxis abstraction is a complex task far from being perfect so if you think we could do something better you can contact us or open a PR
