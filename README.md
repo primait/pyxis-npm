@@ -44,9 +44,9 @@ Example if you need to tune up variables and don't import the whole 01_base part
 - Create a folder with the same name of the part that will change (eg 01_base since variables are there)
 - Copy and paste 01_base/_root.scss partial from pyxis-npm in your project/01_base that you've created before
 - Comment partials imports that you don't want to use
-- Create a new _variables.scss file, redefine all the variables you need and at the end import the original pyxis-npm variables partial
-- In your 01_base/_root import your variable
-- In your app.scss entry point copy the import structure of pyxis.scss changing 01_base/_root with the one you've defined before
+- Create a new _variables.scss file, redefine all the variables you need and at the end import the original pyxis-npm variables partial (fix relative paths to point at package partials)
+- In your 01_base/_root import your variables partial
+- In your app.scss entry point copy the import structure of pyxis.scss changing 01_base/_root with the one you've defined before (fix relative paths to point at package partials)
 
 ```scss
 @import
