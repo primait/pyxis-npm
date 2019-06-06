@@ -7,7 +7,7 @@ Pyxis-NPM is the standard way to integrate Pyxis Design System into your project
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/NGC_2818_by_the_Hubble_Space_Telescope.jpg/1920px-NGC_2818_by_the_Hubble_Space_Telescope.jpg)
 
 - Rules sorted by **alphabetic** order
-- ```scss @include(s)``` and ```scss @extend(s)``` after pure rules
+- ```@include(s)``` and ```@extend(s)``` after pure rules
 - No more than two nesting levels
 - No implicit rules
 - No vendor prefixes
