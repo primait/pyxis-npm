@@ -1,11 +1,10 @@
 # PYXIS-NPM
 
-Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima. To use it in your project as npm dependency ask to mantainers or devops to join *prima-assicurazioni* organization on npm and login your machine with *npm login*. Then you can simply ask for pyxis as dependency with ```npm install ```
+Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima. To use it in your project as npm dependency ask to mantainers or devops to join *prima-assicurazioni* organization on npm, once accepted your invitation you can login your machine typing ```npm login```. Then you can simply ask for pyxis as dependency with ```npm install @prima-assicurazioni/pyxis-npm```
 
+## Pyxis:
 [Costellazione della bussola](https://it.wikipedia.org/wiki/Bussola_(costellazione))
-
-
-## Pyxis Rules:
+![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/NGC_2818_by_the_Hubble_Space_Telescope.jpg/1920px-NGC_2818_by_the_Hubble_Space_Telescope.jpg)
 
 - Rules sorted by **alphabetic** order
 - *@include*(s) and *@extend*(s) after pure rules
