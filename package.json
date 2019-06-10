@@ -2,7 +2,7 @@
   "name": "@prima-assicurazioni/pyxis-npm",
   "version": "1.7.9",
   "description": "Pyxis SASS provided by a simple NPM package",
-  "main": "src/pyxis.js",
+  "main": "src/scss/pyxis.scss",
   "scripts": {
     "prepublishOnly": "npm run build:prod",
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
