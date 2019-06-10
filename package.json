@@ -1,6 +1,6 @@
 {
   "name": "@prima-assicurazioni/pyxis-npm",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "description": "Pyxis SASS provided by a simple NPM package",
   "main": "src/pyxis.js",
   "scripts": {
