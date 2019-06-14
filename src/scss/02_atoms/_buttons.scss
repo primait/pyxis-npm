@@ -2,7 +2,7 @@
   align-items: center;
   align-content: center;
   align-self: center;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   border-radius: map-get($formConfig, buttonHeight) * 2;
   cursor: pointer;
   display: flex;
@@ -10,13 +10,18 @@
   font-size: 14px;
   justify-content: center;
   letter-spacing: 0.8px;
-  line-height: map-get($formConfig, buttonHeight);
   min-height: map-get($formConfig, buttonHeight);
   min-width: map-get($formConfig, buttonMinWidth);
   outline: none;
+  overflow: hidden;
   padding: 0 25px;
+  position: relative;
   text-transform: uppercase;
-  transition: background 0.2s ease, border 0.2s ease, color 0.2s ease;
+  transition: background 0.1s ease-in-out, 
+              border 0.1s ease-in-out, 
+              color 0.1s ease-in-out, 
+              transform 0.1s ease-in-out;
+  will-change: background, border, color, transform;
 
   & + & {
     margin-left: 15px;
@@ -30,47 +35,113 @@
   }
 
   &.a-btn--primary {
-    background: color(brandAlt, dark);
-    border-color: color(brandAlt, dark);
+    background: color(brandAlt);
+    border: none;
     color: color(textAlt, light);
+    min-height: map-get($formConfig, buttonHeight) + 2px;
 
-    &:hover {
-      background: lighten(color(brandAlt, dark), 5%);
-      border-color: lighten(color(brandAlt, dark), 5%);
+    &:after {
+      background: color(brandAlt, dark);
+      border-radius: map-get($formConfig, buttonHeight) * 2;
+      content: "";
+      display: block;
+      height: map-get($formConfig, buttonHeight);
+      left: 0;
+      position: absolute;
+      transform: translate3d(-100%, 0, 0);
+      transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.4s;
+      width: 100%;
+      z-index: 0;
+    }
+
+     &:hover:after {
+      transform: translate3d(0%, 0, 0);
     }
   }
 
   &.a-btn--secondary {
     background: color(background);
-    border-color: color(brandAlt, dark);
-    color: color(brandAlt, dark);
+    border-color: color(brandAlt);
+    color: color(brandAlt);
 
     &:hover {
-      border-color: lighten(color(brandAlt, dark), 5%);
-      color: lighten(color(brandAlt, dark), 5%);
+      border-color: lighten(color(brandAlt), 5%);
+      color: lighten(color(brandAlt), 5%);
     }
   }
 
   &.a-btn--tertiary {
     background: color(background);
     border-color: color(shape);
-    color: color(brandAlt, dark);
+    color: color(brandAlt);
 
     &:hover {
-      border-color: color(brandAlt, dark);
-      color: color(brandAlt, dark);
+      border-color: color(brandAlt);
     }
   }
 
   &.a-btn--attention {
     background: color(background);
-    border-color: color(error);
+    border-color: color(shape);
     color: color(error);
 
     &:hover {
-      border-color: lighten(color(error), 10%);
-      color: lighten(color(error), 10%);
+      border-color: color(error);
     }
+  }
+
+  &.a-btn--action {
+    background: color(action, base);
+    border-color: color(action, base);
+    color: color(textAlt, light);
+
+    &:hover span {
+      transform: translateX(-10px);
+    }
+
+    &:hover:after {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+
+    &:after {
+      color: color(textAlt, light);
+      content: '\e901';
+      display: block;
+      font-family: 'pyxisIconset';
+      height: 20px;
+      opacity: 0;
+      position: absolute;
+      transform: translateX(-5px);
+      transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.25s;
+      right: 15px;
+      width: 20px;
+      z-index: 9;
+    }
+
+    &:hover {
+      background: color(action, dark);
+      border-color: color(action, dark);
+    }
+  }
+
+  &.a-btn--small {
+    font-size: 12px;
+    line-height: map-get($formConfig, buttonHeightSmall);
+    min-height: map-get($formConfig, buttonHeightSmall);
+    min-width: map-get($formConfig, buttonMinWidthSmall);
+    padding-top: 2px;
+
+    &.a-btn--primary {
+      min-height: map-get($formConfig, buttonHeightSmall) + 5px;
+    }
+  }
+
+  span {
+    font-family: font(heavy);
+    position: relative;
+    transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.25s;
+    z-index: 1;
   }
 
   .a-icon {
@@ -82,14 +153,14 @@
     align-items: center;
     background: color(brand, light);
     border-radius: map-get($formConfig, circleRadius);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     flex: 0 0 auto;
     min-height: map-get($formConfig, circleDimension);
     min-width: map-get($formConfig, circleDimension);
     padding: 0;
     position: relative;
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
     justify-content: center;
     z-index: 100;
 
@@ -169,6 +240,5 @@
         background: rgba(color(brand, light), 0.3);
       }
     }
-
   }
 }
