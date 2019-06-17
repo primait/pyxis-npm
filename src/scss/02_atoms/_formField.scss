@@ -43,11 +43,13 @@
   }
 
   & + & {
-    margin-top: 10px;
+
+    @include mdDown(small) {
+      margin-top: 10px;
+    }
 
     @include mq(small) {
       margin-left: 10px;
-      margin-top: initial;
     }
   }
 
