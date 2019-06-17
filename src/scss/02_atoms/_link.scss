@@ -15,11 +15,11 @@
     color: color(brandAlt, dark);
   }
 
-  &.a-link--icon {
+  &.a-link--with-icon {
     align-self: flex-start;
     background-position: 30px 100%;
 
-    .a-icon {
+    .a-link__icon {
       margin-right: 8px;
       vertical-align: middle;
     }

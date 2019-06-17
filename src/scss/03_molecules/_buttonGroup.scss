@@ -3,3 +3,11 @@
   justify-content: center;
   padding: 15px 0;
 }
+
+.m-btnGroup.m-btnGroup--left {
+  justify-content: flex-start;
+}
+
+.m-btnGroup.m-btnGroup--right {
+  justify-content: flex-end;
+}
