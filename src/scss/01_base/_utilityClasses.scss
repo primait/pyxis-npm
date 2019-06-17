@@ -1,4 +1,28 @@
 // #HELPERS
+$flexPositions: (
+  around: space-around,
+  between: space-between,
+  center: center,
+  end: flex-end,
+  start: flex-start,
+  stretch: stretch
+);
+
+$flexProps: (
+  alignContent: align-content,
+  alignItems: align-items,
+  alignSelf: align-self,
+  justifyContent: justify-content
+);
+
+@each $propKey, $prop in $flexProps {
+    @each $positionKey, $position in $flexPositions {
+    .#{$propKey}#{capitalize($positionKey)} {
+      #{$prop}: $position;
+    }
+  }
+}
+
 .alignCenter {
   text-align: center;
 }
