@@ -17,6 +17,7 @@
   }
 }
 
+
 .o-jumbotron__container {
   flex-flow: column;
 
@@ -42,6 +43,10 @@
     align-items: flex-start;
     flex: 0 0 55%;
     text-align: left;
+  }
+
+  &.o-jumbotron__wrapper--fluid {
+    flex: 1;
   }
 }
 
