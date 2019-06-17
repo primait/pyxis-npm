@@ -45,9 +45,10 @@
 	&:after {
 		align-items: center;
 		color: color(textAlt, light);
-		content: "\e927";
+		content: "\e90a";
 		display: flex;
 		font-family: 'pyxisIconset';
+		font-size: size(medium);
 		margin-left: 5px;
 		margin-top: -3px;
 		right: 0px;
@@ -84,7 +85,7 @@
 
 	&:before {
 		border-radius: map-get($formConfig, datepickerCellSize);
-		font-family: 'pyxis';
+		font-family: 'pyxisIconset';
 		font-size: 24px;
 		left: 50%;
 		position: absolute;
@@ -116,11 +117,11 @@
 }
 
 .a-datepicker__picker__header__prevMonth:before {
-	content: '\e90c';
+	content: '\e90b';
 }
 
 .a-datepicker__picker__header__nextMonth:before {
-	content: '\e90d';
+	content: '\e909';
 }
 
 .a-datepicker__picker__header__currentMonth {

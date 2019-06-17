@@ -63,7 +63,7 @@
   position: absolute;
   right: 0;
   top: 100%;
-  z-index: 1;
+  z-index: 3;
 
   .is-open & {
     border-color: color(brandAlt);
