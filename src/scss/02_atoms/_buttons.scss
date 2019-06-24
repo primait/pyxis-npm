@@ -11,6 +11,7 @@
   justify-content: center;
   letter-spacing: 0.8px;
   height: map-get($formConfig, buttonHeight);
+  margin: 5px auto;
   min-width: map-get($formConfig, buttonMinWidth);
   outline: none;
   overflow: hidden;
@@ -88,7 +89,6 @@
     }
   }
 
-
   &.a-btn--tertiary {
     background: color(background);
     border-color: color(shape);
@@ -134,7 +134,7 @@
     &.a-btn--dark:hover {
       background: rgba(color(error), 1);
       border-color: color(error);
-      color:color(textAlt, light);
+      color: color(textAlt, light);
     }
   }
 
@@ -147,13 +147,13 @@
     border-color: color(action, base);
     color: color(textAlt, light);
 
-    &:hover span {
-      transform: translateX(-10px);
+    &:hover {
+      background: color(action, dark);
+      border-color: color(action, dark);
     }
 
-    &:hover:after {
-      opacity: 1;
-      transform: translateX(0px);
+    &:hover span {
+      transform: translateX(-10px);
     }
 
     &:after {
@@ -162,18 +162,21 @@
       display: block;
       font-family: "pyxisIconset";
       height: 20px;
+      line-height: 20px;
+      margin-top: -2px;
       opacity: 0;
       position: absolute;
-      transform: translateX(-5px);
+      transform: translateY(-50%) translateX(-5px);
       transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.25s;
       right: 15px;
+      top: 50%;
       width: 20px;
       z-index: 9;
     }
 
-    &:hover {
-      background: color(action, dark);
-      border-color: color(action, dark);
+    &:hover:after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0px);
     }
   }
 
