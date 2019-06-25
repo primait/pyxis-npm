@@ -1,6 +1,7 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = (env, argv) => {
     const devMode = argv.mode !== 'production'
@@ -10,12 +11,14 @@ module.exports = (env, argv) => {
         context: path.resolve(__dirname, 'src'),
 
         entry: {
-            pyxis: './pyxis.js'
+            pyxis: './pyxis.js',
+            // test: './test/index.js'
         },
 
         output: {
             path: path.resolve(__dirname, 'dist'),
-            filename: '[name].bundle.[hash].js'
+            publicPath: '/',
+            filename: devMode ? '[name].bundle.js' : '[name].bundle.[hash].js'
         },
 
         module: {
@@ -39,14 +42,12 @@ module.exports = (env, argv) => {
                 },
                 {
                     test: /\.html$/,
-                    use: ['html-loader']
+                    loader: 'html-loader'
                 },
                 {
                     test: /\.js$/,
                     exclude: /node_modules/,
-                    use: {
-                        loader: 'babel-loader'
-                    }
+                    loader: 'babel-loader'
                 },
                 {
                     test: /\.(ttf|eot|svg|woff(2)?|otf)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -64,10 +65,15 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({ filename: '[name].css' }),
+            new MiniCssExtractPlugin({ 
+                filename: '[name].css' 
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'test.html', 
+                template: 'test/index.html'
+            })
         ],
         devServer: {
-            contentBase: path.join(__dirname, 'dist'),
             compress: false,
             port: 8080
         }

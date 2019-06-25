@@ -1,4 +1,4 @@
-.a-btn {
+@mixin btn() {
   align-items: center;
   align-content: center;
   align-self: center;
@@ -31,9 +31,30 @@
     opacity: map-get($formConfig, buttonDisabledOpacity);
     pointer-events: none;
   }
+
+  span {
+    font-family: font(heavy);
+    line-height: 100%;
+    margin-top: 2px;
+    position: relative;
+    transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.25s;
+    z-index: 1;
+  }
 }
 
-.a-btn.a-btn--primary {
+@mixin btnSmall() {
+  font-size: 12px;
+  line-height: map-get($formConfig, buttonHeightSmall);
+  height: map-get($formConfig, buttonHeightSmall);
+  min-width: map-get($formConfig, buttonMinWidthSmall);
+
+  .a-btn__icon {
+    margin-top: -2px;
+    margin: 0 7px;
+  }
+}
+
+@mixin btnPrimary() {
   background: color(brandAlt);
   border: none;
   color: color(textAlt, light);
@@ -67,22 +88,28 @@
   }
 }
 
-.a-btn.a-btn--secondary {
+@mixin btnSecondary() {
   background: color(background);
   border-color: color(brandAlt);
   color: color(brandAlt);
 
-  &:hover {
+  &:not([disabled], .is-disabled):hover {
     border-color: lighten(color(brandAlt), 5%);
     color: lighten(color(brandAlt), 5%);
   }
 
   &.a-btn--dark {
+    background: transparent;
     border-color: color(background);
+    color: color(textAlt, light);
+
+    &:not([disabled], .is-disabled):hover {
+      background: rgba(color(background), 0.1);
+    }
   }
 }
 
-.a-btn.a-btn--tertiary {
+@mixin btnTertiary() {
   background: color(background);
   border-color: color(shape);
   color: color(brandAlt);
@@ -92,21 +119,17 @@
   }
 
   &.a-btn--dark {
+    background: transparent;
     border-color: rgba(color(background), 0.3);
+    color: color(textAlt, light);
+
+    &:not([disabled], .is-disabled):hover {
+      background: rgba(color(background), 0.1);
+    }
   }
 }
 
-.a-btn.a-btn--secondary.a-btn--dark,
-.a-btn.a-btn--tertiary.a-btn--dark {
-  background: transparent;
-  color: color(textAlt, light);
-
-  &:not([disabled], .is-disabled):hover {
-    background: rgba(color(background), 0.1);
-  }
-}
-
-.a-btn.a-btn--attention {
+@mixin btnAttention() {
   background: color(background);
   border-color: color(shape);
   color: color(error);
@@ -127,7 +150,7 @@
   }
 }
 
-.a-btn.a-btn--callout {
+@mixin btnCallout() {
   background: color(action, base);
   border-color: color(action, base);
   color: color(textAlt, light);
@@ -164,21 +187,45 @@
   }
 }
 
+.a-btn {
+  @include btn;
+}
+
+.a-btn.a-btn--primary {
+  @include btnPrimary;
+}
+
+.a-btn.a-btn--secondary {
+  @include btnSecondary;
+}
+
+.a-btn.a-btn--tertiary {
+  @include btnTertiary;
+}
+
+.a-btn.a-btn--attention {
+  @include btnAttention;
+}
+
+.a-btn.a-btn--callout {
+  @include btnCallout;
+}
+
 .a-btn.a-btn--small {
-  font-size: 12px;
-  line-height: map-get($formConfig, buttonHeightSmall);
-  height: map-get($formConfig, buttonHeightSmall);
-  min-width: map-get($formConfig, buttonMinWidthSmall);
+  @include btnSmall;
+}
 
-  span {
-    font-family: font(heavy);
-    position: relative;
-    transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.25s;
-    z-index: 1;
-  }
+$btnsBreakpoints: xsmall small medium large;
 
-  .a-btn__icon {
-    margin-top: -2px;
-    margin: 0 7px;
+@each $lowerBound in $btnsBreakpoints {
+  $index: index($btnsBreakpoints, $lowerBound);
+  $upperBound: nth(nth($breakpoints, $index + 1), 1);
+
+  @if $upperBound {
+    .a-btn.a-btn--smallOnBreakpoint#{capitalize($lowerBound)} {
+      @include mqBetween($lowerBound, $upperBound) {
+        @include btnSmall;
+      }
+    }
   }
 }

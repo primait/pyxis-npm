@@ -1,6 +1,6 @@
 {
   "name": "@prima-assicurazioni/pyxis-npm",
-  "version": "1.8.4",
+  "version": "1.8.5",
   "description": "Pyxis SASS provided by a simple NPM package",
   "main": "src/scss/pyxis.scss",
   "scripts": {
@@ -8,7 +8,7 @@
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "build:dev": "./node_modules/.bin/webpack --mode development",
     "build:prod": "./node_modules/.bin/webpack --mode production",
-    "serve:dev": "node_modules/.bin/webpack-dev-server --mode development"
+    "serve": "node_modules/.bin/webpack-dev-server --mode development"
   },
   "repository": {
     "type": "git",
@@ -45,5 +45,7 @@
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.5.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "html-webpack-plugin": "^3.2.0"
+  }
 }
