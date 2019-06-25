@@ -20,181 +20,155 @@
   text-transform: uppercase;
   transition: background 0.1s ease-in-out, border 0.1s ease-in-out, color 0.1s ease-in-out, transform 0.1s ease-in-out;
   will-change: background, border, color, transform;
+  white-space: nowrap;
 
   & + & {
     margin-left: 15px;
   }
 
-  &:disabled,
   &[disabled],
   &.is-disabled {
     opacity: map-get($formConfig, buttonDisabledOpacity);
     pointer-events: none;
   }
+}
 
-  /*
-  Primary Button
-  ——————————————————————————————————————————————————*/
+.a-btn.a-btn--primary {
+  background: color(brandAlt);
+  border: none;
+  color: color(textAlt, light);
+  height: map-get($formConfig, buttonHeight);
 
-  &.a-btn--primary {
-    background: color(brandAlt);
-    border: none;
-    color: color(textAlt, light);
+  &:after {
+    background: color(brandAlt, dark);
+    border-radius: map-get($formConfig, buttonHeight) * 2;
+    content: "";
+    display: block;
     height: map-get($formConfig, buttonHeight);
+    left: 0;
+    position: absolute;
+    transform: translate3d(-100%, 0, 0);
+    transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.4s;
+    width: 100%;
+    z-index: 0;
+  }
+
+  &:hover:not([disabled], .is-disabled):after {
+    transform: translate3d(0%, 0, 0);
+  }
+
+  &.a-btn--dark {
+    background-color: color(background);
+    color: color(backgroundAlt, light);
 
     &:after {
-      background: color(brandAlt, dark);
-      border-radius: map-get($formConfig, buttonHeight) * 2;
-      content: "";
-      display: block;
-      height: map-get($formConfig, buttonHeight);
-      left: 0;
-      position: absolute;
-      transform: translate3d(-100%, 0, 0);
-      transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.4s;
-      width: 100%;
-      z-index: 0;
-    }
-
-    &:hover:after {
-      transform: translate3d(0%, 0, 0);
-    }
-
-    &.a-btn--dark {
-      background-color: color(background);
-      color: color(backgroundAlt, light);
-    }
-
-    &.a-btn--dark:after {
       background: rgba(color(shape, base), 0.5);
     }
   }
+}
 
-  /*
-  Secondary and Tertiary Buttons
-  ——————————————————————————————————————————————————*/
+.a-btn.a-btn--secondary {
+  background: color(background);
+  border-color: color(brandAlt);
+  color: color(brandAlt);
 
-  &.a-btn--secondary {
-    background: color(background);
+  &:hover {
+    border-color: lighten(color(brandAlt), 5%);
+    color: lighten(color(brandAlt), 5%);
+  }
+
+  &.a-btn--dark {
+    border-color: color(background);
+  }
+}
+
+.a-btn.a-btn--tertiary {
+  background: color(background);
+  border-color: color(shape);
+  color: color(brandAlt);
+
+  &:not([disabled], .is-disabled):hover {
     border-color: color(brandAlt);
-    color: color(brandAlt);
-
-    &:hover {
-      border-color: lighten(color(brandAlt), 5%);
-      color: lighten(color(brandAlt), 5%);
-    }
-
-    &.a-btn--dark {
-      border-color: color(background);
-    }
   }
 
-  &.a-btn--tertiary {
-    background: color(background);
-    border-color: color(shape);
-    color: color(brandAlt);
+  &.a-btn--dark {
+    border-color: rgba(color(background), 0.3);
+  }
+}
 
-    &:hover {
-      border-color: color(brandAlt);
-    }
+.a-btn.a-btn--secondary.a-btn--dark,
+.a-btn.a-btn--tertiary.a-btn--dark {
+  background: transparent;
+  color: color(textAlt, light);
 
-    &.a-btn--dark {
-      border-color: rgba(color(background), 0.3);
-    }
+  &:not([disabled], .is-disabled):hover {
+    background: rgba(color(background), 0.1);
+  }
+}
+
+.a-btn.a-btn--attention {
+  background: color(background);
+  border-color: color(shape);
+  color: color(error);
+
+  &:not([disabled], .is-disabled):hover {
+    border-color: color(error);
   }
 
-  &.a-btn--secondary.a-btn--dark,
-  &.a-btn--tertiary.a-btn--dark {
+  &.a-btn--dark {
     background: transparent;
-    color: color(textAlt, light);
-
-    &:hover {
-      background: rgba(color(background), 0.1);
-    }
+    border-color: rgba(color(background), 0.3);
   }
 
-  /*
-  Attention Button
-  ——————————————————————————————————————————————————*/
+  &.a-btn--dark:not([disabled], .is-disabled):hover {
+    background: rgba(color(error), 1);
+    border-color: color(error);
+    color: color(textAlt, light);
+  }
+}
 
-  &.a-btn--attention {
-    background: color(background);
-    border-color: color(shape);
-    color: color(error);
+.a-btn.a-btn--callout {
+  background: color(action, base);
+  border-color: color(action, base);
+  color: color(textAlt, light);
 
-    &:hover {
-      border-color: color(error);
-    }
-
-    &.a-btn--dark {
-      background: transparent;
-      border-color: rgba(color(background), 0.3);
-    }
-
-    &.a-btn--dark:hover {
-      background: rgba(color(error), 1);
-      border-color: color(error);
-      color: color(textAlt, light);
-    }
+  &:after {
+    color: color(textAlt, light);
+    content: "\e901";
+    display: block;
+    font-family: "pyxisIconset";
+    height: 20px;
+    line-height: 20px;
+    opacity: 0;
+    position: absolute;
+    transform: translateY(-50%) translateX(-5px);
+    transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.25s;
+    right: 15px;
+    top: 50%;
+    width: 20px;
+    z-index: 9;
   }
 
-  /*
-  Action Button
-  ——————————————————————————————————————————————————*/
+  &:hover {
+    background: color(action, dark);
+    border-color: color(action, dark);
 
-  &.a-btn--callout {
-    background: color(action, base);
-    border-color: color(action, base);
-    color: color(textAlt, light);
-
-    &:hover {
-      background: color(action, dark);
-      border-color: color(action, dark);
-    }
-
-    &:hover span {
+    span {
       transform: translateX(-10px);
     }
 
     &:after {
-      color: color(textAlt, light);
-      content: "\e901";
-      display: block;
-      font-family: "pyxisIconset";
-      height: 20px;
-      line-height: 20px;
-      margin-top: -2px;
-      opacity: 0;
-      position: absolute;
-      transform: translateY(-50%) translateX(-5px);
-      transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.25s;
-      right: 15px;
-      top: 50%;
-      width: 20px;
-      z-index: 9;
-    }
-
-    &:hover:after {
       opacity: 1;
       transform: translateY(-50%) translateX(0px);
     }
   }
+}
 
-  /*
-  Small Button
-  ——————————————————————————————————————————————————*/
-
-  &.a-btn--small {
-    font-size: 12px;
-    line-height: map-get($formConfig, buttonHeightSmall);
-    height: map-get($formConfig, buttonHeightSmall);
-    min-width: map-get($formConfig, buttonMinWidthSmall);
-    padding-top: 2px;
-
-    &.a-btn--primary {
-      height: map-get($formConfig, buttonHeightSmall);
-    }
-  }
+.a-btn.a-btn--small {
+  font-size: 12px;
+  line-height: map-get($formConfig, buttonHeightSmall);
+  height: map-get($formConfig, buttonHeightSmall);
+  min-width: map-get($formConfig, buttonMinWidthSmall);
 
   span {
     font-family: font(heavy);
