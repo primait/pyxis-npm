@@ -69,4 +69,5 @@ You can edit the test file in `src/test/index.html`. The page is reachable @ htt
 
 ## Changelog
 
+- **1.8.8** Add `font-display: swap;` to improve FMP.
 - **1.8.7** Add `woff2` support. Rearrange `@font-face` directive to serve `woff` and `woff2` before others fallback extensions.
