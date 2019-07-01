@@ -12,7 +12,6 @@ module.exports = (env, argv) => {
 
         entry: {
             pyxis: './pyxis.js',
-            // test: './test/index.js'
         },
 
         output: {

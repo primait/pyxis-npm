@@ -6,17 +6,6 @@ Pyxis-NPM is the standard way to integrate Pyxis Design System into your project
 [Costellazione della bussola](https://it.wikipedia.org/wiki/Bussola_(costellazione))
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/NGC_2818_by_the_Hubble_Space_Telescope.jpg/1920px-NGC_2818_by_the_Hubble_Space_Telescope.jpg)
 
-- Rules sorted by **alphabetic** order
-- ```@include(s)``` and ```@extend(s)``` after pure rules
-- No more than two nesting levels
-- No implicit rules
-- No vendor prefixes
-- Atoms must be **predictable** and **independent**
-- Atoms must have only internal spacing
-- Atoms must have active modifiers *(i.e. is-active, is-selected )*
-- Stay **DRY**
-- Think **mobile-first**
-- SCSS **only** (no css, less, sass...)
 
 ## Project Structure
 - Pyxis is structured with **BEM** in mind. From a main root entry point (*pyxis.scss*) 4 partials *_root.scss* are imported: base, atoms, molecules and organisms
@@ -59,8 +48,6 @@ Example if you need to tune up variables and don't import the whole 01_base part
   'pyxis-npm/scss/04_organisms/_root';
 ```
 
-## For project mantainers
-The following commands can be launched directly from root of the git project (or the node_modules if you've downloaded it via NPM).
 
 ### Build Pyxis on your machine
 Pyxis-NPM ships out with a full configurated transpiler so you can build your pyxis.css and serve it locally
@@ -79,5 +66,7 @@ yarn serve
 ````
 You can edit the test file in `src/test/index.html`. The page is reachable @ http://localhost:8080/test.html .
 
-## Contribute
-Pyxis abstraction is a complex task far from being perfect so if you think we could do something better you can contact us or open a PR
+
+## Changelog
+
+- **1.8.7** Add `woff2` support. Rearrange `@font-face` directive to serve `woff` and `woff2` before others fallback extensions.
