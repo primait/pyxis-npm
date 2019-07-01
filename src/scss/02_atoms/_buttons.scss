@@ -74,7 +74,7 @@
     z-index: 0;
   }
 
-  &:hover:not([disabled], .is-disabled):after {
+  &:hover:after {
     transform: translate3d(0%, 0, 0);
   }
 
@@ -93,7 +93,7 @@
   border-color: color(brandAlt);
   color: color(brandAlt);
 
-  &:not([disabled], .is-disabled):hover {
+  &:hover {
     border-color: lighten(color(brandAlt), 5%);
     color: lighten(color(brandAlt), 5%);
   }
@@ -103,7 +103,7 @@
     border-color: color(background);
     color: color(textAlt, light);
 
-    &:not([disabled], .is-disabled):hover {
+    &:hover {
       background: rgba(color(background), 0.1);
     }
   }
@@ -114,7 +114,7 @@
   border-color: color(shape);
   color: color(brandAlt);
 
-  &:not([disabled], .is-disabled):hover {
+  &:hover {
     border-color: color(brandAlt);
   }
 
@@ -123,7 +123,7 @@
     border-color: rgba(color(background), 0.3);
     color: color(textAlt, light);
 
-    &:not([disabled], .is-disabled):hover {
+    &:hover {
       background: rgba(color(background), 0.1);
     }
   }
@@ -134,7 +134,7 @@
   border-color: color(shape);
   color: color(error);
 
-  &:not([disabled], .is-disabled):hover {
+  &:hover {
     border-color: color(error);
   }
 
@@ -143,7 +143,7 @@
     border-color: rgba(color(background), 0.3);
   }
 
-  &.a-btn--dark:not([disabled], .is-disabled):hover {
+  &.a-btn--dark:hover {
     background: rgba(color(error), 1);
     border-color: color(error);
     color: color(textAlt, light);
