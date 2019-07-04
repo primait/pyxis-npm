@@ -2,8 +2,21 @@
   @extend .visuallyHidden;
 }
 
-.a-form__field__radio__label {
+.a-form__field__radio__label.a-form__field__radio__label--bordered {
   border-radius: map-get($formConfig, borderRadius);
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
+
+  @include mq(small) {
+    border: map-get($formConfig, borderWidth) solid transparent;
+  }
+
+  &:hover,
+  .a-form__field__radio:focus + & {
+    border-color: color(brandAlt);
+  }
+}
+
+.a-form__field__radio__label {
   color: color(text, dark);
   cursor: pointer;
   display: flex;
@@ -12,20 +25,16 @@
   padding-left: 40px;
   padding-right: 20px;
   position: relative;
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
+  transition: background 0.3s, color 0.3s;
   width: auto;
 
-  @include mq(small) {
-    border: map-get($formConfig, borderWidth) solid transparent;
-  }
 
   &:last-child {
-    margin-right: 0px;
+    margin-right: 0;
   }
 
   &:hover,
   .a-form__field__radio:focus + & {
-    border-color: color(brandAlt);
     color: color(brandAlt, dark);
 
     @include mq(small) {
