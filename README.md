@@ -65,10 +65,3 @@ After install launch webpack dev server in watch mode on your machine
 yarn serve
 ````
 You can edit the test file in `src/test/index.html`. The page is reachable @ http://localhost:8080/test.html .
-
-
-## Changelog
-
-- **1.8.9** Solve `buttons` hover error.
-- **1.8.8** Add `font-display: swap;` to improve FMP.
-- **1.8.7** Add `woff2` support. Rearrange `@font-face` directive to serve `woff` and `woff2` before others fallback extensions.

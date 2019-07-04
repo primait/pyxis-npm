@@ -64,17 +64,18 @@ module.exports = (env, argv) => {
         },
         plugins: [
             new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({ 
-                filename: '[name].css' 
+            new MiniCssExtractPlugin({
+                filename: '[name].css'
             }),
             new HtmlWebpackPlugin({
-                filename: 'test.html', 
+                filename: 'test.html',
                 template: 'test/index.html'
             })
         ],
         devServer: {
             compress: false,
-            port: 8080
+            port: 8080,
+            disableHostCheck: false
         }
     }
 
