@@ -119,13 +119,13 @@
   transition: transform 1s, opacity 0.5s;
   transform: translateY(25%) rotateX(-35deg);
   visibility: hidden;
+}
 
-  .is-open & {
-    display: flex;
-    height: auto;
-    opacity: 1;
-    padding: map-get($accordionConfig, accordionPadding) 0;
-    transform: rotateX(0deg);
-    visibility: visible;
-  }
+.a-accordion.is-open .a-accordion__content {
+  display: flex;
+  height: auto;
+  opacity: 1;
+  padding: map-get($accordionConfig, accordionPadding) 0;
+  transform: rotateX(0deg);
+  visibility: visible;
 }
