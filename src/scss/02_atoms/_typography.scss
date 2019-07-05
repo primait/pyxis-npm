@@ -61,7 +61,7 @@ h6 {
     }
   }
 
-  p:not([class*="fs-"]),
+  p:not([class^="fs"]),
   ul:not([class]) {
     @extend .fs-small;
 

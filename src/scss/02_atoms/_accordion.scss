@@ -24,20 +24,10 @@
 
   &.is-open {
     background: color(background, dark);
-    padding-top: ((map-get($accordionConfig, accordionPadding) / 2) + 1px);
-    top: -1px;
-    transition: all 0.3s ease;
+    padding-top: ((map-get($accordionConfig, accordionPadding) / 2));
 
     .m-group--dark & {
       background: color(backgroundAlt, light);
-    }
-
-    .a-icon:after {
-      transform: rotate(-225deg);
-    }
-
-    .a-icon:before {
-      transform: rotate(225deg);
     }
 
     &.a-accordion--light {
@@ -50,6 +40,10 @@
 
     &.a-accordion--base {
       background: color(background, base);
+    }
+
+    .a-icon {
+      transform: rotate(45deg);
     }
   }
 }
@@ -81,9 +75,10 @@
   height: map-get($accordionConfig, iconHeight);
   width: map-get($accordionConfig, iconWidth);
   padding: 0 (map-get($accordionConfig, accordionPadding) / 2);
+  transition: all 0.3s;
 
   &:before, &:after {
-    background: color(shape);
+    background: color(brandAlt);
     content: ' ';
     position: absolute;
     height: map-get($accordionConfig, iconHeight);
@@ -99,11 +94,6 @@
   }
 }
 
-.a-accordion--dark .a-icon:after,
-.a-accordion--dark .a-icon:before {
-  background: color(shape, dark);
-}
-
 .a-accordion .a-icon:after,
 .a-accordion .a-icon:before {
 
@@ -113,19 +103,18 @@
 }
 
 .a-accordion__content {
-  height: 0;
-  opacity: 0;
+  flex: 0 0 0;
   padding: 0;
-  transition: transform 1s, opacity 0.5s;
-  transform: translateY(25%) rotateX(-35deg);
+  opacity: 0;
+  overflow: hidden;
+  transition: all 0.3s;
   visibility: hidden;
 }
 
 .a-accordion.is-open .a-accordion__content {
   display: flex;
-  height: auto;
+  flex: 1 0 auto;
   opacity: 1;
   padding: map-get($accordionConfig, accordionPadding) 0;
-  transform: rotateX(0deg);
   visibility: visible;
 }
