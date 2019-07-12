@@ -50,7 +50,6 @@
 
 .a-accordion__toggle {
   align-items: center;
-  border-bottom: 1px solid color(shape);
   color: inherit;
   cursor: pointer;
   display: flex;
@@ -61,13 +60,17 @@
   text-decoration: none;
   width: 100%;
 
+  .a-accordion.is-open & {
+    border-bottom: 1px solid color(shape);
+  }
+  .a-accordion.a-accordion--dark.is-open {
+    border-bottom: 1px solid color(shape, dark);
+  }
+
   .m-group--dark & {
     border-bottom: 1px solid color(shape, dark);
   }
 
-  .a-accordion--dark & {
-    border-bottom: 1px solid color(shape, dark);
-  }
 }
 
 .a-accordion .a-icon {

@@ -1,47 +1,141 @@
 <html>
-    <head>
-        <link href="/pyxis.css" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="a-container directionColumn">
-            <h3>Buttons.</h3>
-            <div class="m-btnGroup">
-                <button class="a-btn a-btn--callout"><span>Procedi</span></button>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/pyxis.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="a-container directionColumn">
+    <h3>Buttons.</h3>
+    <div class="m-btnGroup m-btnGroup--space-evenly">
+        <button class="a-btn a-btn--callout"><span>A</span></button>
+        <button class="a-btn a-btn--primary"><span>B</span></button>
+        <button class="a-btn a-btn--secondary"><span>C</span></button>
+        <button class="a-btn a-btn--tertiary"><span>D</span></button>
+    </div>
+    <br>
+    <h3>Small Buttons (group)</h3>
+    <div class="m-btnGroup m-btnGroup--space-evenly">
+        <button class="a-btn a-btn--callout a-btn--small"><span>A</span></button>
+        <button class="a-btn a-btn--primary a-btn--small"><span>B</span></button>
+        <button class="a-btn a-btn--secondary a-btn--small"><span>C</span></button>
+        <button class="a-btn a-btn--tertiary a-btn--small"><span>D</span></button>
+    </div>
+    <h3>Fluid button group small</h3>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout a-btn--small"><span>A</span></button>
+    </div>
+    <hr>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout a-btn--small"><span>A</span></button>
+        <button class="a-btn a-btn--primary a-btn--small"><span>B</span></button>
+    </div>
+    <hr>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout a-btn--small"><span>A</span></button>
+        <button class="a-btn a-btn--primary a-btn--small"><span>B</span></button>
+        <button class="a-btn a-btn--secondary a-btn--small"><span>C</span></button>
+    </div>
+    <hr>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout a-btn--small"><span>SONO</span></button>
+        <button class="a-btn a-btn--primary a-btn--small"><span>UN</span></button>
+        <button class="a-btn a-btn--secondary a-btn--small"><span>BOTTONE</span></button>
+        <button class="a-btn a-btn--tertiary a-btn--small"><span>SONO UN BOTTONE</span></button>
+    </div>
 
-                <button class="a-btn a-btn--primary"><span>Primary</span></button>
+    <h3>Fluid button group big</h3>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout"><span>A</span></button>
+    </div>
+    <hr>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout"><span>A</span></button>
+        <button class="a-btn a-btn--primary"><span>B</span></button>
+    </div>
+    <hr>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout"><span>A</span></button>
+        <button class="a-btn a-btn--primary"><span>B</span></button>
+        <button class="a-btn a-btn--secondary"><span>C</span></button>
+    </div>
+    <hr>
+    <div class="m-btnGroup m-btnGroup--space-between m-btnGroup--coverFluid">
+        <button class="a-btn a-btn--callout"><span>A</span></button>
+        <button class="a-btn a-btn--primary"><span>B</span></button>
+        <button class="a-btn a-btn--secondary"><span>C</span></button>
+        <button class="a-btn a-btn--tertiary"><span>D</span></button>
+    </div>
+    <h3>Responsive Buttons.</h3>
+    <p>(Become a-btn-small on Small and Medium Breakpoints)</p>
+    <div class="m-btnGroup">
+        <button class="a-btn a-btn--primary a-btn--smallOnBreakpointSmall a-btn--smallOnBreakpointMedium">
+            <span>Primary</span></button>
+    </div>
 
-                <button class="a-btn a-btn--secondary"><span>Secondary</span></button>
-
-                <button class="a-btn a-btn--tertiary"><span>Tertiary</span></button>
-            </div>
-            <br>
-            <h3>Small Buttons.</h3>
-            <div class="m-btnGroup">
-                <button class="a-btn a-btn--callout a-btn--small"><span>Procedi</span></button>
-            
-                <button class="a-btn a-btn--primary a-btn--small"><span>Primary</span></button>
-            
-                <button class="a-btn a-btn--secondary a-btn--small"><span>Secondary</span></button>
-            
-                <button class="a-btn a-btn--tertiary a-btn--small"><span>Tertiary</span></button>
-            </div>
-            <h3>Responsive Buttons.</h3>
-            <p>(Become a-btn-small on Small and Medium Breakpoints)</p>
-            <div class="m-btnGroup">            
-                <button class="a-btn a-btn--primary a-btn--smallOnBreakpointSmall a-btn--smallOnBreakpointMedium"><span>Primary</span></button>
-            </div>
-
-            <h3>Accordions</h3>
-
-            <div class="a-accordion a-accordion--base">
+    <h3>Accordion group</h3>
+    <div class="m-accordionGroup">
+        <div class="a-accordion a-accordion--base is-open">
               <span class="a-accordion__toggle fs-xsmall a-link--alt">
                 Come si calcola un preventivo?
                 <i class="a-icon a-icon-info"></i>
               </span>
-              <div class="a-accordion__content fs-small">
-                <p>Calcolare un preventivo con Prima Assicurazioni è molto semplice. Se il veicolo (auto, moto o furgone) è già assicurato e di proprietà, è sufficiente inserire la targa e completare con alcuni dati tra cui la data di nascita del proprietario. Nel caso in cui il veicolo fosse appena acquistato, verranno richiesti alcuni dati aggiuntivi insieme ad un controllo documentale.<br>Il nostro preventivo conterrà un'offerta sia per il prodotto RCA, l'assicurazione obbligatoria per legge, sia altre garanzie che mettiamo a disposizione per garantirti la massima serenità. Tra queste trovi le garanzie Assistenza stradale, Furto e incendio, Infortuni al conducente e Tutela legale. Scopri tutte le garanzie accessorie di Prima Assicurazioni.</p>
-              </div>
+            <div class="a-accordion__content fs-small">
+                <p>Calcolare un preventivo con Prima Assicurazioni è molto semplice. Se il veicolo (auto, moto o
+                    furgone) è già assicurato e di proprietà, è sufficiente inserire la targa e completare con alcuni
+                    dati tra cui la data di nascita del proprietario. Nel caso in cui il veicolo fosse appena
+                    acquistato, verranno richiesti alcuni dati aggiuntivi insieme ad un controllo documentale.<br>Il
+                    nostro preventivo conterrà un'offerta sia per il prodotto RCA, l'assicurazione obbligatoria per
+                    legge, sia altre garanzie che mettiamo a disposizione per garantirti la massima serenità. Tra queste
+                    trovi le garanzie Assistenza stradale, Furto e incendio, Infortuni al conducente e Tutela legale.
+                    Scopri tutte le garanzie accessorie di Prima Assicurazioni.</p>
             </div>
         </div>
-    </body>
+        <div class="a-accordion a-accordion--base">
+              <span class="a-accordion__toggle fs-xsmall a-link--alt">
+                Come si calcola un preventivo?
+                <i class="a-icon a-icon-info"></i>
+              </span>
+            <div class="a-accordion__content fs-small">
+                <p>Calcolare un preventivo con Prima Assicurazioni è molto semplice. Se il veicolo (auto, moto o
+                    furgone) è già assicurato e di proprietà, è sufficiente inserire la targa e completare con alcuni
+                    dati tra cui la data di nascita del proprietario. Nel caso in cui il veicolo fosse appena
+                    acquistato, verranno richiesti alcuni dati aggiuntivi insieme ad un controllo documentale.<br>Il
+                    nostro preventivo conterrà un'offerta sia per il prodotto RCA, l'assicurazione obbligatoria per
+                    legge, sia altre garanzie che mettiamo a disposizione per garantirti la massima serenità. Tra queste
+                    trovi le garanzie Assistenza stradale, Furto e incendio, Infortuni al conducente e Tutela legale.
+                    Scopri tutte le garanzie accessorie di Prima Assicurazioni.</p>
+            </div>
+        </div>
+        <div id="accordionDark2" class="a-accordion a-accordion--dark">
+	<span class="a-accordion__toggle fs-xsmall fw-heavy a-link--alt">I am a dark accordion
+		<i class="a-icon a-icon-info"></i>
+	</span>
+            <div class="a-accordion__content fs-small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur in rerum amet modi nobis maxime autem? Et, iure tempora libero dolorem soluta ipsum, quas vero veritatis ea debitis aut ut.</div>
+        </div>
+        <div id="accordionDark" class="a-accordion a-accordion--dark">
+	<span class="a-accordion__toggle fs-xsmall fw-heavy a-link--alt">I am a dark accordion
+		<i class="a-icon a-icon-info"></i>
+	</span>
+            <div class="a-accordion__content fs-small">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur in rerum amet modi nobis maxime autem? Et, iure tempora libero dolorem soluta ipsum, quas vero veritatis ea debitis aut ut.</div>
+        </div>
+    </div>
+    <h3>Single</h3>
+    <div class="a-accordion a-accordion--base">
+              <span class="a-accordion__toggle fs-xsmall a-link--alt">
+                Come si calcola un preventivo?
+                <i class="a-icon a-icon-info"></i>
+              </span>
+        <div class="a-accordion__content fs-small">
+            <p>Calcolare un preventivo con Prima Assicurazioni è molto semplice. Se il veicolo (auto, moto o
+                furgone) è già assicurato e di proprietà, è sufficiente inserire la targa e completare con alcuni
+                dati tra cui la data di nascita del proprietario. Nel caso in cui il veicolo fosse appena
+                acquistato, verranno richiesti alcuni dati aggiuntivi insieme ad un controllo documentale.<br>Il
+                nostro preventivo conterrà un'offerta sia per il prodotto RCA, l'assicurazione obbligatoria per
+                legge, sia altre garanzie che mettiamo a disposizione per garantirti la massima serenità. Tra queste
+                trovi le garanzie Assistenza stradale, Furto e incendio, Infortuni al conducente e Tutela legale.
+                Scopri tutte le garanzie accessorie di Prima Assicurazioni.</p>
+        </div>
+    </div>
+</div>
+</body>
 </html>

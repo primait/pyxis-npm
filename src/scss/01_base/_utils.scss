@@ -91,3 +91,11 @@
 }
 
 @include fontSizesByBreakpoint(map-remove($fontSizes, "root"), map-remove($breakpoints, "boundDiff"));
+
+
+@mixin withNElements($selector, $n) {
+  #{$selector}:first-child:nth-last-child(#{$n}),
+  #{$selector}:nth-last-child(#{$n}) ~ #{$selector} {
+    @content;
+  }
+}
