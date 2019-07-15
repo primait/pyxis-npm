@@ -26,10 +26,6 @@
     background: color(background, dark);
     padding-top: ((map-get($accordionConfig, accordionPadding) / 2));
 
-    .m-group--dark & {
-      background: color(backgroundAlt, light);
-    }
-
     &.a-accordion--light {
       background: color(background, dark);
     }
@@ -63,14 +59,10 @@
   .a-accordion.is-open & {
     border-bottom: 1px solid color(shape);
   }
+
   .a-accordion.a-accordion--dark.is-open {
     border-bottom: 1px solid color(shape, dark);
   }
-
-  .m-group--dark & {
-    border-bottom: 1px solid color(shape, dark);
-  }
-
 }
 
 .a-accordion .a-icon {
@@ -94,14 +86,6 @@
 
   &--arrow:after {
     content: '\E902';
-  }
-}
-
-.a-accordion .a-icon:after,
-.a-accordion .a-icon:before {
-
-  .m-group--dark & {
-    background: color(shape, dark);
   }
 }
 

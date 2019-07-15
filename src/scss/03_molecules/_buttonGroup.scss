@@ -11,29 +11,8 @@ $btnSideMargin: 7px;
   }
 }
 
-
-.m-btnGroup.m-btnGroup--left {
-  justify-content: flex-start;
-}
-
-.m-btnGroup.m-btnGroup--right {
-  justify-content: flex-end;
-}
-
-.m-btnGroup.m-btnGroup--center {
-  justify-content: center;
-}
-
-.m-btnGroup.m-btnGroup--space-evenly {
-  justify-content: space-evenly;
-}
-
-.m-btnGroup.m-btnGroup--space-between {
-  justify-content: space-between;
-}
-
 /**
-    100% fluid group with buttons that automatically grow that keeps gutters between buttons
+    100% fluid group with buttons that automatically grow keeping gutters between buttons
 */
 
 .m-btnGroup.m-btnGroup--coverFluid {
@@ -59,21 +38,23 @@ $btnSideMargin: 7px;
     margin-left: 0;
     margin-right: 0;
   }
+
   @mixin firstInRowMargins {
     margin-left: 0;
     margin-right: $btnSideMargin;
   }
+
   @mixin middleInRowMargins {
     margin-left: $btnSideMargin;
     margin-right: $btnSideMargin;
   }
+
   @mixin lastInRowMargins {
     margin-left: $btnSideMargin;
     margin-right: 0;
   }
 
-
-  /* When two buttons */
+  /* When two buttons big */
   @include withNElements('.a-btn:not(.a-btn--small)', 2) {
     @media screen and (min-width: 372px) {
       &:nth-child(1) {
@@ -86,7 +67,7 @@ $btnSideMargin: 7px;
     }
   }
 
-  /* When three buttons */
+  /* When three buttons big */
   @include withNElements('.a-btn:not(.a-btn--small)', 3) {
     @media screen and (min-width: 370px) {
       &:nth-child(1) {
@@ -117,14 +98,16 @@ $btnSideMargin: 7px;
     }
   }
 
-  /* When four buttons */
+  /* When four buttons big */
   @include withNElements('.a-btn:not(.a-btn--small)', 4) {
     @media screen and (min-width: 352px) {
-      &:nth-child(1), &:nth-child(3)  {
+      &:nth-child(1),
+      &:nth-child(3)  {
         @include firstInRowMargins;
       }
 
-      &:nth-child(2), &:nth-child(4) {
+      &:nth-child(2),
+      &:nth-child(4) {
         @include lastInRowMargins;
       }
 
@@ -153,7 +136,8 @@ $btnSideMargin: 7px;
         @include firstInRowMargins;
       }
 
-      &:nth-child(2), &:nth-child(3) {
+      &:nth-child(2),
+      &:nth-child(3) {
         @include middleInRowMargins;
       }
 
@@ -206,11 +190,13 @@ $btnSideMargin: 7px;
 
   /* When four buttons small */
   @include withNElements('.a-btn.a-btn--small', 4) {
-    &:nth-child(1), &:nth-child(3) {
+    &:nth-child(1),
+    &:nth-child(3) {
       @include firstInRowMargins;
     }
 
-    &:nth-child(2), &:nth-child(4) {
+    &:nth-child(2),
+    &:nth-child(4) {
       @include lastInRowMargins;
     }
 
@@ -237,7 +223,8 @@ $btnSideMargin: 7px;
         @include firstInRowMargins;
       }
 
-      &:nth-child(2), &:nth-child(3) {
+      &:nth-child(2),
+      &:nth-child(3) {
         @include middleInRowMargins;
       }
 

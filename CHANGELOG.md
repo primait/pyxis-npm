@@ -14,7 +14,7 @@ Button:
 
 Button Group:
 - Buttons in button group have margin
-- All flex justify modificators
+- Removed duplicated flex justify modificators, use utility class instead
 - New specific `m-btnGroup--coverFluid` modificator that allow inner buttons to cover it fully and as much as possible equally growing. Margins are supported until 4 buttons
 
 Utils:

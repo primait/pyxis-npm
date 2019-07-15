@@ -1,10 +1,7 @@
-.m-accordionGroup {
-  .a-accordion:not(:last-child) {
-    .a-accordion__toggle {
-      border-bottom: 1px solid color(shape);
-      .a-accordion--dark & {
-        border-bottom: 1px solid color(shape, dark);
-      }
-    }
-  }
+.m-accordionGroup .a-accordion:not(:last-child) .a-accordion__toggle {
+  border-bottom: 1px solid color(shape);
+}
+
+.m-accordionGroup .a-accordion:not(:last-child).a-accordion--dark .a-accordion__toggle {
+  border-bottom: 1px solid color(shape, dark);
 }
