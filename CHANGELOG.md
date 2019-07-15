@@ -29,7 +29,7 @@ Button:
 - `a-btn--smallOnBreakpoint[breakpoint]` now is applied correctly even on 0 to [small] media query
 
 Links
-- a now have line-height 
+- `a-link` now have line-height and font-size explicitly setted 
 - `a-link--standalone` correct line-height
 - `a-link--standalone` parametric without transform usage
 
