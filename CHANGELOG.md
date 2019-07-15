@@ -33,6 +33,8 @@ Links
 - `a-link--standalone` correct line-height
 - `a-link--standalone` parametric without transform usage
 
+**project specific**
+- Updated default transpiler dependencies
 
 ### 1.8.12
 **sass changes**
