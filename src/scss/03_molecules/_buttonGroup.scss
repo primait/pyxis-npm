@@ -15,19 +15,19 @@ $btnSideMargin: 7px;
     100% fluid group with buttons that automatically grow keeping gutters between buttons
 */
 
-.m-btnGroup.m-btnGroup--coverFluid {
-  .a-btn {
-    flex: 1 1 0;
-    margin-left: 0;
-    margin-right: 0;
+.m-btnGroup.m-btnGroup--coverFluid .a-btn {
+  flex: 1 1 0;
+  margin-left: 0;
+  margin-right: 0;
 
-    span {
-      overflow: hidden;
-      white-space: normal;
-      width: 100%;
-    }
+  span {
+    overflow: hidden;
+    white-space: normal;
+    width: 100%;
   }
+}
 
+.m-btnGroup.m-btnGroup--coverFluid {
   /**
 
     Automargin magic
@@ -102,7 +102,7 @@ $btnSideMargin: 7px;
   @include withNElements('.a-btn:not(.a-btn--small)', 4) {
     @media screen and (min-width: 352px) {
       &:nth-child(1),
-      &:nth-child(3)  {
+      &:nth-child(3) {
         @include firstInRowMargins;
       }
 
