@@ -26,6 +26,7 @@ Utils:
 Button:
 - `a-btn--primary` now have the same height of other buttons (invisible border)
 - fixed margin in case of icon due to a duplicated margin setting
+- `a-btn--smallOnBreakpoint[breakpoint]` now is applied correctly even on 0 to [small] media query
 
 Links
 - a now have line-height 

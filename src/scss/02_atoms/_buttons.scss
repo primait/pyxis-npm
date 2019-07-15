@@ -225,8 +225,14 @@ $btnsBreakpoints: xsmall small medium large;
 
   @if $upperBound {
     .a-btn.a-btn--smallOnBreakpoint#{capitalize($lowerBound)} {
-      @include mqBetween($lowerBound, $upperBound) {
-        @include btnSmall;
+      @if $lowerBound == xsmall {
+        @include mqDown(xsmall) {
+          @include btnSmall;
+        }
+      } @else {
+        @include mqBetween($lowerBound, $upperBound) {
+          @include btnSmall;
+        }
       }
     }
   }
