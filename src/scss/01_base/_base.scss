@@ -47,3 +47,12 @@ hr {
     margin: 40px 0;
   }
 }
+
+/*
+  TODO: It would be wonderful to remove this comments and allow global a to have this common settings.
+  If it will ever happen remove duplication from a-link class
+*/
+a {
+  //font-family: font(base);
+  //line-height: lineHeight(base);
+}

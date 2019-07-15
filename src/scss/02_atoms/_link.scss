@@ -1,12 +1,13 @@
 .a-link {
   background-image: linear-gradient(rgba(color(brandAlt), 0.25), rgba(color(brandAlt), 0.25));
-  background-position: 0% 100%;
+  background-position: 0 100%;
   background-repeat: no-repeat;
-  background-size: 100% 0px;
+  background-size: 100% 0;
   color: color(brandAlt);
   display: inline;
+  font-family: font(base);
+  line-height: lineHeight(base);
   transition: all 0.1s ease-in-out;
-  font-family: font(base) !important;
   text-decoration: none;
   position: relative;
 
@@ -26,43 +27,55 @@
   }
 
   &.a-link--standalone {
+    $arrowTickness: 2px;
+    $arrowSpace: 35px;
+    $arrowPadding: 10px;
+    $arrowWidth: $arrowSpace - ($arrowPadding * 2);
+
     align-self: flex-start;
     background-image: none;
     font-size: size(small);
-    padding-right: 25px;
+    padding-right: $arrowSpace;
+    position: relative;
 
-    &:hover:before {
-      transform: scaleX(1);
-    }
-
+    //Arrow body
     &:before {
       background-color: color(brandAlt);
-      content: "";
-      height: 2px;
+      content: " ";
+      display: inline;
+      height: $arrowTickness;
+      margin-top: calc(#{lineHeight(base)/2} - #{$arrowTickness} );
+      left: calc(100% - #{$arrowSpace - $arrowPadding});
       position: absolute;
-      right: 0px;
-      top: 50%;
-      transform: scaleX(0);
+      top: 0;
       transition: all ease-in-out 0.1s;
-      transform-origin: 0% 50%;
-      width: 15px;
+      width: 0;
+      zoom: 1;
     }
 
-    &:hover:after {
-      right: 0px;
+    &:hover:before {
+      width: $arrowWidth;
     }
 
+    //Arrow point
     &:after {
-      border-right: 2px solid color(brandAlt);
-      border-top: 2px solid color(brandAlt);
+      border-right: $arrowTickness solid color(brandAlt);
+      border-top: $arrowTickness solid color(brandAlt);
       content: "";
+      display: inline;
       height: 6px;
+      left: calc(100% - #{$arrowSpace - $arrowPadding + 4px});
+      top: 0;
+      margin-top: calc(#{lineHeight(base)/2} - #{$arrowTickness} );
       position: absolute;
-      right: 15px;
-      top: 50%;
       transform: rotate(45deg) translateY(-50%);
       transition: all ease-in-out 0.1s;
       width: 6px;
+      zoom: 1;
+    }
+
+    &:hover:after {
+      left: calc(100% - #{$arrowSpace - $arrowWidth - 3px});
     }
   }
 }

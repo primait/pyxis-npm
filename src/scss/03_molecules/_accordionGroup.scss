@@ -1,15 +1,7 @@
-.m-accordion-group {
-  color: color(text);
-  display: flex;
-  flex: 1 0 auto;
-  flex-direction: column;
-  justify-content: flex-start;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  
-  &.m-accordion-group--dark {
-    background: color(backgroundAlt, base);
-    color: color(textAlt, light);
-  }
+.m-accordionGroup .a-accordion:not(:last-child) .a-accordion__toggle {
+  border-bottom: 1px solid color(shape);
+}
+
+.m-accordionGroup .a-accordion:not(:last-child).a-accordion--dark .a-accordion__toggle {
+  border-bottom: 1px solid color(shape, dark);
 }

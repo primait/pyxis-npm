@@ -1,5 +1,46 @@
 ## Changelog
 
+### 1.8.13
+**sass changes**
+
+Accordion:
+- Single accordion don't have visible border bottom when closed
+
+Accordion Group:
+- Accordion in accordion group have separation borders (all except last)
+
+Button:
+- Adjacent buttons doesn't have default margin anymore, use button group instead
+
+Button Group:
+- Buttons in button group have margin
+- Removed duplicated flex justify modificators, use utility class instead
+- New specific `m-btnGroup--coverFluid` modificator that allow inner buttons to cover it fully and as much as possible equally growing. Margins are supported until 4 buttons
+
+Utils:
+- New `withNElements(selector, n)` mixin that given a selector and a number generates a class that applies only if there are N child elements with that selector
+- Added `space-evenly` as justify helper
+
+**sass fix**
+
+Button:
+- `a-btn--primary` now have the same height of other buttons (invisible border)
+- fixed margin in case of icon due to a duplicated margin setting
+- `a-btn--smallOnBreakpoint[breakpoint]` now is applied correctly even on 0 to [small] media query
+
+Links
+- `a-link` now have line-height and font-size explicitly setted 
+- `a-link--standalone` correct line-height
+- `a-link--standalone` parametric without transform usage
+
+**project specific**
+- Updated default transpiler dependencies
+
+### 1.8.12
+**sass changes**
+
+- Accordion new design
+
 ### 1.8.11 
 **sass changes**
 - Add `overflow-x: hidden;` to html tag in order to fix OSX Safari error

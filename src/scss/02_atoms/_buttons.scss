@@ -22,10 +22,6 @@
   will-change: background, border, color, transform;
   white-space: nowrap;
 
-  & + & {
-    margin-left: 15px;
-  }
-
   &[disabled],
   &.is-disabled {
     opacity: map-get($formConfig, buttonDisabledOpacity);
@@ -49,16 +45,16 @@
   min-width: map-get($formConfig, buttonMinWidthSmall);
 
   .a-btn__icon {
-    margin-top: -2px;
-    margin: 0 7px;
+    margin: -2px 7px 0 7px;
   }
 }
 
 @mixin btnPrimary() {
   background: color(brandAlt);
-  border: none;
+  border-color: transparent;
   color: color(textAlt, light);
   height: map-get($formConfig, buttonHeight);
+  transition: border-color ease 0s 0s, background-color ease 0s 0s;
 
   &:after {
     background: color(brandAlt, dark);
@@ -68,14 +64,20 @@
     height: map-get($formConfig, buttonHeight);
     left: 0;
     position: absolute;
-    transform: translate3d(-100%, 0, 0);
+    transform: translate(-100%, 0);
     transition: all cubic-bezier(0.694, 0.048, 0.335, 1) 0.4s;
     width: 100%;
     z-index: 0;
   }
 
+  &:hover {
+    background-color: color(brandAlt, dark);
+    border-color: color(brandAlt, dark);
+    transition: border-color cubic-bezier(0.694, 0.048, 0.335, 1) 0.4s, background-color ease 0.1s 0.4s;
+  }
+
   &:hover:after {
-    transform: translate3d(0%, 0, 0);
+    transform: translate(0%, 0);
   }
 
   &.a-btn--dark {
@@ -223,8 +225,14 @@ $btnsBreakpoints: xsmall small medium large;
 
   @if $upperBound {
     .a-btn.a-btn--smallOnBreakpoint#{capitalize($lowerBound)} {
-      @include mqBetween($lowerBound, $upperBound) {
-        @include btnSmall;
+      @if $lowerBound == xsmall {
+        @include mqDown(xsmall) {
+          @include btnSmall;
+        }
+      } @else {
+        @include mqBetween($lowerBound, $upperBound) {
+          @include btnSmall;
+        }
       }
     }
   }

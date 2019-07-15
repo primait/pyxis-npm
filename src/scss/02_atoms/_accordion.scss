@@ -26,10 +26,6 @@
     background: color(background, dark);
     padding-top: ((map-get($accordionConfig, accordionPadding) / 2));
 
-    .m-group--dark & {
-      background: color(backgroundAlt, light);
-    }
-
     &.a-accordion--light {
       background: color(background, dark);
     }
@@ -50,7 +46,6 @@
 
 .a-accordion__toggle {
   align-items: center;
-  border-bottom: 1px solid color(shape);
   color: inherit;
   cursor: pointer;
   display: flex;
@@ -61,11 +56,11 @@
   text-decoration: none;
   width: 100%;
 
-  .m-group--dark & {
-    border-bottom: 1px solid color(shape, dark);
+  .a-accordion.is-open & {
+    border-bottom: 1px solid color(shape);
   }
 
-  .a-accordion--dark & {
+  .a-accordion.a-accordion--dark.is-open {
     border-bottom: 1px solid color(shape, dark);
   }
 }
@@ -91,14 +86,6 @@
 
   &--arrow:after {
     content: '\E902';
-  }
-}
-
-.a-accordion .a-icon:after,
-.a-accordion .a-icon:before {
-
-  .m-group--dark & {
-    background: color(shape, dark);
   }
 }
 

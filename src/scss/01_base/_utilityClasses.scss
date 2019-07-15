@@ -1,7 +1,9 @@
 // #HELPERS
+
 $flexPositions: (
   around: space-around,
   between: space-between,
+  evenly: space-evenly,
   center: center,
   end: flex-end,
   start: flex-start,
@@ -205,4 +207,5 @@ $flexProps: (
 .wordBreakWord {
   word-break: break-word;
 }
+
 // #HELPERS
