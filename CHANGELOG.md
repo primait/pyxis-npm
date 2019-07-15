@@ -27,6 +27,12 @@ Button:
 - `a-btn--primary` now have the same height of other buttons (invisible border)
 - fixed margin in case of icon due to a duplicated margin setting
 
+Links
+- a now have line-height 
+- `a-link--standalone` correct line-height
+- `a-link--standalone` parametric without transform usage
+
+
 ### 1.8.12
 **sass changes**
 
