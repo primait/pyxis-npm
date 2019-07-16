@@ -4,8 +4,8 @@
   width: 90%;
 
   @include mq(xsmall) {
-   max-width: map-get($containerConfig, xsmall);
-   width: 100%;
+    max-width: map-get($containerConfig, xsmall);
+    width: 100%;
   }
 
   @include mq(small) {
@@ -28,19 +28,32 @@
     width: 100%;
   }
 
-  &.a-container--xsmall {
 
-    @include mq(xsmall) {
-      max-width: map-get($containerConfig, xsmall);
-      width: 100%;
-    }
-  }
+  @each $containerKey, $size in $containerConfig {
+    $bpIndex: 1;
+    $bpLength: length($breakpoints);
 
-  &.a-container--small {
-
-    @include mq(small) {
-      max-width: map-get($containerConfig, small);
-      width: 100%;
+    @each $bpKey, $bpSize in $breakpoints {
+      @if $bpIndex == 1 {
+        &.a-container--fluidOnBpDefault {
+          @include mqDown($bpKey) {
+            width: 100%;
+          }
+        }
+      }
+      &.a-container--fluidOnBp#{capitalize($bpKey)} {
+        @if ($bpIndex + 1) <= $bpLength {
+          $nextBpKey: nth(nth($breakpoints, ($bpIndex + 1)), 1);
+          @include mqBetween($bpKey, $nextBpKey) {
+            width: 100%;
+          }
+        } @else {
+          @include mqUp($bpKey) {
+            width: 100%;
+          }
+        }
+      }
+      $bpIndex: $bpIndex + 1;
     }
   }
 }
