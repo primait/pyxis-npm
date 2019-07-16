@@ -90,7 +90,7 @@
 
 }
 
-@include fontSizesByBreakpoint(map-remove($fontSizes, "root"), map-remove($breakpoints, "boundDiff"));
+@include fontSizesByBreakpoint(map-remove($fontSizes, "root"), $breakpoints );
 
 
 @mixin withNElements($selector, $n) {

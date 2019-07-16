@@ -1,5 +1,15 @@
 ## Changelog
 
+### 1.8.14
+**sass changes**
+
+Container
+- New container modifier `a-container--fluidOnBp[breakpoint]` that makes container fluid on specific breakpoint
+- Removed `a-container--xsmall` and `a-container--small` modifiers (duplicated logic)
+
+Accordion
+- Add default flex direction column on `a-accordion__content`
+
 ### 1.8.13
 **sass changes**
 

@@ -91,6 +91,7 @@
 
 .a-accordion__content {
   flex: 0 0 0;
+  flex-flow: column;
   padding: 0;
   opacity: 0;
   overflow: hidden;
