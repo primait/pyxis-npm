@@ -3,57 +3,81 @@
   margin: 0 auto;
   width: 90%;
 
-  @include mq(xsmall) {
-    max-width: map-get($containerConfig, xsmall);
-    width: 100%;
-  }
-
-  @include mq(small) {
-    max-width: map-get($containerConfig, small);
-  }
-
-  @include mq(medium) {
-    max-width: map-get($containerConfig, medium);
-  }
-
-  @include mq(large) {
-    max-width: map-get($containerConfig, large);
-  }
-
-  @include mq(xlarge) {
-    max-width: map-get($containerConfig, xlarge);
-  }
-
-  &.a-container--fluid {
-    width: 100%;
-  }
-
-
   @each $containerKey, $size in $containerConfig {
     $bpIndex: 1;
     $bpLength: length($breakpoints);
 
     @each $bpKey, $bpSize in $breakpoints {
-      @if $bpIndex == 1 {
-        &.a-container--fluidOnBpDefault {
-          @include mqDown($bpKey) {
-            width: 100%;
-          }
-        }
+      @include mq($bpKey) {
+        max-width: map-get($containerConfig, $bpKey);
+        width: 100%;
       }
-      &.a-container--fluidOnBp#{capitalize($bpKey)} {
-        @if ($bpIndex + 1) <= $bpLength {
-          $nextBpKey: nth(nth($breakpoints, ($bpIndex + 1)), 1);
-          @include mqBetween($bpKey, $nextBpKey) {
-            width: 100%;
-          }
-        } @else {
-          @include mqUp($bpKey) {
-            width: 100%;
-          }
-        }
-      }
-      $bpIndex: $bpIndex + 1;
     }
   }
+}
+
+.a-containerFluid {
+  display: flex;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/**
+    .a-containerOnBp[breakpoint]
+
+    a-container spacing on specific breakpoint boundary
+ */
+$bpIndex: 1;
+$bpLength: length($breakpoints);
+
+@each $bpKey, $bpSize in $breakpoints {
+  .a-containerOnBp#{capitalize($bpKey)} {
+    @if ($bpIndex + 1) <= $bpLength {
+      $nextBpKey: nth(nth($breakpoints, ($bpIndex + 1)), 1);
+      @include mqBetween($bpKey, $nextBpKey) {
+        max-width: map-get($containerConfig, $bpKey);
+        width: 100%;
+      }
+    }
+    @else {
+      @include mq($bpKey) {
+        max-width: map-get($containerConfig, $bpKey);
+        width: 100%;
+      }
+    }
+
+  }
+
+  $bpIndex: $bpIndex + 1;
+}
+
+
+
+/**
+    .a-container-fluidOnBp[breakpoint]
+
+    a-container-fluid spacing on specific breakpoint boundary
+ */
+$bpIndex: 1;
+$bpLength: length($breakpoints);
+
+@each $bpKey, $bpSize in $breakpoints {
+  .a-containerFluidOnBp#{capitalize($bpKey)} {
+    @if ($bpIndex + 1) <= $bpLength {
+      $nextBpKey: nth(nth($breakpoints, ($bpIndex + 1)), 1);
+      @include mqBetween($bpKey, $nextBpKey) {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+    @else {
+      @include mq($bpKey) {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+  }
+
+  $bpIndex: $bpIndex + 1;
 }

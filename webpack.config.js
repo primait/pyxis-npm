@@ -68,8 +68,12 @@ module.exports = (env, argv) => {
                 filename: '[name].css'
             }),
             new HtmlWebpackPlugin({
-                filename: 'test.html',
-                template: 'test/index.html'
+                filename: 'test/buttons.html',
+                template: 'test/buttons.html'
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'test/containers.html',
+                template: 'test/containers.html'
             })
         ],
         devServer: {

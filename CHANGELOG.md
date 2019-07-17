@@ -1,10 +1,27 @@
 ## Changelog
 
+### 1.8.15
+**sass changes**
+
+Container
+- **BREAKING-CANGE**: Removed previously introduced `a-container--fluidOnBp
+- **BREAKING-CANGE**: `a-container--fluid` removed in favour of `a-containerFluid` 
+- Now you can have containers of certain type that changes behaviour on certain breakpoints combining `a-container` and `a-containerFluid` with `a-containerOn[breakpoint]` and `a-containerFluidOn[breakpoint]` 
+
+**sass fix**
+
+Container
+- Now containers breakpoint are generated automatically with mixin
+
+**project specific**
+- Added specific test page for containers and button, please add a specific page for atoms/molecule testing in the future able to cover the majority of cases 
+
 ### 1.8.14
 **sass changes**
 
 Container
-- New container modifier `a-container--fluidOnBp[breakpoint]` that makes container fluid on specific breakpoint
+- ~~New container modifier `a-container--fluidOnBp[breakpoint]` that makes container fluid on specific breakpoint~~ **[removed in 1.8.15]**
+
 - Removed `a-container--xsmall` and `a-container--small` modifiers (duplicated logic)
 
 Accordion
