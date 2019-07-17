@@ -1,6 +1,8 @@
 .o-login {
+
   background: color(background);
   flex-direction: column;
+  max-width: map-get($containerConfig, xsmall);
   padding: 20px;
 
   @include mq(small) {
@@ -21,7 +23,7 @@
   }
 
   .a-form__field {
-    
+
     @include mq(small) {
       justify-content: center
     }

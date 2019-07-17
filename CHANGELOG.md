@@ -3,9 +3,12 @@
 ### 1.8.15
 **sass changes**
 
+Login
+- added max width equal to `a-container` xsmall
+
 Container
-- **BREAKING-CANGE**: Removed previously introduced `a-container--fluidOnBp
-- **BREAKING-CANGE**: `a-container--fluid` removed in favour of `a-containerFluid` 
+- **BREAKING-CHANGE**: Removed previously introduced `a-container--fluidOnBp
+- **BREAKING-CHANGE**: `a-container--fluid` removed in favour of `a-containerFluid` 
 - Now you can have containers of certain type that changes behaviour on certain breakpoints combining `a-container` and `a-containerFluid` with `a-containerOn[breakpoint]` and `a-containerFluidOn[breakpoint]` 
 
 **sass fix**
