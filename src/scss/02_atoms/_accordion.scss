@@ -94,9 +94,15 @@
   padding: 0 map-get($accordionConfig, accordionPadding);
   opacity: 0;
   overflow: hidden;
-  transition: all 0.3s;
+  transition: opacity 0.3s, padding 0.3s, flex 0.3s, visibility 0.3s;
   visibility: hidden;
 
+  & * {
+    flex: 0 0 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, padding 0.3s, flex 0.3s, visibility 0.3s;
+  }
 }
 
 .a-accordion.is-open .a-accordion__content {
@@ -106,7 +112,14 @@
   opacity: 1;
   @include asRem('padding', map-get($accordionConfig, accordionPadding));
   visibility: visible;
+
+  & * {
+    flex: 1 0 auto;
+    opacity: 1;
+    visibility: visible;
+  }
 }
+
 .a-accordion.is-open.a-accordion--dark .a-accordion__content {
   border-bottom: 1px solid color(shape, dark);
 }

@@ -23,6 +23,9 @@ Utils
 Container
 - Now containers breakpoint are generated automatically with mixin
 
+Accordion
+- Accordion now apply transition on body content too
+
 **project specific**
 - Added specific test page for containers and button, please add a specific page for atoms/molecule testing in the future able to cover the majority of cases 
 
