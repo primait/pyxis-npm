@@ -108,13 +108,8 @@
     @content;
   }
 }
-
-/**
-  * Add rem AND pixels rule from a rule in pixels
- */
-@mixin asRem($rule, $pixelValue) {
-  $pixelValue: strip-unit($pixelValue) + px;
-
-  #{$rule}: #{strip-unit( $pixelValue / map-get($fontSizes, root)) + rem};
-  #{$rule}: #{$pixelValue};
+// We will switch to rem in later release
+@function rem($amount) {
+  // @return #{strip-unit( strip-unit($amount) / map-get($fontSizes, root)) + rem};
+  @return $amount;
 }

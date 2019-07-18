@@ -15,7 +15,7 @@ Accordion
 - Accordion now have double border on top and bottom (accordion group modified to support this)
 
 Utils
-- New `asRem` mixin that given a css property and a pixel value generates that property in rem and pixel value (as fallback)
+- Add `rem` function to get `rem` value by passing a `px` value. At the moment this function will always return the `px` result. We planned a full switch to `rem` units in later release
 
 
 **sass fix** 
