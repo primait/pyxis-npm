@@ -74,12 +74,16 @@ module.exports = (env, argv) => {
             new HtmlWebpackPlugin({
                 filename: 'test/containers.html',
                 template: 'test/containers.html'
+            }),
+            new HtmlWebpackPlugin({
+                filename: 'test/accordions.html',
+                template: 'test/accordions.html'
             })
         ],
         devServer: {
             compress: false,
             port: 8080,
-            disableHostCheck: false
+            disableHostCheck: true
         }
     }
 

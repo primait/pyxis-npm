@@ -11,7 +11,14 @@ Container
 - **BREAKING-CHANGE**: `a-container--fluid` removed in favour of `a-containerFluid` 
 - Now you can have containers of certain type that changes behaviour on certain breakpoints combining `a-container` and `a-containerFluid` with `a-containerOn[breakpoint]` and `a-containerFluidOn[breakpoint]` 
 
-**sass fix**
+Accordion
+- Accordion now have double border on top and bottom (accordion group modified to support this)
+
+Utils
+- New `asRem` mixin that given a css property and a pixel value generates that property in rem and pixel value (as fallback)
+
+
+**sass fix** 
 
 Container
 - Now containers breakpoint are generated automatically with mixin
