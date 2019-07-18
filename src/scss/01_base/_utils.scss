@@ -1,3 +1,14 @@
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
 @each $color, $tones in $colors {
   @each $colorTone, $colorHex in $tones {
     .bg-#{$color}-#{$colorTone},
@@ -66,7 +77,6 @@
     $bpLength: length($breakpoints);
 
     @each $bpKey, $bpSize in $breakpoints {
-
       .fs-#{$fontKey}-on-bp-#{$bpKey},
       .fs#{capitalize($fontKey)}OnBp#{capitalize($bpKey)} {
 
@@ -92,10 +102,14 @@
 
 @include fontSizesByBreakpoint(map-remove($fontSizes, "root"), $breakpoints );
 
-
 @mixin withNElements($selector, $n) {
   #{$selector}:first-child:nth-last-child(#{$n}),
   #{$selector}:nth-last-child(#{$n}) ~ #{$selector} {
     @content;
   }
+}
+// We will switch to rem in later release
+@function rem($amount) {
+  // @return #{strip-unit( strip-unit($amount) / map-get($fontSizes, root)) + rem};
+  @return $amount;
 }

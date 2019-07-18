@@ -1,7 +1,4 @@
-.m-accordionGroup .a-accordion:not(:last-child) .a-accordion__toggle {
-  border-bottom: 1px solid color(shape);
+.m-accordionGroup .a-accordion:not(:first-child) .a-accordion__toggle {
+  border-top: none;
 }
 
-.m-accordionGroup .a-accordion:not(:last-child).a-accordion--dark .a-accordion__toggle {
-  border-bottom: 1px solid color(shape, dark);
-}

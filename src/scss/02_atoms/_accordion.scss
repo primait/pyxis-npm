@@ -4,63 +4,58 @@
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
-  padding: (map-get($accordionConfig, accordionPadding) / 2) map-get($accordionConfig, accordionPadding) 0  map-get($accordionConfig, accordionPadding);
   position: relative;
+  transition: background-color 0.3s;
 
-  &--light {
-    background: color(background, light);
-    color: color(text, dark);
-  }
-
-  &--dark {
-    background: color(backgroundAlt, dark);
-    color: color(text, light);
-  }
-
-  &--base {
-    background: color(background, dark);
-    color: color(text, dark);
-  }
-
-  &.is-open {
-    background: color(background, dark);
-    padding-top: ((map-get($accordionConfig, accordionPadding) / 2));
-
-    &.a-accordion--light {
-      background: color(background, dark);
-    }
-
-    &.a-accordion--dark {
-      background: color(backgroundAlt, light);
-    }
-
-    &.a-accordion--base {
-      background: color(background, base);
-    }
-
-    .a-icon {
-      transform: rotate(45deg);
-    }
+  &.is-open .a-icon {
+    transform: rotate(45deg);
   }
 }
 
+.a-accordion.a-accordion--base {
+  background: color(background, dark);
+  color: color(text, dark);
+
+  &.is-open {
+    background: color(background, base);
+  }
+}
+
+.a-accordion.a-accordion--light {
+  background: color(background, light);
+  color: color(text, dark);
+
+  &.is-open {
+    background: color(background, dark);
+  }
+}
+
+.a-accordion.a-accordion--dark {
+  background: color(backgroundAlt, dark);
+  color: color(text, light);
+
+  &.is-open {
+    background: color(backgroundAlt, light);
+  }
+}
+
+
 .a-accordion__toggle {
   align-items: center;
+  border-bottom: 1px solid color(shape);
+  border-top: 1px solid color(shape);
   color: inherit;
   cursor: pointer;
   display: flex;
   flex: 1 0 auto;
   flex-direction: row;
   justify-content: space-between;
-  padding: map-get($accordionConfig, accordionPadding) 0;
+  padding: rem(map-get($accordionConfig, accordionPadding));
   text-decoration: none;
   width: 100%;
 
-  .a-accordion.is-open & {
-    border-bottom: 1px solid color(shape);
-  }
-
-  .a-accordion.a-accordion--dark.is-open {
+  .a-accordion--dark & {
+    border-top: 1px solid color(shape, dark);
     border-bottom: 1px solid color(shape, dark);
   }
 }
@@ -72,7 +67,8 @@
   padding: 0 (map-get($accordionConfig, accordionPadding) / 2);
   transition: all 0.3s;
 
-  &:before, &:after {
+  &:before, 
+  &:after {
     background: color(brandAlt);
     content: ' ';
     position: absolute;
@@ -83,26 +79,27 @@
   &:before {
     transform: rotate(90deg);
   }
-
-  &--arrow:after {
-    content: '\E902';
-  }
 }
 
 .a-accordion__content {
   flex: 0 0 0;
   flex-flow: column;
-  padding: 0;
+  padding: 0 map-get($accordionConfig, accordionPadding);
   opacity: 0;
   overflow: hidden;
-  transition: all 0.3s;
+  transition: opacity 0.3s, padding 0.3s, flex 0.3s, visibility 0.3s;
   visibility: hidden;
-}
 
-.a-accordion.is-open .a-accordion__content {
-  display: flex;
-  flex: 1 0 auto;
-  opacity: 1;
-  padding: map-get($accordionConfig, accordionPadding) 0;
-  visibility: visible;
+  .a-accordion.is-open & {
+    border-bottom: 1px solid color(shape);
+    display: flex;
+    flex: 1 0 auto;
+    opacity: 1;
+    padding: rem(map-get($accordionConfig, accordionPadding));
+    visibility: visible;
+  }
+
+  .a-accordion.is-open.a-accordion--dark & {
+    border-bottom: 1px solid color(shape, dark);
+  }
 }
