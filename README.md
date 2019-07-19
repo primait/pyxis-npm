@@ -64,4 +64,4 @@ After install launch webpack dev server in watch mode on your machine
 ````bash
 yarn serve
 ````
-You can edit the test file in `src/test/index.html`. The page is reachable @ http://localhost:8080/test.html .
+You can edit the test file in `src/test/myTestFile.html`. The page is reachable @ http://localhost:8080/test/myTestFile.html .
