@@ -70,7 +70,7 @@
   &:before, 
   &:after {
     background: color(brandAlt);
-    content: ' ';
+    content: '';
     position: absolute;
     height: map-get($accordionConfig, iconHeight);
     width: map-get($accordionConfig, iconWidth);
@@ -87,7 +87,7 @@
   padding: 0 map-get($accordionConfig, accordionPadding);
   opacity: 0;
   overflow: hidden;
-  transition: opacity 0.3s, padding 0.3s, flex 0.3s, visibility 0.3s;
+  transition: opacity 0.3s, padding 0.3s, flex 0.3s;
   visibility: hidden;
 
   .a-accordion.is-open & {
@@ -102,4 +102,8 @@
   .a-accordion.is-open.a-accordion--dark & {
     border-bottom: 1px solid color(shape, dark);
   }
+}
+
+.a-accordion:not(.is-open) .a-accordion__content > * {
+  display: none;
 }
