@@ -1,7 +1,7 @@
 ## Changelog
 
 ### 1.8.16
-**sass changes**
+**sass fix**
 
 Accordion
 - Accordion content now sets childrens to `display: none;` until they become visibile by opening the accordion itself.
