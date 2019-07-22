@@ -45,6 +45,15 @@
   }
 }
 
+@function containerWidth($container) {
+  @if( map-has-key($containerConfig, $container) ) {
+    @return map-get($containerConfig, $container);
+  }
+  @else {
+    @error "Container `#{$container}` not found in `$containerConfig` map.";
+  }
+}
+
 @function zIndex($key) {
   @return index($zIndexes, $key);
 }
