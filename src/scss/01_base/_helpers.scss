@@ -45,8 +45,8 @@
   }
 }
 
-@function containerWidth($container) {
-  @if($container == 'base'){
+@function containerWidth($container: base) {
+  @if($container == base) {
     // returns the size of the container with the gutter 
     @return calc(100% - #{rem($containerGutter)} - #{rem($containerGutter)});
   }
