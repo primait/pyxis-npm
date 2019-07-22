@@ -46,7 +46,11 @@
 }
 
 @function containerWidth($container) {
-  @if( map-has-key($containerConfig, $container) ) {
+  @if($container == 'base'){
+    // returns the size of the container with the gutter 
+    @return calc(100% - #{rem($containerGutter)} - #{rem($containerGutter)});
+  }
+  @else if( map-has-key($containerConfig, $container) ) {
     @return map-get($containerConfig, $container);
   }
   @else {

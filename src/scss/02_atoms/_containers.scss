@@ -1,9 +1,7 @@
-$gutter: rem(20px);
-
 .a-container {
   display: flex;
   margin: 0 auto;
-  width: calc(100% - #{$gutter} - #{$gutter});
+  width: containerWidth(base);
 
   @each $containerKey, $size in $containerConfig {
     $bpIndex: 1;
