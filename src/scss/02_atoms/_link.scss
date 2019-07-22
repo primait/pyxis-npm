@@ -12,8 +12,17 @@
   position: relative;
 
   &:hover {
-    background-size: 100% 2px;
-    color: color(brandAlt, dark);
+    @include mq(medium) {
+      background-size: 100% 2px;
+      color: color(brandAlt, dark);
+    }
+  }
+
+  &:active {
+      @include mq(medium) {
+        color: color(brandAlt);
+        opacity: 0.7;
+      }
   }
 
   &.a-link--with-icon {
@@ -54,7 +63,9 @@
     }
 
     &:hover:before {
-      width: $arrowWidth;
+      @include mq(medium) {
+        width: $arrowWidth;
+      }
     }
 
     //Arrow point
@@ -75,7 +86,9 @@
     }
 
     &:hover:after {
-      left: calc(100% - #{$arrowSpace - $arrowWidth - 3px});
+      @include mq(medium) {
+        left: calc(100% - #{$arrowSpace - $arrowWidth - 3px});
+      }
     }
   }
 }

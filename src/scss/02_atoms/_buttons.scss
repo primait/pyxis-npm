@@ -18,9 +18,13 @@
   padding: 0 25px;
   position: relative;
   text-transform: uppercase;
-  transition: background 0.1s ease-in-out, border 0.1s ease-in-out, color 0.1s ease-in-out, transform 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out, border 0.1s ease-in-out, color 0.1s ease-in-out, transform 0.2s ease-in-out;
   will-change: background, border, color, transform;
   white-space: nowrap;
+
+  &:active {
+    transform: scale(0.98);
+  }
 
   &[disabled],
   &.is-disabled {
@@ -54,7 +58,7 @@
   border-color: transparent;
   color: color(textAlt, light);
   height: map-get($formConfig, buttonHeight);
-  transition: border-color ease 0s 0s, background-color ease 0s 0s;
+  transition: border-color ease 0s 0s, background-color ease 0s 0s, transform 0.2s ease-in-out;
 
   &:after {
     background: color(brandAlt, dark);
@@ -71,13 +75,17 @@
   }
 
   &:hover {
-    background-color: color(brandAlt, dark);
-    border-color: color(brandAlt, dark);
-    transition: border-color cubic-bezier(0.694, 0.048, 0.335, 1) 0.4s, background-color ease 0.1s 0.4s;
+    @include mq(medium) {
+      background-color: color(brandAlt, dark);
+      border-color: color(brandAlt, dark);
+      transition: border-color cubic-bezier(0.694, 0.048, 0.335, 1) 0.4s, background-color ease 0.1s 0.4s, transform 0.2s ease-in-out;
+    }
   }
 
   &:hover:after {
-    transform: translate(0%, 0);
+    @include mq(medium) {
+      transform: translate(0%, 0);
+    }
   }
 
   &.a-btn--dark {
@@ -96,8 +104,10 @@
   color: color(brandAlt);
 
   &:hover {
-    border-color: lighten(color(brandAlt), 5%);
-    color: lighten(color(brandAlt), 5%);
+    @include mq(medium) {
+      border-color: lighten(color(brandAlt), 5%);
+      color: lighten(color(brandAlt), 5%);
+    }
   }
 
   &.a-btn--dark {
@@ -106,7 +116,9 @@
     color: color(textAlt, light);
 
     &:hover {
-      background: rgba(color(background), 0.1);
+      @include mq(medium) {
+        background: rgba(color(background), 0.1);
+      }
     }
   }
 }
@@ -117,7 +129,9 @@
   color: color(brandAlt);
 
   &:hover {
-    border-color: color(brandAlt);
+    @include mq(medium) {
+      border-color: color(brandAlt);
+    }
   }
 
   &.a-btn--dark {
@@ -126,7 +140,9 @@
     color: color(textAlt, light);
 
     &:hover {
-      background: rgba(color(background), 0.1);
+      @include mq(medium) {
+        background: rgba(color(background), 0.1);
+      }
     }
   }
 }
@@ -137,7 +153,9 @@
   color: color(error);
 
   &:hover {
-    border-color: color(error);
+    @include mq(medium) {
+      border-color: color(error);
+    }
   }
 
   &.a-btn--dark {
@@ -175,16 +193,18 @@
   }
 
   &:hover {
-    background: color(action, dark);
-    border-color: color(action, dark);
+    @include mq(medium) {
+      background: color(action, dark);
+      border-color: color(action, dark);
 
-    span {
-      transform: translateX(-10px);
-    }
+      span {
+        transform: translateX(-10px);
+      }
 
-    &:after {
-      opacity: 1;
-      transform: translateY(-50%) translateX(0px);
+      &:after {
+        opacity: 1;
+        transform: translateY(-50%) translateX(0px);
+      }
     }
   }
 }
