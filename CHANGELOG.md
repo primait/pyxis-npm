@@ -9,8 +9,7 @@ Container
 Utils
 - New `containerWidth` function to return the width of a specific container size by passing the size variable. 
 
-**BREAKING-CHANGE**
-- All the atoms variables have been moved into the variables stylesheet.
+**BREAKING-CHANGE**: All the atoms variables have been moved into the variables stylesheet.
 
 ### 1.8.16
 **sass fix**
