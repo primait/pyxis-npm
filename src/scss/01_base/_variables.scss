@@ -200,6 +200,12 @@ $listChooserConfig: (
   width: 360px,
 ) !default;
 
+$sectionConfig: (
+  mobilePadding: 40px,
+  tabletPadding: 60px,
+  desktopPadding: 80px,
+);
+
 $largeScreenRatio: 1.125 !default;
 
 $containerGutter: 20px;
