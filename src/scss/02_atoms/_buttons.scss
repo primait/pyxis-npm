@@ -84,7 +84,7 @@
 
   &:hover:after {
     @include mq(medium) {
-      transform: translate(0%, 0);
+      transform: translate(0, 0);
     }
   }
 
