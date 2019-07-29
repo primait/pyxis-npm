@@ -1,5 +1,21 @@
 ## Changelog
 
+### 1.9.1
+**sass changes**
+
+Form
+- Add the `has-warn` class to manage the new state introduced in `pyxis-components`
+
+Sections
+- Add the `a-section` atom which holds an `a-container` and sets vertical space only
+
+
+**sass fix**
+
+Buttons
+- Fix buttons hover and active state on `medium` breakpoint
+
+
 ### 1.9.0
 **sass changes**
 
