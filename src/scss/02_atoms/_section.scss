@@ -1,0 +1,14 @@
+.a-section {
+    padding-bottom: map-get($sectionConfig, mobilePadding);
+    padding-top: map-get($sectionConfig, mobilePadding);
+    
+    @include mq(small) {
+        padding-bottom: map-get($sectionConfig, tabletPadding);
+        padding-top: map-get($sectionConfig, tabletPadding);
+    }
+
+    @include mq(large) {
+        padding-bottom: map-get($sectionConfig, desktopPadding);
+        padding-top: map-get($sectionConfig, desktopPadding);
+    }
+}
