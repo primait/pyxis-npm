@@ -18,7 +18,8 @@
   }
 
   &.is-valid:not(:focus),
-  &.is-touched:not(.is-invalid):not(:focus) {
+  &.is-touched:not(.is-invalid):not(:focus),
+  &.is-touched:not(.has-warn):not(:focus) {
     border-color: color(brandAlt, dark);
     color: color(brandAlt, dark);
     -webkit-text-fill-color: color(brandAlt, dark);
@@ -28,6 +29,12 @@
     border-color: color(error);
     color: color(error);
     -webkit-text-fill-color: color(error);
+  }
+
+  &.has-warn.is-touched:not(:focus) {
+    border-color: color(alert);
+    color: color(alert);
+    -webkit-text-fill-color: color(alert);
   }
 
   &.is-pristine {

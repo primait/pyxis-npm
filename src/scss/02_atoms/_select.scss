@@ -29,6 +29,11 @@
     color: color(error);
   }
 
+  &.has-warn.is-touched:not(.is-open):not(:focus) {
+    border-color: color(error);
+    color: color(error);
+  }
+
   &.is-pristine:not(.is-open) {
     border: map-get($formConfig, borderWidth) solid color(shape);
     color: color(brandAlt, dark);
@@ -75,9 +80,17 @@
     right: 10px;
   }
 
+  .is-invalid.is-touched &,
+  .has-warn.is-touched & {
+    opacity: 1;
+  }
+
   .is-invalid.is-touched & {
     color: color(error);
-    opacity: 1;
+  }
+
+  .has-warn.is-touched & {
+    color: color(alert);
   }
 
   .is-valid:not(.is-pristine) & {
@@ -91,6 +104,10 @@
 
   .is-invalid.is-touched:not(.is-open):not(:focus) &:after {
     color: color(error);
+  }
+
+  .has-warn.is-touched:not(.is-open):not(:focus) &:after {
+    color: color(alert);
   }
 }
 
@@ -181,6 +198,11 @@
   &.is-invalid {
     border-color: color(error);
     color: color(error);
+  }
+
+  &.has-warn {
+    border-color: color(alert);
+    color: color(alert);
   }
 
   &.is-disabled,
