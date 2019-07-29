@@ -27,6 +27,11 @@
     color: color(error);
   }
 
+  &.has-warn.is-touched:not(:focus) {
+    border-color: color(alert);
+    color: color(alert);
+  }
+
   &.is-pristine {
     border: map-get($formConfig, borderWidth) solid color(shape);
     color: color(brandAlt, dark);
