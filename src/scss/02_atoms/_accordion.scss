@@ -1,5 +1,6 @@
 .a-accordion {
   background: inherit;
+  border-bottom: 1px solid color(shape);
   color: inherit;
   display: flex;
   flex: 1 0 auto;
@@ -42,7 +43,6 @@
 
 .a-accordion__toggle {
   align-items: center;
-  border-bottom: 1px solid color(shape);
   border-top: 1px solid color(shape);
   color: inherit;
   cursor: pointer;
@@ -56,7 +56,6 @@
 
   .a-accordion--dark & {
     border-top: 1px solid color(shape, dark);
-    border-bottom: 1px solid color(shape, dark);
   }
 }
 
@@ -91,11 +90,9 @@
   visibility: hidden;
 
   .a-accordion.is-open & {
-    border-bottom: 1px solid color(shape);
-    display: flex;
     flex: 1 0 auto;
     opacity: 1;
-    padding: rem(map-get($accordionConfig, accordionPadding));
+    padding: 0 rem(map-get($accordionConfig, accordionPadding)) rem(map-get($accordionConfig, accordionPadding)) rem(map-get($accordionConfig, accordionPadding));
     visibility: visible;
   }
 
