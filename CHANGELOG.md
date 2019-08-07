@@ -1,5 +1,17 @@
 ## Changelog
 
+### 1.9.2
+**sass changes**
+
+Accordions 
+- Removed border on accordion's header
+
+Jumbotron
+- Removed useless `o-jumbotron__picture__image` class
+
+Utility Classes 
+- Add `flexWrap, flexNoWrap, flexWrapReverse` classes
+
 ### 1.9.1
 **sass changes**
 
