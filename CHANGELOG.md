@@ -1,5 +1,11 @@
 ## Changelog
 
+### 1.9.3
+**sass changes**
+
+Core 
+- Better errors in `helpers`
+
 ### 1.9.2
 **sass changes**
 
