@@ -85,6 +85,18 @@ $flexProps: (
   display: inline-block;
 }
 
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+.flexNoWrap {
+  flex-wrap: nowrap;
+}
+
+.flexWrapReverse {
+  flex-wrap: wrap-reverse;
+}
+
 .fullWidth {
   width: 100%;
 }
