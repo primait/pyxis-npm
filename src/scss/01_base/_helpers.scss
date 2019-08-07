@@ -14,7 +14,7 @@
     @return map-deep-get($colors, $color, $variation);
   }
   @else {
-    @error "Color `#{$color}` not found in `$colors` map.";
+    @error "Color `#{$color}` not found in `$colors` map, which is #{$colors}.";
   }
 }
 
@@ -23,16 +23,16 @@
     @return map-get($fonts, $font);
   }
   @else {
-    @error "Font `#{$font}` not found in `$fonts` map.";
+    @error "Font `#{$font}` not found in `$fonts` map, which is #{$fonts}.";
   }
 }
 
-@function size($size, $map: $fontSizes) {
-  @if( map-has-key($map, $size) ) {
-    @return map-get($map, $size);
+@function size($size) {
+  @if( map-has-key($fontSizes, $size) ) {
+    @return map-get($fontSizes, $size);
   }
   @else {
-    @error "Font `#{$size}` not found in `$map` map.";
+    @error "Font `#{$size}` not found in `$fontSizes` map, which is #{$fontSizes}.";
   }
 }
 
@@ -41,7 +41,7 @@
     @return map-get($fontSizes, $size) * $goldenRatio;
   }
   @else {
-    @error "Font `#{$size}` not found in `$fontSizes` map.";
+    @error "Font `#{$size}` not found in `$fontSizes` map, which is #{$fontSizes}.";
   }
 }
 
@@ -53,7 +53,7 @@
     @return map-get($containerConfig, $container);
   }
   @else {
-    @error "Container `#{$container}` not found in `$containerConfig` map.";
+    @error "Container `#{$container}` not found in `$containerConfig` map, which is #{$containerConfig}.";
   }
 }
 
