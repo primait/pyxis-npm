@@ -1,5 +1,12 @@
 ## Changelog
 
+### 2.0.0
+**sass changes**
+
+Core 
+- Removed useless imports
+- Fixed `box-sizing` property
+
 ### 1.9.3
 **sass changes**
 

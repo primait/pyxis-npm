@@ -2,44 +2,20 @@
   @extend .visuallyHidden;
 }
 
-.a-form__field__radio__label.a-form__field__radio__label--bordered {
-  border-radius: map-get($formConfig, borderRadius);
-  transition: background 0.3s, color 0.3s, border-color 0.3s;
-
-  @include mq(small) {
-    border: map-get($formConfig, borderWidth) solid transparent;
-  }
-
-  &:hover,
-  .a-form__field__radio:focus + & {
-    border-color: color(brandAlt);
-  }
-}
-
 .a-form__field__radio__label {
   color: color(text, dark);
   cursor: pointer;
   display: flex;
   line-height: map-get($formConfig, fieldHeight);
-  margin-right: 20px;
-  padding-left: 40px;
-  padding-right: 20px;
+  padding-left: 30px;
+  padding-right: 30px;
   position: relative;
   transition: background 0.3s, color 0.3s;
   width: auto;
 
-
-  &:last-child {
-    margin-right: 0;
-  }
-
   &:hover,
   .a-form__field__radio:focus + & {
     color: color(brandAlt, dark);
-
-    @include mq(small) {
-      background: color(background);
-    }
   }
 
   .a-form__field__radio[disabled] + & {
@@ -67,16 +43,16 @@
   &:before {
     background-color: color(background);
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
-    content: '';
-    left: 10px;
+    content: "";
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
   }
 
   &:after {
     background: color(brandAlt, dark);
-    content: '';
-    left: 15px;
+    content: "";
+    left: 5px;
     height: 10px;
     top: 20px;
     transform: scale(0);

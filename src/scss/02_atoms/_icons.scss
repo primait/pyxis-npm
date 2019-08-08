@@ -9,12 +9,3 @@
   text-align: center;
   width: map-get($formConfig, fieldHeight);
 }
-
-.m-nav .a-icon {
-  font-size: size(medium);
-  padding: 10px;
-
-  @include mq(small) {
-    padding: 0 5px 5px 0;
-  }
-}
