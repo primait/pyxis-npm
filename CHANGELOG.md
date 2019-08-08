@@ -1,5 +1,14 @@
 ## Changelog
 
+### 2.0.1
+**sass changes**
+
+Core 
+- Moved `utilityClasses`, `fonts`, and `iconset` in a dedicated folder in order to prevent useless imports
+
+Lists
+- Fixes selector depth
+
 ### 2.0.0
 **sass changes**
 
