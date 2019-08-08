@@ -27,6 +27,17 @@ body {
   font-size: inherit;
   height: 100%;
   width: 100%;
+  @extend .fs-small;
+
+  @include mq(small) {
+    font-size: size(small);
+    line-height: lineHeight(small);
+  }
+
+  @include mq(medium) {
+    font-size: size(base);
+    line-height: lineHeight(base);
+  }
 }
 
 input,

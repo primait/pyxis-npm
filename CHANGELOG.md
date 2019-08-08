@@ -1,5 +1,11 @@
 ## Changelog
 
+### 2.0.2
+**sass changes**
+
+Core 
+- Removed `ignorePyxis` mixin
+
 ### 2.0.1
 **sass changes**
 
