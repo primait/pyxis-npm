@@ -1,5 +1,11 @@
 ## Changelog
 
+### 2.0.4
+**sass changes**
+
+Core 
+- Moved `reset` in a dedicated folder to opt-in the use of this functionality
+
 ### 2.0.3
 **sass changes**
 
