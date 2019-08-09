@@ -40,6 +40,17 @@ body {
   }
 }
 
+h1,
+h2,
+h3,
+h4 {
+  margin-bottom: rem(20px);
+
+  @include mq(small) {
+    margin-bottom: rem(30px);
+  }
+}
+
 input,
 textarea,
 select,
@@ -49,16 +60,24 @@ button {
 
 p {
   margin: 0;
+  
+  & + & {
+    margin-top: rem(15px);
+
+    @include mq(small) {
+      margin-top: rem(20px);
+    }
+  }
 }
 
 hr {
   background-color: color(shape, base);
   border: none;
   height: 1px;
-  margin: 30px 0;
+  margin: rem(30px) 0;
 
   @include mq(small) {
-    margin: 40px 0;
+    margin: rem(40px) 0;
   }
 }
 

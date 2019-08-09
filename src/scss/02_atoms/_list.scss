@@ -1,4 +1,10 @@
 .a-list {
-  list-style: initial;
+  list-style: disc;
+  margin: rem(15px) 0;
+  padding: rem(15px) 0;
+
+  @include mq(small) {
+    margin: rem(20px) 0;
+  }
 }
   

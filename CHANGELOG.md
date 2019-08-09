@@ -1,5 +1,17 @@
 ## Changelog
 
+### 2.0.3
+**sass changes**
+
+Core 
+- Add Eric Meyer's CSS reset
+
+Typography
+- Add margins to `h1, h2, h3, h4, p` and `a-lists` in order to keep spaces and normalize browser's behaviours.
+
+Lists
+- Add internal space
+
 ### 2.0.2
 **sass changes**
 
