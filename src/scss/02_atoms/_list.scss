@@ -1,7 +1,7 @@
 .a-list {
   list-style: disc;
   margin: rem(15px) 0;
-  padding: rem(15px) 0;
+  padding: 0 0 0 rem(30px);
 
   @include mq(small) {
     margin: rem(20px) 0;

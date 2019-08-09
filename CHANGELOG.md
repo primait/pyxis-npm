@@ -1,5 +1,11 @@
 ## Changelog
 
+### 2.0.5
+**sass fix**
+
+Lists 
+- Fixes internal `padding`
+
 ### 2.0.4
 **sass changes**
 
