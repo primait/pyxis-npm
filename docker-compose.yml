@@ -1,0 +1,10 @@
+version: '2'
+services:
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - 8080:8080 # webpack dev server
+    networks:
+      - default
