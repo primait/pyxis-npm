@@ -1,5 +1,11 @@
 ## Changelog
 
+### 2.0.6
+**sass fix**
+
+@Extend
+- Removed `visuallyHidden` extend in `form` components
+
 ### 2.0.5
 **sass fix**
 
