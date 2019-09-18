@@ -1,5 +1,11 @@
 ## Changelog
 
+### 2.0.7
+**sass fix**
+
+Jumbotron
+- Fixes jumbotron dimensions
+
 ### 2.0.6
 **sass fix**
 
