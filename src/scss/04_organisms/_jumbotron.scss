@@ -7,7 +7,7 @@
   justify-content: center;
   overflow: hidden;
 
-  @include mq(small) {
+  @include mq(medium) {
     flex-flow: row;
     justify-content: space-between;
   }
@@ -20,27 +20,23 @@
 
 .o-jumbotron__container {
   flex-flow: column;
-
-  @include mq(small) {
-    align-items: center;
-    justify-content: space-between;
-  }
+  align-items: end;
 
   @include mq(medium) {
+    align-items: center;
     flex-flow: row;
+    justify-content: space-between;
   }
 }
 
 .o-jumbotron__wrapper {
-  align-items: center;
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
+  display: block;
   text-align: center;
 
   @include mq(medium) {
     align-items: flex-start;
+    display: flex;
+    flex-direction: column;
     flex: 0 0 55%;
     text-align: left;
   }
@@ -65,20 +61,37 @@
 
 .o-jumbotron__paragraph {
   color: color(text, base);
+  margin-bottom: 30px;
   margin-top: 15px;
+  max-width: 100%;
   text-align: inherit;
-  @include mq(small) {
+  
+  @include mq(medium) {
+    margin-bottom: 0;
     margin-top: 30px;
+    max-width: 80%;
   }
 }
 
 .o-jumbotron__wrapper--picture {
-  display: flex;
+  display: block;
+  text-align: center;
+  width: 100%;
+
+  @include mq(medium) {
+    display: flex;
+    flex: 0 0 45%;
+  }
 }
 
 .o-jumbotron__picture {
   align-self: center;
   height: auto;
   margin: 0 auto;
-  max-width: 100%;
+  max-width: 80%;
+  text-align: center;
+
+  @include mq(medium) {
+    max-width: 100%;
+  }
 }

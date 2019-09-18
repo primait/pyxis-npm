@@ -6,9 +6,9 @@
   color: color(brandAlt);
   display: inline;
   font-family: font(base);
-  transition: all 0.1s ease-in-out;
-  text-decoration: none;
   position: relative;
+  text-decoration: none;
+  transition: all 0.1s ease-in-out;
 
   &:hover {
     @include mq(medium) {
@@ -33,6 +33,7 @@
     align-self: flex-start;
     background-image: none;
     font-size: size(small);
+    margin-bottom: 20px;
     padding-right: $arrowSpace;
     position: relative;
 
@@ -41,8 +42,8 @@
       content: "";
       display: inline-block;
       margin-top: -($arrowTickness);
-      top: 50%;
       position: absolute;
+      top: 50%;
       transition: all ease-in-out 0.1s;
       zoom: 1;
     }
