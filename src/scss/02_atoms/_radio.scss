@@ -1,4 +1,4 @@
-.a-form__field__radio {
+.a-form-field__radio {
   clip: rect(0 0 0 0);
   height: 1px;
   margin: -1px;
@@ -8,7 +8,7 @@
   width: 1px;
 }
 
-.a-form__field__radio__label {
+.a-form-field__radio__label {
   color: color(text, dark);
   cursor: pointer;
   display: flex;
@@ -20,16 +20,16 @@
   width: auto;
 
   &:hover,
-  .a-form__field__radio:focus + & {
+  .a-form-field__radio:focus + & {
     color: color(brandAlt, dark);
   }
 
-  .a-form__field__radio[disabled] + & {
+  .a-form-field__radio[disabled] + & {
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
   }
 
-  .a-form__field__radio:checked + & {
+  .a-form-field__radio:checked + & {
     color: color(brandAlt, dark);
   }
 
@@ -67,16 +67,16 @@
   }
 
   &:hover:after,
-  .a-form__field__radio:checked + &:after {
+  .a-form-field__radio:checked + &:after {
     transform: scale(1);
   }
 
-  .a-form__field__radio:not(:checked) + &:hover:after {
+  .a-form-field__radio:not(:checked) + &:hover:after {
     opacity: map-get($formConfig, fieldDisabledOpacity);
   }
 }
 
-.a-form__field__radioOptions {
+.a-form-field__radioOptions {
   display: flex;
   flex-direction: row;
 
@@ -86,12 +86,12 @@
 }
 
 .radioFullText {
-  .a-form__field__label {
+  .a-form-field__label {
     flex: 1;
     text-align: left;
   }
 
-  .a-form__field__error {
+  .a-form-field__error {
     margin-top: 0;
     text-align: right;
   }

@@ -1,4 +1,4 @@
-.m-form__field__group {
+.m-form-input-group {
   position: relative;
   flex: 0 0 100%;
 
@@ -9,17 +9,17 @@
   }
 }
 
-.m-form__field__group .a-form__field__input {
+.m-form-input-group .a-form-field__input {
   display: flex;
 }
 
-.m-form__field__group .a-form__field__error {
+.m-form-input-group .a-form-field__error {
   flex: 1;
   padding-left: 0;
 }
 
-.m-form__field__group__append,
-.m-form__field__group__prepend {
+.m-form-input-group__append,
+.m-form-input-group__prepend {
   align-items: center;
   display: flex;
   height: map-get($formConfig, fieldHeight);
@@ -30,16 +30,16 @@
   z-index: 2;
 }
 
-.m-form__field__group__append {
+.m-form-input-group__append {
   border-left: map-get($formConfig, borderWidth) solid color(shape);
   cursor: pointer;
   right: 0;
 
-  & ~ .a-form__field__input {
+  & ~ .a-form-field__input {
     padding-right: map-get($formConfig, fieldHeight) + 10px;
   }
 
-  & ~ .a-form__field__input:disabled {
+  & ~ .a-form-field__input:disabled {
     pointer-events: all;
     z-index: 2;
   }
@@ -49,10 +49,10 @@
   }
 }
 
-.m-form__field__group__prepend {
+.m-form-input-group__prepend {
   left: 0;
 
-  & ~ .a-form__field__input {
+  & ~ .a-form-field__input {
     padding-left: map-get($formConfig, fieldHeight);
   }
 }

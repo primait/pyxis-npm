@@ -1,0 +1,16 @@
+.m-form-field-group {
+  & .has-own-errors {}
+  & .has-own-warnings {}
+  & .has-field-errors {}
+  & .has-field-warning {}
+}
+
+.m-form-field-group__label {}
+
+.m-form-field-group__fields-list {}
+
+.m-form-field-group__fields-wrapper {}
+
+.m-form-field-group__validation-messages-list {}
+
+.m-form-field-group__validation-message-list__item {}

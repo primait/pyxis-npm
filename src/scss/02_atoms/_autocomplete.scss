@@ -1,4 +1,4 @@
-.a-form__field__autocomplete {
+.a-form-field__autocomplete {
   cursor: pointer;
   position: relative;
 
@@ -22,19 +22,19 @@
     width: map-get($formConfig, fieldHeight);
   }
 
-  &.is-open .a-form__field__input,
-  &.is-open .a-form__field__input:focus {
+  &.is-open .a-form-field__input,
+  &.is-open .a-form-field__input:focus {
     border-color: color(brandAlt);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
   }
 
-  &.is-open .a-form__field__input,
-  &.is-open .a-form__field__autocomplete__list {
+  &.is-open .a-form-field__input,
+  &.is-open .a-form-field__autocomplete__list {
     box-shadow: map-get($formConfig, fieldShadow);
   }
 
-  .a-form__field__input {
+  .a-form-field__input {
     padding-right: 60px;
 
     &:focus {
@@ -42,12 +42,12 @@
     }
   }
 
-  .a-form__field__input.is-valid.is-touched {
+  .a-form-field__input.is-valid.is-touched {
     border-color: color(brandAlt, dark);
   }
 }
 
-.a-form__field__autocomplete__list {
+.a-form-field__autocomplete__list {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: 0 0 map-get($formConfig, borderRadius) map-get($formConfig, borderRadius);
@@ -72,7 +72,7 @@
   }
 }
 
-.a-form__field__autocomplete__list__item {
+.a-form-field__autocomplete__list__item {
   align-items: center;
   color: color(text, dark);
   display: flex;
@@ -94,7 +94,7 @@
   }
 }
 
-.a-form__field__autocomplete__list__noResults {
+.a-form-field__autocomplete__list__noResults {
   align-items: center;
   color: color(text);
   cursor: default;

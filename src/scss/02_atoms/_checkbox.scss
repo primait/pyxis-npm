@@ -1,4 +1,4 @@
-.a-form__field__checkbox {
+.a-form-field__checkbox {
   clip: rect(0 0 0 0);
   height: 1px;
   margin: -1px;
@@ -8,7 +8,7 @@
   width: 1px;
 }
 
-.a-form__field__checkbox__label {
+.a-form-field__checkbox__label {
   color: color(text, dark);
   cursor: pointer;
   display: flex;
@@ -18,13 +18,13 @@
   position: relative;
   width: auto;
 
-  .a-form__field__checkbox[disabled] + & {
+  .a-form-field__checkbox[disabled] + & {
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
   }
 
   &:hover,
-  .a-form__field__checkbox:focus + & {
+  .a-form-field__checkbox:focus + & {
     color: color(brandAlt, dark);
   }
 
@@ -63,17 +63,17 @@
     transition: clip-path 0.3s linear, opacity 0.2s linear;
   }
 
-  .a-form__field__checkbox:checked + & {
+  .a-form-field__checkbox:checked + & {
     color: color(brandAlt, dark);
   }
 
   &:hover:after,
-  .a-form__field__checkbox:checked + &:after {
+  .a-form-field__checkbox:checked + &:after {
     clip-path: inset( 0 0 0 0 );
     opacity: 1;
   }
 
-  .a-form__field__checkbox:not(:checked) + &:hover:before {
+  .a-form-field__checkbox:not(:checked) + &:hover:before {
     transform: scale(1.05) translateY(-50%);
 
     .isTouchDevice & {
@@ -81,7 +81,7 @@
     }
   }
 
-  .a-form__field__checkbox:not(:checked) + &:hover:after {
+  .a-form-field__checkbox:not(:checked) + &:hover:after {
     clip-path: inset( 0 0 0 0 );
     opacity: map-get($formConfig, fieldDisabledOpacity);
 
@@ -94,7 +94,7 @@
 .checkboxFullText {
   padding-left: 30px;
 
-  .a-form__field__label {
+  .a-form-field__label {
     flex: 1;
     order: 2;
     text-align: left;

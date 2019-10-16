@@ -2,8 +2,8 @@
   font-size: size(large);
 }
 
-.m-form__field__group__append .a-icon,
-.m-form__field__group__prepend .a-icon {
+.m-form-input-group__append .a-icon,
+.m-form-input-group__prepend .a-icon {
   height: map-get($formConfig, fieldHeight);
   line-height: map-get($formConfig, fieldHeight);
   text-align: center;

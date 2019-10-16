@@ -1,4 +1,4 @@
-.a-form__field {
+.a-form-field {
   align-items: center;
   border-radius: map-get($formConfig, borderRadius);
   display: flex;
@@ -16,11 +16,11 @@
   }
 }
 
-.a-form__field__input,
-.a-form__field__date,
-.a-form__field__textarea,
-.a-form__field__select,
-.a-form__field__customSelect {
+.a-form-field__input,
+.a-form-field__date,
+.a-form-field__textarea,
+.a-form-field__select,
+.a-form-field__custom-select {
   font-family: font(light);
   min-width: 100%;
   outline: none;
@@ -29,7 +29,7 @@
     min-width: map-get($formConfig, fieldMaxWidth);
   }
 
-  &.fieldSmall {
+  &.field-small {
     min-width: calc(50% - 5px);
 
     @include mq(small) {
@@ -38,7 +38,7 @@
     }
   }
 
-  &.fieldLarge {
+  &.field-large {
     min-width: map-get($formConfig, fieldMaxWidthLarge);
   }
 
@@ -52,33 +52,33 @@
     }
   }
 
-  .a-form__field__error + & {
+  .a-form-field__error + & {
     margin-left: 10px;
   }
 }
 
-.a-form__field__input,
-.a-form__field__date,
-.a-form__field__select {
+.a-form-field__input,
+.a-form-field__date,
+.a-form-field__select {
   transition: background 0.3s, border 0.3s, color 0.3s;
   -webkit-appearance: none;
 }
 
-.a-form__field__input,
-.a-form__field__date,
-.a-form__field__textarea,
-.a-form__field__autocomplete,
-.a-form__field__customSelect {
+.a-form-field__input,
+.a-form-field__date,
+.a-form-field__textarea,
+.a-form-field__autocomplete,
+.a-form-field__custom-select {
   font-size: 14px;
 }
 
-.a-form__field__validation-message__list {
+.a-form-field__validation-message__list {
   display: flex;
   flex-flow: column;
   width: 100%;
 }
 
-.a-form__field__validation-message {
+.a-form-field__validation-message {
   font-family: font(base);
   font-size: 12px;
 

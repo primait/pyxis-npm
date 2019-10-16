@@ -1,7 +1,7 @@
 /************************
   Tablet/Desktop component
 *************************/
-.a-form__field__customSelect {
+.a-form-field__custom-select {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: map-get($formConfig, borderRadius);
@@ -59,7 +59,7 @@
   }
 }
 
-.a-form__field__customSelect__status {
+.a-form-field__custom-select__status {
   align-items: center;
   border-color: inherit;
   color: color(text);
@@ -111,7 +111,7 @@
   }
 }
 
-.a-form__field__customSelect__list {
+.a-form-field__custom-select__list {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: 0 0 map-get($formConfig, borderRadius) map-get($formConfig, borderRadius);
@@ -142,7 +142,7 @@
   }
 }
 
-.a-form__field__customSelect__list__item {
+.a-form-field__custom-select__list__item {
   align-items: center;
   color: color(text, dark);
   display: flex;
@@ -167,7 +167,7 @@
 /************************
   Mobile component
 *************************/
-.a-form__field__select {
+.a-form-field__select {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: map-get($formConfig, borderRadius);

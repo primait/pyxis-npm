@@ -1,5 +1,15 @@
 ## Changelog
 
+### 2.1.0
+This version supports new Pyxis component Form that has a general new structure.
+This version is heavily breaking. Change your overridings accordingly
+Core
+- **BREAKING-CHANGE**: old `m-form__field__group` has becomed `m-form-input-group` and stays in `form-input-group.scss partial
+- **BREAKING-CHANGE**: old `a-form__field` has becomed `a-form-field`
+- **BREAKING-CHANGE**: old `m-form` has becomed `o-form`
+- **BREAKING-CHANGE**: now `a-form__field` doesn't have any logic for hide/display validation messages (this should be provided by JS/elm)
+- **NEW FEATURE**: new `m-form-field-group` that is an horizontal group of `a-form-field` 
+
 ### 2.0.7
 **sass fix**
 
