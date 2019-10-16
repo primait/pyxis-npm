@@ -72,25 +72,29 @@
   font-size: 14px;
 }
 
-.a-form__field__error {
-  color: color(error);
-  flex: 0 0 100%;
+.a-form__field__validation-message__list {
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+}
+
+.a-form__field__validation-message {
   font-family: font(base);
   font-size: 12px;
-  order: 1;
 
   @include mq(small) {
     margin-top: map-get($formConfig, errorMargin);
     padding-left: calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
   }
 
-  .a-form__field__input:focus + &,
-  .a-form__field__date:focus + &,
-  .a-form__field__textarea:focus + &,
-  .a-form__field__autocomplete:focus + &,
-  .a-form__field__select:focus + & {
-    display: none;
+  .has-errors & {
+    color: color(error);
   }
+
+  .has-warnings:not(.has-error) & {
+    color: color(error);
+  }
+
 }
 
 ::-webkit-input-placeholder {
