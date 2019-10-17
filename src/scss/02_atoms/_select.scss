@@ -12,34 +12,12 @@
   pointer-events: none;
   position: relative;
 
-  &.is-valid:not(.is-open),
-  &.is-touched:not(.is-open) {
+  .is-touched:not(.has-error):not(.has-warning) & {
     border-color: color(brandAlt, dark);
   }
 
-  &:focus,
-  &.is-pristine:focus,
-  &.is-pristine:not(.is-open):focus {
-    border: map-get($formConfig, borderWidth) solid color(brandAlt);
-    box-shadow: map-get($formConfig, fieldShadow);
-  }
-
-  &.is-invalid.is-touched:not(.is-open):not(:focus) {
-    border-color: color(error);
-    color: color(error);
-  }
-
-  &.has-warn.is-touched:not(.is-open):not(:focus) {
-    border-color: color(error);
-    color: color(error);
-  }
-
-  &.is-pristine:not(.is-open) {
-    border: map-get($formConfig, borderWidth) solid color(shape);
-    color: color(brandAlt, dark);
-  }
-
-  &.is-disabled {
+  &.is-disabled,
+  &[disabled] {
     background: color(background, dark);
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
@@ -48,6 +26,14 @@
   &.is-open {
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
+
+    .has-error & {
+      border-color: color(error);
+    }
+
+    .has-warning:not(.has-error) & {
+      border-color: color(alert, dark);
+    }
 
     @include mq(medium) {
       border-radius: map-get($formConfig, borderRadius) map-get($formConfig, borderRadius) 0px 0px;
@@ -78,19 +64,14 @@
     transform: translateY(-50%) rotate(0deg);
     transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
     right: 10px;
-  }
 
-  .is-invalid.is-touched &,
-  .has-warn.is-touched & {
-    opacity: 1;
-  }
+    .has-error & {
+      color: color(error);
+    }
 
-  .is-invalid.is-touched & {
-    color: color(error);
-  }
-
-  .has-warn.is-touched & {
-    color: color(alert);
+    .has-warning:not(.has-error) & {
+      color: color(alert, dark);
+    }
   }
 
   .is-valid:not(.is-pristine) & {
@@ -100,14 +81,6 @@
 
   .is-open &:after {
     transform: translateY(-50%) rotate(-180deg);
-  }
-
-  .is-invalid.is-touched:not(.is-open):not(:focus) &:after {
-    color: color(error);
-  }
-
-  .has-warn.is-touched:not(.is-open):not(:focus) &:after {
-    color: color(alert);
   }
 }
 
@@ -139,6 +112,19 @@
     @include mq(medium) {
       display: flex;
     }
+  }
+
+  .has-error & {
+    border-color: color(error);
+  }
+
+  .has-warning:not(.has-error) & {
+    border-color: color(alert, dark);
+  }
+
+  .has-error &,
+  .has-warning:not(.has-error) & {
+    border-top-color: color(shape);
   }
 }
 
@@ -188,21 +174,6 @@
 
   &:focus {
     border-color: color(brandAlt);
-  }
-
-  &.is-valid,
-  &.is-touched {
-    border-color: color(brandAlt, dark);
-  }
-
-  &.is-invalid {
-    border-color: color(error);
-    color: color(error);
-  }
-
-  &.has-warn {
-    border-color: color(alert);
-    color: color(alert);
   }
 
   &.is-disabled,

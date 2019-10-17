@@ -24,6 +24,10 @@
     .has-error & {
       color: color(error);
     }
+
+    .has-warning:not(.has-error) & {
+      color: color(alert, dark);
+    }
   }
 
   &.is-open .a-form-field__input,
@@ -31,6 +35,20 @@
     border-color: color(brandAlt);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+    border-bottom-color: color(shape);
+
+    .has-error & {
+      border-color: color(error);
+    }
+
+    .has-warning:not(.has-error) & {
+      border-color: color(alert, dark);
+    }
+
+    .has-error &,
+    .has-warning:not(.has-error) & {
+      border-bottom-color: color(shape);
+    }
   }
 
   &.is-open .a-form-field__input,
@@ -40,10 +58,6 @@
 
   .a-form-field__input {
     padding-right: 60px;
-
-    &:focus {
-      border-color: color(brandAlt);
-    }
   }
 
   .a-form-field__input.is-valid.is-touched {
@@ -59,7 +73,6 @@
   flex-direction: column;
   left: 0;
   list-style: none;
-  margin: -1px 0 0 0;
   max-height: map-get($formConfig, fieldHeight) * 4 + map-get($formConfig, fieldHeight) * 0.5;
   overflow-x: hidden;
   overflow-y: auto;
@@ -70,9 +83,17 @@
   z-index: 3;
 
   .is-open & {
-    border-color: color(brandAlt);
-    border-top-color: color(shape);
     display: flex;
+    border-color: color(brandAlt, dark);
+    border-top: none;
+  }
+
+  .has-error & {
+    border-color: color(error);
+  }
+
+  .has-warning:not(.has-error) & {
+    border-color: color(alert, dark);
   }
 }
 
@@ -98,7 +119,7 @@
   }
 }
 
-.a-form-field__autocomplete__list__noResults {
+.a-form-field__autocomplete__list--no-results {
   align-items: center;
   color: color(text);
   cursor: default;

@@ -11,34 +11,17 @@
   -webkit-appearance: none;
   -webkit-text-fill-color: color(text, dark);
 
-  &:focus,
-  &.is-pristine:focus {
+  &:focus {
     border-color: color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
-  }
 
-  &.is-valid:not(:focus),
-  &.is-touched:not(.is-invalid):not(:focus),
-  &.is-touched:not(.has-warn):not(:focus) {
-    border-color: color(brandAlt, dark);
-    color: color(brandAlt, dark);
-    -webkit-text-fill-color: color(brandAlt, dark);
-  }
+    .has-error & {
+      border-color: color(error);
+    }
 
-  &.is-invalid.is-touched:not(:focus) {
-    border-color: color(error);
-    color: color(error);
-    -webkit-text-fill-color: color(error);
-  }
-
-  &.has-warn.is-touched:not(:focus) {
-    border-color: color(alert);
-    color: color(alert);
-    -webkit-text-fill-color: color(alert);
-  }
-
-  &.is-pristine {
-    border: map-get($formConfig, borderWidth) solid color(shape);
+    .has-warning:not(.has-error) {
+      border-color: color(alert, dark);
+    }
   }
 
   &.is-disabled,

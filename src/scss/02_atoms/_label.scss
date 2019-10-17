@@ -1,4 +1,5 @@
-.a-form-field__label {
+.a-form-field__label,
+.m-form-field-group__label {
   color: color(text, dark);
   flex: 0 0 100%;
   font-size: map-get($fontSizes, small);

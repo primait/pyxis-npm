@@ -1,4 +1,33 @@
 .m-form-field-group {
+  align-items: baseline;
+  border-radius: map-get($formConfig, borderRadius);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 10px;
+  position: relative;
+  transition: background 0.3s;
+
+  &:hover {
+    @include mq(medium) {
+      background: color(background, dark);
+    }
+  }
+
+  .a-form-field {
+    padding: 0;
+    min-height: inherit;
+  }
+
+  .a-form-field + .a-form-field {
+    margin-left: 10px;
+  }
+
+  .a-form-field__input {
+    flex: 0 0 90%;
+    min-width: inherit;
+  }
+
   & .has-own-errors {}
   & .has-own-warnings {}
   & .has-field-errors {}
@@ -7,10 +36,29 @@
 
 .m-form-field-group__label {}
 
-.m-form-field-group__fields-list {}
+.m-form-field-group__fields-list {
+  display: flex;
+  flex: 1;
+}
 
-.m-form-field-group__fields-wrapper {}
+.m-form-field-group__fields-wrapper {
+  display: flex;
+  flex: 1;
+  flex-flow: row wrap;
+}
 
-.m-form-field-group__validation-messages-list {}
+.m-form-field-group__validation-messages-list {
+  font-family: font(base);
+  font-size: 12px;
+  flex: 0 0 100%;
+
+  .has-error & {
+    color: color(error);
+  }
+
+  .has-warning:not(.has-error) & {
+    color: color(alert, dark);
+  }
+}
 
 .m-form-field-group__validation-message-list__item {}

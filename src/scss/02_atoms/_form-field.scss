@@ -20,7 +20,8 @@
 .a-form-field__date,
 .a-form-field__textarea,
 .a-form-field__select,
-.a-form-field__custom-select {
+.a-form-field__custom-select,
+.a-form-field__autocomplete {
   font-family: font(light);
   font-size: 14px;
   min-width: 100%;
@@ -57,8 +58,12 @@
     border-color: color(error);
   }
 
-  .has-warning & {
+  .has-warning:not(.has-error) & {
     border-color: color(alert, dark);
+  }
+
+  .is-valid & {
+    border-color: color(brandAlt, dark);
   }
 }
 

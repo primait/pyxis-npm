@@ -32,6 +32,11 @@
   .a-form-field__radio[disabled] + & {
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
+
+    &:before {
+      background-color: color(background, dark);
+      border-color: color(shape);
+    }
   }
 
   .a-form-field__radio:checked + & {
@@ -63,8 +68,8 @@
       border-color: color(error);
     }
 
-    .has-warning & {
-      border-color: color(alert);
+    .has-warning:not(.has-error) & {
+      border-color: color(alert, dark);
     }
   }
 
@@ -78,7 +83,8 @@
     transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
     width: 10px;
 
-    .has-error & {
+    .has-error &,
+    .has-warning & {
       background: color(text, light);
     }
   }

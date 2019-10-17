@@ -13,7 +13,7 @@
     color: color(error);
   }
 
-  .has-warning & {
-    color: color(alert);
+  .has-warning:not(.has-error) & {
+    color: color(alert, dark);
   }
 }
