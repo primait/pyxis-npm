@@ -22,6 +22,11 @@
   &:hover,
   .a-form-field__radio:focus + & {
     color: color(brandAlt, dark);
+
+    .has-error &,
+    .has-warning & {
+      color: color(text, dark);
+    }
   }
 
   .a-form-field__radio[disabled] + & {
@@ -53,6 +58,14 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
+
+    .has-error & {
+      border-color: color(error);
+    }
+
+    .has-warning & {
+      border-color: color(alert);
+    }
   }
 
   &:after {
@@ -64,6 +77,10 @@
     transform: scale(0);
     transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
     width: 10px;
+
+    .has-error & {
+      background: color(text, light);
+    }
   }
 
   &:hover:after,
@@ -76,7 +93,7 @@
   }
 }
 
-.a-form-field__radioOptions {
+.a-form-field__radio-options {
   display: flex;
   flex-direction: row;
 

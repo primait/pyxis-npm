@@ -1,5 +1,5 @@
 .a-form-field {
-  align-items: center;
+  align-items: baseline;
   border-radius: map-get($formConfig, borderRadius);
   display: flex;
   flex-wrap: wrap;
@@ -22,6 +22,7 @@
 .a-form-field__select,
 .a-form-field__custom-select {
   font-family: font(light);
+  font-size: 14px;
   min-width: 100%;
   outline: none;
 
@@ -52,8 +53,12 @@
     }
   }
 
-  .a-form-field__error + & {
-    margin-left: 10px;
+  .has-error & {
+    border-color: color(error);
+  }
+
+  .has-warning & {
+    border-color: color(alert, dark);
   }
 }
 
@@ -64,37 +69,24 @@
   -webkit-appearance: none;
 }
 
-.a-form-field__input,
-.a-form-field__date,
-.a-form-field__textarea,
-.a-form-field__autocomplete,
-.a-form-field__custom-select {
-  font-size: 14px;
-}
-
-.a-form-field__validation-message__list {
+.a-form-field__field-wrapper {
   display: flex;
-  flex-flow: column;
-  width: 100%;
+  flex-flow: row wrap;
+  flex: 1;
 }
 
 .a-form-field__validation-message {
   font-family: font(base);
   font-size: 12px;
+  flex: 0 0 100%;
 
-  @include mq(small) {
-    margin-top: map-get($formConfig, errorMargin);
-    padding-left: calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
-  }
-
-  .has-errors & {
+  .has-error & {
     color: color(error);
   }
 
-  .has-warnings:not(.has-error) & {
-    color: color(error);
+  .has-warning:not(.has-error) & {
+    color: color(alert, dark);
   }
-
 }
 
 ::-webkit-input-placeholder {

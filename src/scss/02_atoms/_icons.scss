@@ -8,4 +8,12 @@
   line-height: map-get($formConfig, fieldHeight);
   text-align: center;
   width: map-get($formConfig, fieldHeight);
+
+  .has-error & {
+    color: color(error);
+  }
+
+  .has-warning & {
+    color: color(alert);
+  }
 }

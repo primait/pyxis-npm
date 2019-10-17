@@ -20,6 +20,10 @@
     text-align: center;
     top: 1px;
     width: map-get($formConfig, fieldHeight);
+    
+    .has-error & {
+      color: color(error);
+    }
   }
 
   &.is-open .a-form-field__input,
