@@ -27,12 +27,16 @@
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
 
-    .has-error & {
-      border-color: color(error);
+    .has-warning:not(.has-error) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+      border-color: color(alert, dark);
     }
 
-    .has-warning:not(.has-error) & {
-      border-color: color(alert, dark);
+    .has-error &,
+    .has-own-errors &,
+    .has-own-errors .is-valid & {
+      border-color: color(error);
     }
 
     @include mq(medium) {
@@ -65,12 +69,16 @@
     transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
     right: 10px;
 
-    .has-error & {
-      color: color(error);
+    .has-warning:not(.has-error) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+      color: color(alert, dark);
     }
 
-    .has-warning:not(.has-error) & {
-      color: color(alert, dark);
+    .has-error &,
+    .has-own-errors &,
+    .has-own-errors .is-valid & {
+      color: color(error);
     }
   }
 
@@ -114,15 +122,23 @@
     }
   }
 
-  .has-error & {
-    border-color: color(error);
-  }
-
-  .has-warning:not(.has-error) & {
+  .has-warning:not(.has-error) &,
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
     border-color: color(alert, dark);
   }
 
   .has-error &,
+  .has-own-errors &,
+  .has-own-errors .is-valid & {
+    border-color: color(error);
+  }
+
+  .has-error &,
+  .has-own-errors &,
+  .has-own-errors .is-valid &,
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid &,
   .has-warning:not(.has-error) & {
     border-top-color: color(shape);
   }

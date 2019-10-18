@@ -1,10 +1,10 @@
 .m-form-field-group {
-  align-items: baseline;
+  align-items: flex-start;
   border-radius: map-get($formConfig, borderRadius);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: 10px;
+  padding: map-get($formConfig, formFieldPadding);
   position: relative;
   transition: background 0.3s;
 
@@ -14,31 +14,37 @@
     }
   }
 
-  .a-form-field {
-    padding: 0;
-    min-height: inherit;
+  @include mq(small) {
+    padding: map-get($formConfig, formFieldPadding) / 2;
   }
 
-  .a-form-field + .a-form-field {
-    margin-left: 10px;
+  .a-form-field {
+    $paddingX: map-get($formConfig, formFieldPadding);
+    $paddingY: $paddingX / 2;
+    
+    margin: $paddingY $paddingX $paddingY 0;
+    min-height: inherit;
+    padding: 0;
+
+    @include mqDown(small) {
+      flex: 1;
+    }
   }
 
   .a-form-field__input {
-    flex: 0 0 90%;
+    flex: 1 0 auto;
     min-width: inherit;
   }
-
-  & .has-own-errors {}
-  & .has-own-warnings {}
-  & .has-field-errors {}
-  & .has-field-warning {}
 }
-
-.m-form-field-group__label {}
 
 .m-form-field-group__fields-list {
   display: flex;
-  flex: 1;
+  flex-wrap: wrap;
+  width: 100%;
+
+  @include mq(small) {
+    width: map-get($formConfig, fieldMaxWidthLarge);
+  }
 }
 
 .m-form-field-group__fields-wrapper {
@@ -48,17 +54,25 @@
 }
 
 .m-form-field-group__validation-messages-list {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 100%;
   font-family: font(base);
   font-size: 12px;
-  flex: 0 0 100%;
+}
 
-  .has-error & {
+.m-form-field-group__validation-message-list__item {
+  display: flex;
+
+  .has-field-errors &,
+  .has-own-errors & {
     color: color(error);
   }
 
-  .has-warning:not(.has-error) & {
+  .has-field-warnings:not(.has-own-errors) & {
+    color: color(alert, dark);
+  }
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) & {
     color: color(alert, dark);
   }
 }
-
-.m-form-field-group__validation-message-list__item {}

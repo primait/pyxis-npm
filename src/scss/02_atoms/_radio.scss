@@ -24,7 +24,11 @@
     color: color(brandAlt, dark);
 
     .has-error &,
-    .has-warning & {
+    .has-warning &,
+    .has-own-errors &,
+    .has-own-errors .is-valid &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       color: color(text, dark);
     }
   }
@@ -64,11 +68,15 @@
     top: 50%;
     transform: translateY(-50%);
 
-    .has-error & {
+    .has-error &,
+    .has-own-errors &,
+    .has-own-errors .is-valid & {
       border-color: color(error);
     }
 
-    .has-warning:not(.has-error) & {
+    .has-warning:not(.has-error) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       border-color: color(alert, dark);
     }
   }
@@ -84,7 +92,11 @@
     width: 10px;
 
     .has-error &,
-    .has-warning & {
+    .has-warning &,
+    .has-own-errors &,
+    .has-own-errors .is-valid &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       background: color(text, light);
     }
   }

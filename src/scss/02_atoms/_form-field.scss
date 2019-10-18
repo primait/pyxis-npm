@@ -1,11 +1,11 @@
 .a-form-field {
-  align-items: baseline;
+  align-items: flex-start;
   border-radius: map-get($formConfig, borderRadius);
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
   min-height: 70px;
-  padding: 10px;
+  padding: map-get($formConfig, formFieldPadding);
   position: relative;
   transition: background 0.3s;
 
@@ -44,16 +44,6 @@
     min-width: map-get($formConfig, fieldMaxWidthLarge);
   }
 
-  & + & {
-    @include mqDown(small) {
-      margin-top: 10px;
-    }
-
-    @include mq(small) {
-      margin-left: 10px;
-    }
-  }
-
   .has-error & {
     border-color: color(error);
   }
@@ -64,6 +54,32 @@
 
   .is-valid & {
     border-color: color(brandAlt, dark);
+  }
+
+
+  // Field group validation rules
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+    border-color: color(alert, dark);
+    color: color(alert, dark);
+    -webkit-text-fill-color: color(alert, dark);
+  }
+
+  .has-own-errors &,
+  .has-own-errors .is-valid & {
+    border-color: color(error);
+    color: color(error);
+    -webkit-text-fill-color: color(error);
+  }
+
+  & + & {
+    @include mqDown(small) {
+      margin-top: 10px;
+    }
+
+    @include mq(small) {
+      margin-left: 10px;
+    }
   }
 }
 

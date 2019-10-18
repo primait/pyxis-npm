@@ -48,11 +48,15 @@
     transform: translateY(-50%);
     transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(.78,-1.22,.17,1.89);
 
-    .has-error & {
+    .has-error &,
+    .has-own-errors &,
+    .has-own-errors .is-valid & {
       border-color: color(error);
     }
 
-    .has-warning:not(.has-error) & {
+    .has-warning:not(.has-error) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       border-color: color(alert, dark);
     }
 
@@ -80,7 +84,11 @@
   }
 
   .has-error &,
-  .has-warning & {
+  .has-warning &,
+  .has-own-errors &,
+  .has-own-errors .is-valid &,
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
     color: color(text, dark);
   }
 
