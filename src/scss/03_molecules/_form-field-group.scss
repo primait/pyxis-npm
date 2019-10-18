@@ -18,22 +18,21 @@
     padding: map-get($formConfig, formFieldPadding) / 2;
   }
 
-  .a-form-field {
-    $paddingX: map-get($formConfig, formFieldPadding);
-    $paddingY: $paddingX / 2;
-    
-    margin: $paddingY $paddingX $paddingY 0;
-    min-height: inherit;
-    padding: 0;
-
-    @include mqDown(small) {
-      flex: 1;
-    }
+  .a-form-field,
+  .a-form-field__field-wrapper,
+  .a-form-field__input {
+    display: flex;
+    flex: 1 0;
+    min-width: map-get($formConfig, fieldMaxWidth) / 3 - map-get($formConfig, formFieldPadding);
   }
 
-  .a-form-field__input {
-    flex: 1 0 auto;
-    min-width: inherit;
+  .a-form-field {
+    $marginX: map-get($formConfig, formFieldPadding);
+    $marginY: $marginX / 2;
+
+    margin: $marginY $marginX $marginY 0;
+    min-height: 0;
+    padding: 0;
   }
 }
 
@@ -41,16 +40,16 @@
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-
-  @include mq(small) {
-    width: map-get($formConfig, fieldMaxWidthLarge);
-  }
 }
 
 .m-form-field-group__fields-wrapper {
   display: flex;
   flex: 1;
   flex-flow: row wrap;
+
+  @include mq(small) {
+    max-width: map-get($formConfig, fieldMaxWidth) + map-get($formConfig, formFieldPadding);
+  }
 }
 
 .m-form-field-group__validation-messages-list {

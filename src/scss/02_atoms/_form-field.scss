@@ -94,6 +94,10 @@
   display: flex;
   flex-flow: row wrap;
   flex: 1;
+
+  @include mq(small) {
+    max-width: map-get($formConfig, fieldMaxWidthLarge);
+  }
 }
 
 .a-form-field__validation-message {
