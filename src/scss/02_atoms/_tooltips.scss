@@ -28,6 +28,11 @@
     --tooltipColor: #{color(brand, light)};
     color: color(textAlt, light);
   }
+
+  &.tooltip--warning {
+    --tooltipColor: #{color(alert)};
+    color: color(text, dark);
+  }
 }
 
 .tooltip__wrapper {
