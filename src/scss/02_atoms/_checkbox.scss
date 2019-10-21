@@ -43,21 +43,27 @@
     background-color: color(background);
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
     border-radius: 3px;
-    content: '';
+    content: "";
     left: 0;
     transform: translateY(-50%);
-    transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(.78,-1.22,.17,1.89);
+    transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(0.78, -1.22, 0.17, 1.89);
 
-    .has-error &,
-    .has-own-errors &,
-    .has-own-errors .is-valid & {
+    .a-form-field.has-error &,
+    .m-form-field-group.has-own-errors &,
+    .m-form-field-group.has-own-errors .is-valid & {
       border-color: color(error);
     }
 
-    .has-warning:not(.has-error) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+    .a-form-field.has-warning:not(.has-error) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       border-color: color(alert, dark);
+    }
+
+    .m-form-field-group.has-own-errors.has-field-warnings .a-form-field.has-warning &,
+    .m-form-field-group.has-field-errors.has-field-warnings .a-form-field.has-warning & {
+      border-color: color(shape);
+      color: color(text, dark);
     }
 
     .a-form-field__checkbox[disabled] + & {
@@ -67,10 +73,10 @@
   }
 
   &:after {
-    clip-path: inset( 0 100% 0 0 );
+    clip-path: inset(0 100% 0 0);
     color: color(text, light);
     content: "\e915";
-    font-family: 'pyxisIconset';
+    font-family: "pyxisIconset";
     font-size: 16px;
     left: 2px;
     line-height: 20px;
@@ -83,12 +89,12 @@
     opacity: 1;
   }
 
-  .has-error &,
-  .has-warning &,
-  .has-own-errors &,
-  .has-own-errors .is-valid &,
-  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+  .a-form-field.has-error &,
+  .a-form-field.has-warning &,
+  .m-form-field-group.has-own-errors &,
+  .m-form-field-group.has-own-errors .is-valid &,
+  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
     color: color(text, dark);
   }
 
@@ -97,7 +103,7 @@
   }
 
   .a-form-field__checkbox:checked + &:after {
-    clip-path: inset( 0 0 0 0 );
+    clip-path: inset(0 0 0 0);
     color: color(brandAlt, dark);
     opacity: 1;
   }
@@ -111,7 +117,7 @@
   }
 
   .a-form-field__checkbox:not(:checked) + &:hover:after {
-    clip-path: inset( 0 0 0 0 );
+    clip-path: inset(0 0 0 0);
 
     .isTouchDevice & {
       opacity: 0;

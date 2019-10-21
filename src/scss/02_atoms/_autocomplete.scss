@@ -21,11 +21,11 @@
     top: 1px;
     width: map-get($formConfig, fieldHeight);
     
-    .has-error & {
+    .a-form-field.has-error & {
       color: color(error);
     }
 
-    .has-warning:not(.has-error) & {
+    .a-form-field.has-warning:not(.has-error) & {
       color: color(alert, dark);
     }
   }
@@ -37,16 +37,16 @@
     border-bottom-right-radius: 0;
     border-bottom-color: color(shape);
 
-    .has-error & {
+    .a-form-field.has-error & {
       border-color: color(error);
     }
 
-    .has-warning:not(.has-error) & {
+    .a-form-field.has-warning:not(.has-error) & {
       border-color: color(alert, dark);
     }
 
-    .has-error &,
-    .has-warning:not(.has-error) & {
+    .a-form-field.has-error &,
+    .a-form-field.has-warning:not(.has-error) & {
       border-bottom-color: color(shape);
     }
   }
@@ -88,11 +88,11 @@
     border-top: none;
   }
 
-  .has-error & {
+  .a-form-field.has-error & {
     border-color: color(error);
   }
 
-  .has-warning:not(.has-error) & {
+  .a-form-field.has-warning:not(.has-error) & {
     border-color: color(alert, dark);
   }
 }

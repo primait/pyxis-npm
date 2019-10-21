@@ -9,11 +9,11 @@
   text-align: center;
   width: map-get($formConfig, fieldHeight);
 
-  .has-error & {
+  .a-form-field.has-error & {
     color: color(error);
   }
 
-  .has-warning:not(.has-error) & {
+  .a-form-field.has-warning:not(.has-error) & {
     color: color(alert, dark);
   }
 }

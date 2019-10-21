@@ -66,15 +66,15 @@
 .m-form-field-group__validation-message-list__item {
   display: flex;
 
-  .has-field-errors &,
-  .has-own-errors & {
+  .m-form-field-group.has-field-errors &,
+  .m-form-field-group.has-own-errors & {
     color: color(error);
   }
 
-  .has-field-warnings:not(.has-own-errors) & {
+  .m-form-field-group.has-field-warnings:not(.has-own-errors):not(.has-field-errors) & {
     color: color(alert, dark);
   }
-  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) & {
+  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) & {
     color: color(alert, dark);
   }
 }

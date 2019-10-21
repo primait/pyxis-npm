@@ -14,16 +14,21 @@
     border-color: color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
 
-    .has-warning:not(.has-error) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+    .a-form-field.has-warning:not(.has-error) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       border-color: color(alert, dark);
     }
 
-    .has-error &,
-    .has-own-errors &,
-    .has-own-errors .is-valid & {
+    .a-form-field.has-error &,
+    .m-form-field-group.has-own-errors &,
+    .m-form-field-group.has-own-errors .is-valid & {
       border-color: color(error);
+    }
+
+    .m-form-field-group.has-own-errors.has-field-warnings .a-form-field.has-warning &,
+    .m-form-field-group.has-field-errors.has-field-warnings .a-form-field.has-warning & {
+      border-color: color(shape);
     }
   }
 

@@ -12,7 +12,7 @@
   pointer-events: none;
   position: relative;
 
-  .is-touched:not(.has-error):not(.has-warning) & {
+  .a-form-field.is-touched:not(.has-error):not(.has-warning) & {
     border-color: color(brandAlt, dark);
   }
 
@@ -27,15 +27,15 @@
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
 
-    .has-warning:not(.has-error) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+    .a-form-field.has-warning:not(.has-error) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       border-color: color(alert, dark);
     }
 
-    .has-error &,
-    .has-own-errors &,
-    .has-own-errors .is-valid & {
+    .a-form-field.has-error &,
+    .m-form-field-group.has-own-errors &,
+    .m-form-field-group.has-own-errors .is-valid & {
       border-color: color(error);
     }
 
@@ -69,20 +69,20 @@
     transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
     right: 10px;
 
-    .has-warning:not(.has-error) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+    .a-form-field.has-warning:not(.has-error) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
       color: color(alert, dark);
     }
 
-    .has-error &,
-    .has-own-errors &,
-    .has-own-errors .is-valid & {
+    .a-form-field.has-error &,
+    .m-form-field-group.has-own-errors &,
+    .m-form-field-group.has-own-errors .is-valid & {
       color: color(error);
     }
   }
 
-  .is-valid:not(.is-pristine) & {
+  .a-form-field.is-valid:not(.is-pristine) & {
     color: color(brandAlt, dark);
     opacity: 1;
   }
@@ -122,24 +122,29 @@
     }
   }
 
-  .has-warning:not(.has-error) &,
-  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+  .a-form-field.has-warning:not(.has-error) &,
+  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
     border-color: color(alert, dark);
   }
 
-  .has-error &,
-  .has-own-errors &,
-  .has-own-errors .is-valid & {
+  .a-form-field.has-error &,
+  .m-form-field-group.has-own-errors &,
+  .m-form-field-group.has-own-errors .is-valid & {
     border-color: color(error);
   }
 
-  .has-error &,
-  .has-own-errors &,
-  .has-own-errors .is-valid &,
-  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid &,
-  .has-warning:not(.has-error) & {
+  .m-form-field-group.has-own-errors.has-field-warnings .a-form-field.has-warning &,
+  .m-form-field-group.has-field-errors.has-field-warnings .a-form-field.has-warning & {
+    border-color: color(shape);
+  }
+
+  .a-form-field.has-error &,
+  .a-form-field.has-warning:not(.has-error) &,
+  .m-form-field-group.has-own-errors &,
+  .m-form-field-group.has-own-errors .is-valid &,
+  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
     border-top-color: color(shape);
   }
 }
