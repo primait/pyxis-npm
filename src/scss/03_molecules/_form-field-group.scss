@@ -22,11 +22,16 @@
   .a-form-field,
   .a-form-field__field-wrapper, 
   .a-form-field__input {
-    @include mqDown(small) {
+    @include mqDown(xsmall) {
       display: flex;
       flex: 1 1 auto;
-      min-width: map-get($formConfig, fieldMaxWidth) / 3 - map-get($formConfig, formFieldPadding);
     } 
+  }
+
+  .a-form-field__input {
+    @include mqDown(xsmall) {
+      width: map-get($formConfig, fieldMaxWidth) / 3 - (map-get($formConfig, formFieldPadding) * 1.5);
+    }
   }
 
   .a-form-field {

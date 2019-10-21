@@ -16,13 +16,13 @@
 
     .a-form-field.has-warning:not(.has-error) &,
     .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .is-valid & {
+    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
       border-color: color(alert, dark);
     }
 
     .a-form-field.has-error &,
     .m-form-field-group.has-own-errors &,
-    .m-form-field-group.has-own-errors .is-valid & {
+    .m-form-field-group.has-own-errors .a-form-field.is-valid & {
       border-color: color(error);
     }
 
