@@ -24,25 +24,25 @@
 .a-form-field__autocomplete {
   font-family: font(light);
   font-size: 14px;
-  min-width: 100%;
+  width: 100%;
   outline: none;
 
   @include mq(small) {
-    min-width: map-get($formConfig, fieldMaxWidth);
-  }
+    width: map-get($formConfig, fieldMaxWidth);
 
-  &.field-small {
-    min-width: calc(50% - 5px);
+    &.is-small {
+      max-width: map-get($formConfig, fieldMaxWidthSmall) - (map-get($formConfig, fieldMargin) * 1.5);
+    }
 
-    @include mq(small) {
-      min-width: map-get($formConfig, fieldMaxWidthSmall);
-      width: map-get($formConfig, fieldMaxWidthSmall);
+    &.is-medium {
+      max-width: map-get($formConfig, fieldMaxWidthMedium) - map-get($formConfig, fieldMargin);
+    }
+
+    &.is-large {
+      max-width: map-get($formConfig, fieldMaxWidthLarge);
     }
   }
-
-  &.field-large {
-    min-width: map-get($formConfig, fieldMaxWidthLarge);
-  }
+  
 
   .has-error & {
     border-color: color(error);

@@ -18,12 +18,15 @@
     padding: map-get($formConfig, formFieldPadding) / 2;
   }
 
+  // Fluid group fields on mobile 
   .a-form-field,
-  .a-form-field__field-wrapper,
+  .a-form-field__field-wrapper, 
   .a-form-field__input {
-    display: flex;
-    flex: 1 0;
-    min-width: map-get($formConfig, fieldMaxWidth) / 3 - map-get($formConfig, formFieldPadding);
+    @include mqDown(small) {
+      display: flex;
+      flex: 1;
+      min-width: map-get($formConfig, fieldMaxWidth) / 3 - map-get($formConfig, formFieldPadding);
+    } 
   }
 
   .a-form-field {
@@ -48,7 +51,7 @@
   flex-flow: row wrap;
 
   @include mq(small) {
-    max-width: map-get($formConfig, fieldMaxWidth) + map-get($formConfig, formFieldPadding);
+    max-width: map-get($formConfig, fieldMaxWidthLarge) + map-get($formConfig, formFieldPadding);
   }
 }
 

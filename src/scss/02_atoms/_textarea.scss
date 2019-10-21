@@ -3,7 +3,6 @@
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: map-get($formConfig, borderRadius);
   color: color(text, dark);
-  max-width: calc(100% - 280px);
   min-height: 100px;
   margin: 0;
   padding: nth(map-get($formConfig, fieldPadding), 2);
