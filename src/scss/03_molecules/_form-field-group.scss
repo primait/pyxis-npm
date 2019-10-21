@@ -24,7 +24,7 @@
   .a-form-field__input {
     @include mqDown(small) {
       display: flex;
-      flex: 1;
+      flex: 1 1 auto;
       min-width: map-get($formConfig, fieldMaxWidth) / 3 - map-get($formConfig, formFieldPadding);
     } 
   }
