@@ -25,3 +25,9 @@
     }
   }
 }
+
+.m-form-field-group__label {
+  @include mq(small) {
+    padding-top: map-get($formConfig, formFieldPadding);
+  }
+}

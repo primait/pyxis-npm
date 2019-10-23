@@ -52,7 +52,7 @@
     border-color: color(alert, dark);
   }
 
-  .a-form-field.is-valid & {
+  .a-form-field.is-valid:not(.is-pristine) & {
     border-color: color(brandAlt, dark);
   }
 
@@ -92,7 +92,8 @@
 
 .a-form-field__input,
 .a-form-field__date,
-.a-form-field__select {
+.a-form-field__select,
+.a-form-field__textarea {
   transition: background 0.3s, border 0.3s, color 0.3s;
   -webkit-appearance: none;
 }
