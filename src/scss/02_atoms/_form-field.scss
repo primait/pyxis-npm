@@ -21,29 +21,37 @@
 .a-form-field__textarea,
 .a-form-field__select,
 .a-form-field__custom-select,
-.a-form-field__autocomplete,
-.m-form-input-group {
+.a-form-field__autocomplete {
   font-family: font(light);
   font-size: 14px;
-  width: 100%;
   outline: none;
+  width: map-get($formConfig, fieldMaxWidth);
 
-  @include mq(small) {
-    width: map-get($formConfig, fieldMaxWidth);
+  @include mqDown(small) {
+    width: 100%;
 
-    &.is-small {
-      max-width: map-get($formConfig, fieldMaxWidthSmall) - (map-get($formConfig, fieldMargin) * 1.5);
-    }
-
-    &.is-medium {
-      max-width: map-get($formConfig, fieldMaxWidthMedium) - map-get($formConfig, fieldMargin);
-    }
-
+    &.is-small,
+    &.is-medium,
     &.is-large {
-      max-width: map-get($formConfig, fieldMaxWidthLarge);
+      min-width: 100%;
+    }
+
+    .m-form-field-group & {
+      min-width: 100%;
     }
   }
-  
+
+  &.is-small {
+    max-width: map-get($formConfig, fieldMaxWidthSmall) - (map-get($formConfig, fieldMargin) * 1.5);
+  }
+
+  &.is-medium {
+    max-width: map-get($formConfig, fieldMaxWidthMedium) - map-get($formConfig, fieldMargin);
+  }
+
+  &.is-large {
+    max-width: map-get($formConfig, fieldMaxWidthLarge);
+  }
 
   .a-form-field.has-error & {
     border-color: color(error);
@@ -101,9 +109,8 @@
 
 .a-form-field__field-wrapper {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: column;
   position: relative;
-  background-color: rgba(blue, 0.1);
 
   @include mqDown(small) {
     flex: 1;
@@ -117,7 +124,7 @@
 .a-form-field__validation-message {
   font-family: font(base);
   font-size: 12px;
-  flex: 0 0 map-get($formConfig, fieldMaxWidth);
+  max-width: map-get($formConfig, fieldMaxWidth);
 
   .a-form-field.has-error & {
     color: color(error);

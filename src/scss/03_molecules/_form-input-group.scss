@@ -1,10 +1,5 @@
 .m-form-input-group {
   position: relative;
-
-  @include mq(small) {
-    display: flex;
-    flex-direction: column;
-  }
 }
 
 .m-form-input-group .a-form-field__input {

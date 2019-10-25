@@ -18,22 +18,6 @@
     padding: map-get($formConfig, formFieldPadding) / 2;
   }
 
-  // Fluid group fields on mobile 
-  .a-form-field,
-  .a-form-field__field-wrapper, 
-  .a-form-field__input {
-    @include mqDown(xsmall) {
-      display: flex;
-      flex: 1 0 100%;
-    } 
-  }
-
-  .a-form-field__input {
-    @include mqDown(xsmall) {
-      width: map-get($formConfig, fieldMaxWidth) / 3 - (map-get($formConfig, formFieldPadding) * 1.5);
-    }
-  }
-
   .a-form-field {
     $marginX: map-get($formConfig, formFieldPadding);
     $marginY: $marginX / 2;
@@ -52,22 +36,22 @@
 
 .m-form-field-group__fields-wrapper {
   display: flex;
-  flex: 1;
-  flex-flow: row wrap;
+  flex-flow: column;
+
+  @include mqDown(small) {
+    flex: 1;
+  }
 
   @include mq(small) {
-    max-width: map-get($formConfig, fieldMaxWidthLarge) + map-get($formConfig, formFieldPadding);
+    max-width: map-get($formConfig, fieldMaxWidthLarge);
   }
 }
 
 .m-form-field-group__validation-messages-list {
-  background-color: rgba(color(error), 0.1);
   display: flex;
   flex-direction: column;
-  flex: 0 0 100%;
   font-family: font(base);
   font-size: 12px;
-  max-width: map-get($formConfig, fieldMaxWidth);
 }
 
 .m-form-field-group__validation-message-list__item {
