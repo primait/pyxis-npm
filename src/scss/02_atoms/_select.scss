@@ -52,7 +52,7 @@
 .a-form-field__custom-select__status {
   align-items: center;
   border-color: inherit;
-  color: color(text);
+  color: rgba(color(text), map-get($formConfig, fieldPlaceholderOpacity));
   display: flex;
   height: map-get($formConfig, fieldHeight);
   padding: map-get($formConfig, fieldPadding);

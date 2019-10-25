@@ -24,7 +24,7 @@
   .a-form-field__input {
     @include mqDown(xsmall) {
       display: flex;
-      flex: 1 1 auto;
+      flex: 1 0 100%;
     } 
   }
 
@@ -61,11 +61,13 @@
 }
 
 .m-form-field-group__validation-messages-list {
+  background-color: rgba(color(error), 0.1);
   display: flex;
   flex-direction: column;
   flex: 0 0 100%;
   font-family: font(base);
   font-size: 12px;
+  max-width: map-get($formConfig, fieldMaxWidth);
 }
 
 .m-form-field-group__validation-message-list__item {

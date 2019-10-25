@@ -21,7 +21,8 @@
 .a-form-field__textarea,
 .a-form-field__select,
 .a-form-field__custom-select,
-.a-form-field__autocomplete {
+.a-form-field__autocomplete,
+.m-form-input-group {
   font-family: font(light);
   font-size: 14px;
   width: 100%;
@@ -101,7 +102,12 @@
 .a-form-field__field-wrapper {
   display: flex;
   flex-flow: row wrap;
-  flex: 1;
+  position: relative;
+  background-color: rgba(blue, 0.1);
+
+  @include mqDown(small) {
+    flex: 1;
+  }
 
   @include mq(small) {
     max-width: map-get($formConfig, fieldMaxWidthLarge);
@@ -111,7 +117,7 @@
 .a-form-field__validation-message {
   font-family: font(base);
   font-size: 12px;
-  flex: 0 0 100%;
+  flex: 0 0 map-get($formConfig, fieldMaxWidth);
 
   .a-form-field.has-error & {
     color: color(error);
@@ -124,22 +130,22 @@
 
 ::-webkit-input-placeholder {
   color: color(text);
-  opacity: 0.6;
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
 }
 
 ::-moz-placeholder {
   color: color(text);
-  opacity: 0.6;
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
 }
 
 :-ms-input-placeholder {
   color: color(text);
-  opacity: 0.6;
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
 }
 
 :-moz-placeholder {
   color: color(text);
-  opacity: 0.6;
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
 }
 
 ::-ms-clear {
