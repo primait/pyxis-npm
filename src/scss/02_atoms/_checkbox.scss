@@ -125,6 +125,11 @@
   }
 }
 
+.a-form-field__checkbox-options {
+  display: flex;
+  flex-flow: row;
+}
+
 .checkboxFullText {
   padding-left: 30px;
 

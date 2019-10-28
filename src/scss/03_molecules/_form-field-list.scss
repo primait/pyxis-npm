@@ -19,11 +19,19 @@
   }
 
   .a-form-field {
-    $marginX: map-get($formConfig, formFieldPadding);
-    $marginY: $marginX / 2;
-
-    margin: $marginY $marginX $marginY 0;
+    margin: (map-get($formConfig, formFieldPadding) / 2) 0;
     min-height: 0;
+    padding: 0;
+    width: 100%;
+
+    @include mq(small) {
+      padding: 5px;
+      width: auto;
+      margin: 0;
+    }
+  }
+
+  .a-form-field__field-wrapper {
     padding: 0;
   }
 }
@@ -53,6 +61,7 @@
   flex-direction: column;
   font-family: font(base);
   font-size: 12px;
+  padding: 0 5px;
 }
 
 .m-form-field-list__validation-message-list__item {
