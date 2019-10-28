@@ -8,7 +8,7 @@ Core
 - **BREAKING-CHANGE**: old `a-form__field` has becomed `a-form-field`
 - **BREAKING-CHANGE**: old `m-form` has becomed `o-form`
 - **BREAKING-CHANGE**: now `a-form__field` doesn't have any logic for hide/display validation messages (this should be provided by JS/elm)
-- **NEW FEATURE**: new `m-form-field-group` that is an horizontal group of `a-form-field` 
+- **NEW FEATURE**: new `m-form-field-list` that is an horizontal list of `a-form-field` 
 
 ### 2.0.7
 **sass fix**

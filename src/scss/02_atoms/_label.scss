@@ -1,5 +1,5 @@
 .a-form-field__label,
-.m-form-field-group__label {
+.m-form-field-list__label {
   color: color(text, dark);
   flex: 0 0 100%;
   font-size: map-get($fontSizes, small);
@@ -19,14 +19,14 @@
     justify-content: flex-end;
     margin-bottom: 0;
     text-align: right;
-    
+
     .is-IE & {
       max-width: map-get($formConfig, labelWidth);
     }
   }
 }
 
-.m-form-field-group__label {
+.m-form-field-list__label {
   @include mq(small) {
     padding-top: map-get($formConfig, formFieldPadding);
   }

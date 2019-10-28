@@ -1,4 +1,4 @@
-.m-form-field-group {
+.m-form-field-list {
   align-items: flex-start;
   border-radius: map-get($formConfig, borderRadius);
   display: flex;
@@ -28,15 +28,16 @@
   }
 }
 
-.m-form-field-group__fields-list {
+.m-form-field-list__fields-row {
   display: flex;
   flex-wrap: wrap;
   width: 100%;
 }
 
-.m-form-field-group__fields-wrapper {
+.m-form-field-list__fields-wrapper {
   display: flex;
   flex-flow: column;
+  position: relative;
 
   @include mqDown(small) {
     flex: 1;
@@ -47,25 +48,25 @@
   }
 }
 
-.m-form-field-group__validation-messages-list {
+.m-form-field-list__validation-messages-list {
   display: flex;
   flex-direction: column;
   font-family: font(base);
   font-size: 12px;
 }
 
-.m-form-field-group__validation-message-list__item {
+.m-form-field-list__validation-message-list__item {
   display: flex;
 
-  .m-form-field-group.has-field-errors &,
-  .m-form-field-group.has-own-errors & {
+  .m-form-field-list.has-field-errors &,
+  .m-form-field-list.has-own-errors & {
     color: color(error);
   }
 
-  .m-form-field-group.has-field-warnings:not(.has-own-errors):not(.has-field-errors) & {
+  .m-form-field-list.has-field-warnings:not(.has-own-errors):not(.has-field-errors) & {
     color: color(alert, dark);
   }
-  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) & {
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) & {
     color: color(alert, dark);
   }
 }

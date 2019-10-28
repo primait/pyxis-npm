@@ -11,7 +11,12 @@
   width: map-get($tooltipConfig, width);
   z-index: zIndex(tooltip);
 
-  &:before {
+  .m-form-field-list__fields-wrapper &,
+  .a-form-field__field-wrapper & {
+    max-width: 100%;
+  }
+
+    &:before {
     content: '';
     height: 0;
     position: absolute;

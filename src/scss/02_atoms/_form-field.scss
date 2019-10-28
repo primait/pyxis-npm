@@ -36,7 +36,7 @@
       min-width: 100%;
     }
 
-    .m-form-field-group & {
+    .m-form-field-list & {
       min-width: 100%;
     }
   }
@@ -67,22 +67,22 @@
 
 
   // Field group validation rules
-  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
     border-color: color(alert, dark);
     color: color(text, dark);
     -webkit-text-fill-color: color(text, dark);
   }
 
-  .m-form-field-group.has-own-errors &,
-  .m-form-field-group.has-own-errors .a-form-field.is-valid & {
+  .m-form-field-list.has-own-errors &,
+  .m-form-field-list.has-own-errors .a-form-field.is-valid & {
     border-color: color(error);
     color: color(text, dark);
     -webkit-text-fill-color: color(text, dark);
   }
 
-  .m-form-field-group.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-  .m-form-field-group.has-field-errors.has-field-warnings .a-form-field.has-warning & {
+  .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
+  .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
     border-color: color(shape);
     color: color(text, dark);
     -webkit-text-fill-color: color(text, dark);

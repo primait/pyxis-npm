@@ -49,19 +49,19 @@
     transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(0.78, -1.22, 0.17, 1.89);
 
     .a-form-field.has-error &,
-    .m-form-field-group.has-own-errors &,
-    .m-form-field-group.has-own-errors .a-form-field.is-valid & {
+    .m-form-field-list.has-own-errors &,
+    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
       border-color: color(error);
     }
 
     .a-form-field.has-warning:not(.has-error) &,
-    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
       border-color: color(alert, dark);
     }
 
-    .m-form-field-group.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-    .m-form-field-group.has-field-errors.has-field-warnings .a-form-field.has-warning & {
+    .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
+    .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
       border-color: color(shape);
       color: color(text, dark);
     }
@@ -91,10 +91,10 @@
 
   .a-form-field.has-error &,
   .a-form-field.has-warning &,
-  .m-form-field-group.has-own-errors &,
-  .m-form-field-group.has-own-errors .a-form-field.is-valid &,
-  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .m-form-field-group.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+  .m-form-field-list.has-own-errors &,
+  .m-form-field-list.has-own-errors .a-form-field.is-valid &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
     color: color(text, dark);
   }
 
