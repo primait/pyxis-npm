@@ -1,3 +1,19 @@
+$tooltipMode: (
+  warning: color(alert),
+  error: color(error)
+);
+
+@each $mode, $color in $tooltipMode {
+  .a-tooltip.a-tooltip--#{$mode},
+  .a-tooltip.a-tooltip--#{$mode}:before {
+    background-color: $color;
+
+    @if $mode == warning {
+      color: color(text, dark);
+    }
+  }
+}
+
 .a-tooltip {
   background-color: color(backgroundAlt, base);
   border-radius: map-get($tooltipConfig, borderRadius);
@@ -13,10 +29,11 @@
   }
 
   &:before {
+    background-color: color(backgroundAlt, base);
     content: "";
-    height: 0;
+    height: map-get($tooltipConfig, arrowSize);
     position: absolute;
-    width: 0;
+    width: map-get($tooltipConfig, arrowSize);
   }
 
   p {
@@ -47,9 +64,14 @@
   }
 }
 
-.a-tooltip.a-tooltip--warning {
-  background-color: color(alert);
-  color: color(text, dark);
+.a-tooltip.a-tooltip--up:before,
+.a-tooltip.a-tooltip--down:before {
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.a-tooltip.a-tooltip--left:before,
+.a-tooltip.a-tooltip--right:before {
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .a-tooltip.a-tooltip--up {
@@ -58,54 +80,8 @@
   transform: translate(-50%, -(map-get($tooltipConfig, margin)));
 
   &:before {
-    border-left: map-get($tooltipConfig, arrowSize) solid transparent;
-    border-right: map-get($tooltipConfig, arrowSize) solid transparent;
-    border-top: map-get($tooltipConfig, arrowSize) solid color(backgroundAlt, base);
-    bottom: -(map-get($tooltipConfig, arrowSize));
+    bottom: -(map-get($tooltipConfig, arrowSize) / 2);
     left: 50%;
-    transform: translateX(-50%);
-  }
-
-  &.a-tooltip--warning:before {
-    border-top: map-get($tooltipConfig, arrowSize) solid color(alert);
-  }
-}
-
-.a-tooltip.a-tooltip--right {
-  left: 100%;
-  top: 50%;
-  transform: translate(map-get($tooltipConfig, margin), -50%);
-
-  &:before {
-    border-bottom: map-get($tooltipConfig, arrowSize) solid transparent;
-    border-right: map-get($tooltipConfig, arrowSize) solid color(backgroundAlt, base);
-    border-top: map-get($tooltipConfig, arrowSize) solid transparent;
-    left: -(map-get($tooltipConfig, arrowSize));
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  &.a-tooltip.a-tooltip--warning:before {
-    border-right: map-get($tooltipConfig, arrowSize) solid color(alert);
-  }
-}
-
-.a-tooltip.a-tooltip--left {
-  right: 100%;
-  top: 50%;
-  transform: translate(-(map-get($tooltipConfig, margin)), -50%);
-
-  &:before {
-    border-bottom: map-get($tooltipConfig, arrowSize) solid transparent;
-    border-left: map-get($tooltipConfig, arrowSize) solid color(backgroundAlt, base);
-    border-top: map-get($tooltipConfig, arrowSize) solid transparent;
-    right: -(map-get($tooltipConfig, arrowSize));
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  &.a-tooltip--warning:before {
-    border-left: map-get($tooltipConfig, arrowSize) solid color(alert);
   }
 }
 
@@ -115,15 +91,29 @@
   transform: translate(-50%, map-get($tooltipConfig, margin));
 
   &:before {
-    border-bottom: map-get($tooltipConfig, arrowSize) solid color(backgroundAlt, base);
-    border-left: map-get($tooltipConfig, arrowSize) solid transparent;
-    border-right: map-get($tooltipConfig, arrowSize) solid transparent;
     left: 50%;
-    top: -(map-get($tooltipConfig, arrowSize));
-    transform: translateX(-50%);
+    top: -(map-get($tooltipConfig, arrowSize) / 2);
   }
+}
 
-  &.a-tooltip--warning:before {
-    border-bottom: map-get($tooltipConfig, arrowSize) solid color(alert);
+.a-tooltip.a-tooltip--right {
+  left: 100%;
+  top: 50%;
+  transform: translate(map-get($tooltipConfig, margin), -50%);
+
+  &:before {
+    left: -(map-get($tooltipConfig, arrowSize) / 2);
+    top: 50%;
+  }
+}
+
+.a-tooltip.a-tooltip--left {
+  right: 100%;
+  top: 50%;
+  transform: translate(-(map-get($tooltipConfig, margin)), -50%);
+
+  &:before {
+    right: -(map-get($tooltipConfig, arrowSize) / 2);
+    top: 50%;
   }
 }
