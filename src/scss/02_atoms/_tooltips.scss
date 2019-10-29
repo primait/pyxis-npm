@@ -23,11 +23,6 @@ $tooltipMode: (
   width: map-get($tooltipConfig, width);
   z-index: zIndex(tooltip);
 
-  .m-form-field-list__fields-wrapper &,
-  .a-form-field__field-wrapper & {
-    max-width: 100%;
-  }
-
   &:before {
     background-color: color(backgroundAlt, base);
     content: "";
