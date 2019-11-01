@@ -15,19 +15,10 @@
     display: flex;
     flex: 0 0 calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
     font-size: map-get($fontSizes, base);
-    height: map-get($formConfig, fieldHeight);
+    height: map-get($formConfig, fieldHeight) + map-get($formConfig, formFieldPadding);
     justify-content: flex-end;
     margin-bottom: 0;
     text-align: right;
-
-    .is-IE & {
-      max-width: map-get($formConfig, labelWidth);
-    }
   }
 }
 
-.m-form-field-list__label {
-  @include mq(small) {
-    padding-top: map-get($formConfig, formFieldPadding);
-  }
-}
