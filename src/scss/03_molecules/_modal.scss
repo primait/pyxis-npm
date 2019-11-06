@@ -1,0 +1,32 @@
+.o-modal__header,
+.o-modal__content,
+.o-modal__footer {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.o-modal__header {
+  position: relative;
+}
+
+.o-modal__content {
+  min-height: 240px;
+  overflow-x: hidden;
+  margin-bottom: 25px;
+}
+
+.o-modal__close {
+  top: 0;
+  right: 0;
+}
+
+.o-modal__footer {
+  justify-content: center;
+  display: flex;
+}
+
+.o-modal__footer .m-btnGroup {
+  padding: 0 20px;
+  justify-content: space-evenly;
+}

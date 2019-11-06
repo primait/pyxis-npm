@@ -11,6 +11,9 @@ Core
 - **BREAKING-CHANGE**: removed `label.scss` file. Label rules are now in `form-field.scss` and `form-field-list.scss`
 - **NEW FEATURE**: new `m-form-field-list` that is an horizontal list of `a-form-field`
 
+Modal
+- Adds the `modal` organism
+
 ### 2.0.7
 **sass fix**
 
