@@ -1,7 +1,7 @@
 /************************
   Tablet/Desktop component
 *************************/
-.a-form__field__customSelect {
+.a-form-field__custom-select {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: map-get($formConfig, borderRadius);
@@ -12,34 +12,12 @@
   pointer-events: none;
   position: relative;
 
-  &.is-valid:not(.is-open),
-  &.is-touched:not(.is-open) {
+  .a-form-field.is-touched:not(.has-error):not(.has-warning) & {
     border-color: color(brandAlt, dark);
   }
 
-  &:focus,
-  &.is-pristine:focus,
-  &.is-pristine:not(.is-open):focus {
-    border: map-get($formConfig, borderWidth) solid color(brandAlt);
-    box-shadow: map-get($formConfig, fieldShadow);
-  }
-
-  &.is-invalid.is-touched:not(.is-open):not(:focus) {
-    border-color: color(error);
-    color: color(error);
-  }
-
-  &.has-warn.is-touched:not(.is-open):not(:focus) {
-    border-color: color(error);
-    color: color(error);
-  }
-
-  &.is-pristine:not(.is-open) {
-    border: map-get($formConfig, borderWidth) solid color(shape);
-    color: color(brandAlt, dark);
-  }
-
-  &.is-disabled {
+  &.is-disabled,
+  &[disabled] {
     background: color(background, dark);
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
@@ -48,6 +26,18 @@
   &.is-open {
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
+
+    .a-form-field.has-warning:not(.has-error) &,
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+      border-color: color(alert, dark);
+    }
+
+    .a-form-field.has-error &,
+    .m-form-field-list.has-own-errors &,
+    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
+      border-color: color(error);
+    }
 
     @include mq(medium) {
       border-radius: map-get($formConfig, borderRadius) map-get($formConfig, borderRadius) 0px 0px;
@@ -59,10 +49,10 @@
   }
 }
 
-.a-form__field__customSelect__status {
+.a-form-field__custom-select__status {
   align-items: center;
   border-color: inherit;
-  color: color(text);
+  color: rgba(color(text), map-get($formConfig, fieldPlaceholderOpacity));
   display: flex;
   height: map-get($formConfig, fieldHeight);
   padding: map-get($formConfig, fieldPadding);
@@ -78,22 +68,21 @@
     transform: translateY(-50%) rotate(0deg);
     transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
     right: 10px;
+
+    .a-form-field.has-warning:not(.has-error) &,
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+      color: color(alert, dark);
+    }
+
+    .a-form-field.has-error &,
+    .m-form-field-list.has-own-errors &,
+    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
+      color: color(error);
+    }
   }
 
-  .is-invalid.is-touched &,
-  .has-warn.is-touched & {
-    opacity: 1;
-  }
-
-  .is-invalid.is-touched & {
-    color: color(error);
-  }
-
-  .has-warn.is-touched & {
-    color: color(alert);
-  }
-
-  .is-valid:not(.is-pristine) & {
+  .a-form-field.is-valid:not(.is-pristine) & {
     color: color(brandAlt, dark);
     opacity: 1;
   }
@@ -101,17 +90,9 @@
   .is-open &:after {
     transform: translateY(-50%) rotate(-180deg);
   }
-
-  .is-invalid.is-touched:not(.is-open):not(:focus) &:after {
-    color: color(error);
-  }
-
-  .has-warn.is-touched:not(.is-open):not(:focus) &:after {
-    color: color(alert);
-  }
 }
 
-.a-form__field__customSelect__list {
+.a-form-field__custom-select__list {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: 0 0 map-get($formConfig, borderRadius) map-get($formConfig, borderRadius);
@@ -140,9 +121,35 @@
       display: flex;
     }
   }
+
+  .a-form-field.has-warning:not(.has-error) &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+    border-color: color(alert, dark);
+  }
+
+  .a-form-field.has-error &,
+  .m-form-field-list.has-own-errors &,
+  .m-form-field-list.has-own-errors .a-form-field.is-valid & {
+    border-color: color(error);
+  }
+
+  .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
+  .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
+    border-color: color(shape);
+  }
+
+  .a-form-field.has-error &,
+  .a-form-field.has-warning:not(.has-error) &,
+  .m-form-field-list.has-own-errors &,
+  .m-form-field-list.has-own-errors .a-form-field.is-valid &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+    border-top-color: color(shape);
+  }
 }
 
-.a-form__field__customSelect__list__item {
+.a-form-field__custom-select__list__item {
   align-items: center;
   color: color(text, dark);
   display: flex;
@@ -167,7 +174,7 @@
 /************************
   Mobile component
 *************************/
-.a-form__field__select {
+.a-form-field__select {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: map-get($formConfig, borderRadius);
@@ -188,21 +195,6 @@
 
   &:focus {
     border-color: color(brandAlt);
-  }
-
-  &.is-valid,
-  &.is-touched {
-    border-color: color(brandAlt, dark);
-  }
-
-  &.is-invalid {
-    border-color: color(error);
-    color: color(error);
-  }
-
-  &.has-warn {
-    border-color: color(alert);
-    color: color(alert);
   }
 
   &.is-disabled,

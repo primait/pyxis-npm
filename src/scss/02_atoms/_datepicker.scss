@@ -305,7 +305,7 @@
 	}
 }
 
-.a-form__field__datepicker {
+.a-form-field__datepicker {
 	@include mqDown(small) {
 		display: none !important;
 	}

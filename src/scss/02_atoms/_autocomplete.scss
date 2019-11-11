@@ -1,4 +1,4 @@
-.a-form__field__autocomplete {
+.a-form-field__autocomplete {
   cursor: pointer;
   position: relative;
 
@@ -20,34 +20,52 @@
     text-align: center;
     top: 1px;
     width: map-get($formConfig, fieldHeight);
-  }
+    
+    .a-form-field.has-error & {
+      color: color(error);
+    }
 
-  &.is-open .a-form__field__input,
-  &.is-open .a-form__field__input:focus {
-    border-color: color(brandAlt);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-
-  &.is-open .a-form__field__input,
-  &.is-open .a-form__field__autocomplete__list {
-    box-shadow: map-get($formConfig, fieldShadow);
-  }
-
-  .a-form__field__input {
-    padding-right: 60px;
-
-    &:focus {
-      border-color: color(brandAlt);
+    .a-form-field.has-warning:not(.has-error) & {
+      color: color(alert, dark);
     }
   }
 
-  .a-form__field__input.is-valid.is-touched {
+  &.is-open .a-form-field__input,
+  &.is-open .a-form-field__input:focus {
+    border-color: color(brandAlt);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-color: color(shape);
+
+    .a-form-field.has-error & {
+      border-color: color(error);
+    }
+
+    .a-form-field.has-warning:not(.has-error) & {
+      border-color: color(alert, dark);
+    }
+
+    .a-form-field.has-error &,
+    .a-form-field.has-warning:not(.has-error) & {
+      border-bottom-color: color(shape);
+    }
+  }
+
+  &.is-open .a-form-field__input,
+  &.is-open .a-form-field__autocomplete__list {
+    box-shadow: map-get($formConfig, fieldShadow);
+  }
+
+  .a-form-field__input {
+    padding-right: 60px;
+  }
+
+  .a-form-field__input.is-valid.is-touched {
     border-color: color(brandAlt, dark);
   }
 }
 
-.a-form__field__autocomplete__list {
+.a-form-field__autocomplete__list {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: 0 0 map-get($formConfig, borderRadius) map-get($formConfig, borderRadius);
@@ -55,7 +73,6 @@
   flex-direction: column;
   left: 0;
   list-style: none;
-  margin: -1px 0 0 0;
   max-height: map-get($formConfig, fieldHeight) * 4 + map-get($formConfig, fieldHeight) * 0.5;
   overflow-x: hidden;
   overflow-y: auto;
@@ -66,13 +83,21 @@
   z-index: 3;
 
   .is-open & {
-    border-color: color(brandAlt);
-    border-top-color: color(shape);
     display: flex;
+    border-color: color(brandAlt, dark);
+    border-top: none;
+  }
+
+  .a-form-field.has-error & {
+    border-color: color(error);
+  }
+
+  .a-form-field.has-warning:not(.has-error) & {
+    border-color: color(alert, dark);
   }
 }
 
-.a-form__field__autocomplete__list__item {
+.a-form-field__autocomplete__list__item {
   align-items: center;
   color: color(text, dark);
   display: flex;
@@ -94,7 +119,7 @@
   }
 }
 
-.a-form__field__autocomplete__list__noResults {
+.a-form-field__autocomplete__list--no-results {
   align-items: center;
   color: color(text);
   cursor: default;

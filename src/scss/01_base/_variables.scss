@@ -52,6 +52,7 @@ $colors: (
 
   alert: (
     base: #f7da7e,
+    dark: #f7b900,
   ),
 
 ) !default;
@@ -94,17 +95,21 @@ $formConfig: (
   errorPadding: 7.5px,
   fieldDisabledOpacity: 0.65,
   fieldHeight: 50px,
-  fieldMaxWidth: 250px,
-  fieldMaxWidthLarge: 320px,
-  fieldMaxWidthSmall: 120px,
+  fieldMaxWidth: 330px,
+  fieldMaxWidthSmall: 110px,
+  fieldMaxWidthMedium: 165px,
+  fieldMaxWidthLarge: 440px,
+  fieldMargin : 5px,
   fieldPadding: 0 15px,
   fieldShadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.10),
+  fieldPlaceholderOpacity: 0.5,
+  formFieldPadding: 10px,
   iconSize: 25px,
   labelWidth: 280px,
 ) !default;
 
 $tooltipConfig: (
-  arrowSize: 8px,
+  arrowSize: 14px,
   borderRadius: 5px,
   margin: 15px,
   padding: 10px 15px,

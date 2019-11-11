@@ -22,30 +22,30 @@
     text-align: center;
   }
 
-  .a-form__field {
+  .a-form-field {
 
     @include mq(small) {
       justify-content: center
     }
   }
 
-  .a-form__field,
-  .a-form__field:hover {
+  .a-form-field,
+  .a-form-field:hover {
     background-color: transparent;
   }
 
-  .a-form__field__label {
+  .a-form-field__label {
     flex: 0 0 map-get($formConfig, fieldMaxWidth);
     margin-left: 0;
     padding: 0;
   }
 
-  .a-form__field__error {
+  .a-form-field__error {
     flex: 1;
     padding: 0;
   }
 
-  .a-form__field__label {
+  .a-form-field__label {
     font-size: size(small);
     margin-bottom: 5px;
     padding: 0;

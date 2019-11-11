@@ -1,4 +1,4 @@
-.a-form__field__checkbox {
+.a-form-field__checkbox {
   clip: rect(0 0 0 0);
   height: 1px;
   margin: -1px;
@@ -8,7 +8,7 @@
   width: 1px;
 }
 
-.a-form__field__checkbox__label {
+.a-form-field__checkbox__label {
   color: color(text, dark);
   cursor: pointer;
   display: flex;
@@ -18,13 +18,12 @@
   position: relative;
   width: auto;
 
-  .a-form__field__checkbox[disabled] + & {
+  .a-form-field__checkbox[disabled] + & {
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
   }
 
-  &:hover,
-  .a-form__field__checkbox:focus + & {
+  &:hover {
     color: color(brandAlt, dark);
   }
 
@@ -44,17 +43,40 @@
     background-color: color(background);
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
     border-radius: 3px;
-    content: '';
+    content: "";
     left: 0;
     transform: translateY(-50%);
-    transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(.78,-1.22,.17,1.89);
+    transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(0.78, -1.22, 0.17, 1.89);
+
+    .a-form-field.has-error &,
+    .m-form-field-list.has-own-errors &,
+    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
+      border-color: color(error);
+    }
+
+    .a-form-field.has-warning:not(.has-error) &,
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+      border-color: color(alert, dark);
+    }
+
+    .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
+    .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
+      border-color: color(shape);
+      color: color(text, dark);
+    }
+
+    .a-form-field__checkbox[disabled] + & {
+      background-color: color(background, dark);
+      border-color: color(shape);
+    }
   }
 
   &:after {
-    clip-path: inset( 0 100% 0 0 );
-    color: color(brandAlt, dark);
+    clip-path: inset(0 100% 0 0);
+    color: color(text, light);
     content: "\e915";
-    font-family: 'pyxisIconset';
+    font-family: "pyxisIconset";
     font-size: 16px;
     left: 2px;
     line-height: 20px;
@@ -63,17 +85,30 @@
     transition: clip-path 0.3s linear, opacity 0.2s linear;
   }
 
-  .a-form__field__checkbox:checked + & {
-    color: color(brandAlt, dark);
-  }
-
-  &:hover:after,
-  .a-form__field__checkbox:checked + &:after {
-    clip-path: inset( 0 0 0 0 );
+  &:hover:after {
     opacity: 1;
   }
 
-  .a-form__field__checkbox:not(:checked) + &:hover:before {
+  .a-form-field.has-error &,
+  .a-form-field.has-warning &,
+  .m-form-field-list.has-own-errors &,
+  .m-form-field-list.has-own-errors .a-form-field.is-valid &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
+  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
+    color: color(text, dark);
+  }
+
+  .a-form-field__checkbox:checked + & {
+    color: color(brandAlt, dark);
+  }
+
+  .a-form-field__checkbox:checked + &:after {
+    clip-path: inset(0 0 0 0);
+    color: color(brandAlt, dark);
+    opacity: 1;
+  }
+
+  .a-form-field__checkbox:not(:checked) + &:hover:before {
     transform: scale(1.05) translateY(-50%);
 
     .isTouchDevice & {
@@ -81,9 +116,8 @@
     }
   }
 
-  .a-form__field__checkbox:not(:checked) + &:hover:after {
-    clip-path: inset( 0 0 0 0 );
-    opacity: map-get($formConfig, fieldDisabledOpacity);
+  .a-form-field__checkbox:not(:checked) + &:hover:after {
+    clip-path: inset(0 0 0 0);
 
     .isTouchDevice & {
       opacity: 0;
@@ -91,10 +125,15 @@
   }
 }
 
+.a-form-field__checkbox-options {
+  display: flex;
+  flex-flow: row;
+}
+
 .checkboxFullText {
   padding-left: 30px;
 
-  .a-form__field__label {
+  .a-form-field__label {
     flex: 1;
     order: 2;
     text-align: left;
