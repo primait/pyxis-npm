@@ -41,6 +41,8 @@
     "postcss-loader": "^3.0.0",
     "sass": "^1.20.1",
     "sass-loader": "^7.1.0",
+    "stylelint": "^12.0.0",
+    "stylelint-webpack-plugin": "^1.0.4",
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.5.1"
