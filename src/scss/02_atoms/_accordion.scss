@@ -40,7 +40,6 @@
   }
 }
 
-
 .a-accordion__toggle {
   align-items: center;
   border-top: 1px solid color(shape);
@@ -97,7 +96,7 @@
     visibility: visible;
   }
 
-  .a-accordion.is-open.a-accordion--dark & {
+  .a-accordion.a-accordion--dark.is-open & {
     border-bottom: 1px solid color(shape, dark);
   }
 }
