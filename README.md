@@ -2,6 +2,9 @@
 
 Pyxis-NPM is the standard way to integrate Pyxis Design System into your project @Prima. To use it in your project as npm dependency ask to mantainers or devops to join *prima-assicurazioni* organization on npm, once accepted your invitation you can login your machine typing ```npm login```. Then you can simply ask for pyxis as dependency with ```npm install @prima-assicurazioni/pyxis-npm```
 
+[![npm](https://img.shields.io/npm/v/@prima-assicurazioni/pyxis-npm.svg)][npm-link]
+[![npm](https://img.shields.io/npm/dm/@prima-assicurazioni/pyxis-npm.svg)][npm-link]
+
 ## Pyxis:
 [Costellazione della bussola](https://it.wikipedia.org/wiki/Bussola_(costellazione))
 ![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/NGC_2818_by_the_Hubble_Space_Telescope.jpg/1920px-NGC_2818_by_the_Hubble_Space_Telescope.jpg)
@@ -65,3 +68,9 @@ After install launch webpack dev server in watch mode on your machine
 yarn serve
 ````
 You can edit the test file in `src/test/myTestFile.html`. The page is reachable @ http://localhost:8080/test/myTestFile.html .
+
+## Copyright and license
+
+Code copyright 2019 PrimaIT. Code released under [the ICS license](https://github.com/primait/pyxis-npm/blob/master/LICENSE.md).
+
+[npm-link]: https://www.npmjs.com/package/@prima-assicurazioni/pyxis-npm
