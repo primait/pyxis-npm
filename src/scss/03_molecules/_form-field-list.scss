@@ -4,7 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  padding: map-get($formConfig, formFieldPadding);
+  padding: map-get($formConfig, formFieldPadding) / 2;
   position: relative;
   transition: background 0.3s;
 
@@ -27,7 +27,22 @@
     @include mq(small) {
       padding: 5px;
       width: auto;
-      margin: 0;
+      margin: 0 15px 0 0;
+    }
+  }
+
+  .a-form-field .a-form-field__label {
+    flex-grow: 1;
+    flex-shrink: 1;
+    width: 100%;
+    text-align: left;
+
+    @include mq(small) {
+      text-align: left;
+
+      width: auto;
+      padding-right: 15px;
+      height: map-get($formConfig, fieldHeight);
     }
   }
 
@@ -52,7 +67,7 @@
   }
 
   @include mq(small) {
-    max-width: map-get($formConfig, fieldMaxWidthLarge);
+    max-width: calc(50% + (#{map-get($formConfig, fieldMaxWidth)} / 2));
   }
 }
 
@@ -83,7 +98,9 @@
 
 .m-form-field-list__label {
   color: color(text, dark);
-  flex: 0 0 100%;
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
   font-size: map-get($fontSizes, small);
   margin-bottom: 5px;
   outline: none;
@@ -94,12 +111,11 @@
 
   @include mq(small) {
     align-items: center;
-    display: flex;
-    flex: 0 0 calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
     font-size: map-get($fontSizes, base);
     height: map-get($formConfig, fieldHeight) + map-get($formConfig, formFieldPadding);
     justify-content: flex-end;
     margin-bottom: 0;
     text-align: right;
+    width: calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
   }
 }
