@@ -27,7 +27,7 @@
 .a-datepicker__header__day {
 	cursor: pointer;
 	display: flex;
-	font-size: size(small);
+	font-size: size(xsmall);
 	overflow: hidden;
 	position: relative;
 
@@ -39,7 +39,7 @@
 
 .a-datepicker__header__year {
 	font-family: font(heavy);
-	font-size: size(small);
+	font-size: size(xsmall);
 	position: relative;
 
 	&:after {
@@ -129,7 +129,7 @@
 	color: color(text, dark);
 	flex: 1 0 auto;
 	font-family: font(heavy);
-	font-size: size(small);
+	font-size: size(xsmall);
 	line-height: map-get($formConfig, datepickerCellSize);
 	overflow: hidden;
 	position: relative;
@@ -295,7 +295,7 @@
 	color: color(text, dark);
 	cursor: pointer;
 	display: flex;
-	font-size: size(small);
+	font-size: size(xsmall);
 	font-weight: 800;
 	justify-content: center;
 	padding: 10px;

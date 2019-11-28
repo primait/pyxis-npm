@@ -20,35 +20,27 @@
     text-align: center;
     top: 1px;
     width: map-get($formConfig, fieldHeight);
-    
-    .a-form-field.has-error & {
-      color: color(error);
-    }
+  }
 
-    .a-form-field.has-warning:not(.has-error) & {
-      color: color(alert, dark);
-    }
+  &.has-error:before {
+    color: color(error);
+    border-left-color: color(error);
+  }
+
+  &.has-warning:before {
+    color: color(alert, dark);
+    border-left-color: color(alert, dark);
   }
 
   &.is-open .a-form-field__input,
   &.is-open .a-form-field__input:focus {
-    border-color: color(brandAlt);
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
+  }
+
+  &.is-open .a-form-field__input:not(.has-warning,.has-error) {
+    border-color: color(brandAlt);
     border-bottom-color: color(shape);
-
-    .a-form-field.has-error & {
-      border-color: color(error);
-    }
-
-    .a-form-field.has-warning:not(.has-error) & {
-      border-color: color(alert, dark);
-    }
-
-    .a-form-field.has-error &,
-    .a-form-field.has-warning:not(.has-error) & {
-      border-bottom-color: color(shape);
-    }
   }
 
   &.is-open .a-form-field__input,
@@ -60,7 +52,7 @@
     padding-right: 60px;
   }
 
-  .a-form-field__input.is-valid.is-touched {
+  .a-form-field__input.is-valid:not(.is-pristine) {
     border-color: color(brandAlt, dark);
   }
 }
@@ -82,17 +74,17 @@
   top: 100%;
   z-index: 3;
 
-  .is-open & {
+  .a-form-field__autocomplete.is-open & {
     display: flex;
     border-color: color(brandAlt, dark);
     border-top: none;
   }
 
-  .a-form-field.has-error & {
+  .a-form-field__autocomplete.has-error & {
     border-color: color(error);
   }
 
-  .a-form-field.has-warning:not(.has-error) & {
+  .a-form-field__autocomplete.has-warning & {
     border-color: color(alert, dark);
   }
 }

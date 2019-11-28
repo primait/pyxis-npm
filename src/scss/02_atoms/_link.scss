@@ -78,3 +78,12 @@
     }
   }
 }
+
+.m-form-input-group__append .a-link,
+.m-form-input-group__prepend .a-link {
+  font-size: size(xsmall);
+
+  &:hover {
+    background: none;
+  }
+}

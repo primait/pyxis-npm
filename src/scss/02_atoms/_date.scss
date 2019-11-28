@@ -21,29 +21,6 @@
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
   }
-
-  .a-form-field.has-warning &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-    border-color: color(alert, dark);
-    color: color(alert, dark);
-    -webkit-text-fill-color: color(alert, dark);
-  }
-
-  .a-form-field.has-error &,
-  .m-form-field-list.has-own-errors &,
-  .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-    border-color: color(error);
-    color: color(error);
-    -webkit-text-fill-color: color(error);
-  }
-
-  .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-  .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
-    border-color: color(shape);
-    color: color(text, dark);
-    -webkit-text-fill-color: color(text, dark);
-  }
 }
 
 .a-form-field__input.a-form-field__datepicker + .a-form-field__date {

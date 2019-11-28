@@ -8,44 +8,46 @@
   width: 1px;
 }
 
-.a-form-field__radio__label {
+.a-form-field__radio-options {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: map-get($formConfig, fieldHeight);
+}
+
+.a-form-field__radio-options__item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.a-form-field__radio-options__item__label {
   color: color(text, dark);
   cursor: pointer;
   display: flex;
-  line-height: map-get($formConfig, fieldHeight);
+  font-size: size(small);
   padding-left: 30px;
   padding-right: 30px;
   position: relative;
+  align-items: center;
   transition: background 0.3s, color 0.3s;
   width: auto;
 
-  &:hover,
-  .a-form-field__radio:focus + & {
+  .a-form-field__radio:checked + & {
     color: color(brandAlt, dark);
-
-    .a-form-field.has-error &,
-    .a-form-field.has-warning &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      color: color(text, dark);
-    }
   }
 
   .a-form-field__radio[disabled] + & {
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
-
-    &:before {
-      background-color: color(background, dark);
-      border-color: color(shape);
-    }
   }
 
-  .a-form-field__radio:checked + & {
+  &:hover,
+  .a-form-field__radio:focus + & {
     color: color(brandAlt, dark);
   }
+
 
   &:before,
   &:after {
@@ -66,24 +68,17 @@
     content: "";
     left: 0;
     top: 50%;
+    margin-top: -2px;
     transform: translateY(-50%);
+  }
 
-    .a-form-field.has-error &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-      border-color: color(error);
-    }
+  .a-form-field__radio[disabled] + &:before {
+    background-color: color(background, dark);
+    border-color: color(shape);
+  }
 
-    .a-form-field.has-warning:not(.has-error) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      border-color: color(alert, dark);
-    }
-
-    .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-    .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
-      border-color: color(shape);
-    }
+  .a-form-field__radio.has-error + &:before {
+    border-color: color(error);
   }
 
   &:after {
@@ -91,19 +86,11 @@
     content: "";
     left: 5px;
     height: 10px;
-    top: 20px;
+    top: 50%;
+    margin-top: -7px;
     transform: scale(0);
     transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
     width: 10px;
-
-    .a-form-field.has-error &,
-    .a-form-field.has-warning &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      background: color(text, light);
-    }
   }
 
   &:hover:after,
@@ -114,25 +101,9 @@
   .a-form-field__radio:not(:checked) + &:hover:after {
     opacity: map-get($formConfig, fieldDisabledOpacity);
   }
-}
 
-.a-form-field__radio-options {
-  display: flex;
-  flex-direction: row;
-
-  &.is-vertical {
-    flex-direction: column;
-  }
-}
-
-.radioFullText {
-  .a-form-field__label {
-    flex: 1;
-    text-align: left;
-  }
-
-  .a-form-field__error {
-    margin-top: 0;
-    text-align: right;
+  .a-form-field__radio.has-error + &:after {
+    color: color(error);
+    background-color: color(error);
   }
 }

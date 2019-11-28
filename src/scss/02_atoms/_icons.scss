@@ -4,6 +4,7 @@
 
 .m-form-input-group__append .a-icon,
 .m-form-input-group__prepend .a-icon {
+  color: color(brandAlt);
   height: map-get($formConfig, fieldHeight);
   line-height: map-get($formConfig, fieldHeight);
   text-align: center;

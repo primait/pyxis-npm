@@ -8,15 +8,31 @@
   width: 1px;
 }
 
-.a-form-field__checkbox__label {
+.a-form-field__checkbox-options {
+  display: flex;
+  flex-flow: row;
+  min-height: map-get($formConfig, fieldHeight);
+  justify-content: center;
+}
+
+.a-form-field__checkbox-options__item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.a-form-field__checkbox-options__item__label {
   color: color(text, dark);
   cursor: pointer;
-  display: flex;
-  line-height: map-get($formConfig, fieldHeight);
+  font-size: size(small);
   margin-right: 20px;
   padding-left: 30px;
   position: relative;
   width: auto;
+
+  .a-form-field__checkbox:checked + & {
+    color: color(brandAlt, dark);
+  }
 
   .a-form-field__checkbox[disabled] + & {
     opacity: map-get($formConfig, fieldDisabledOpacity);
@@ -36,6 +52,7 @@
     position: absolute;
     text-align: center;
     top: 50%;
+    margin-top: -2px;
     width: 20px;
   }
 
@@ -47,29 +64,19 @@
     left: 0;
     transform: translateY(-50%);
     transition: background-color 0.125s 0.2s, transform 0.35s cubic-bezier(0.78, -1.22, 0.17, 1.89);
+  }
 
-    .a-form-field.has-error &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-      border-color: color(error);
-    }
+  .a-form-field__checkbox.has-error + &:before {
+    border-color: color(error);
+  }
 
-    .a-form-field.has-warning:not(.has-error) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      border-color: color(alert, dark);
-    }
+  .a-form-field__checkbox[disabled] + &:before {
+    background-color: color(background, dark);
+    border-color: color(shape);
+  }
 
-    .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-    .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
-      border-color: color(shape);
-      color: color(text, dark);
-    }
-
-    .a-form-field__checkbox[disabled] + & {
-      background-color: color(background, dark);
-      border-color: color(shape);
-    }
+  .a-form-field__checkbox:not(:checked) + &:hover:before {
+    transform: scale(1.05) translateY(-50%);
   }
 
   &:after {
@@ -89,53 +96,17 @@
     opacity: 1;
   }
 
-  .a-form-field.has-error &,
-  .a-form-field.has-warning &,
-  .m-form-field-list.has-own-errors &,
-  .m-form-field-list.has-own-errors .a-form-field.is-valid &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-    color: color(text, dark);
-  }
-
-  .a-form-field__checkbox:checked + & {
-    color: color(brandAlt, dark);
-  }
-
   .a-form-field__checkbox:checked + &:after {
     clip-path: inset(0 0 0 0);
     color: color(brandAlt, dark);
     opacity: 1;
   }
 
-  .a-form-field__checkbox:not(:checked) + &:hover:before {
-    transform: scale(1.05) translateY(-50%);
-
-    .isTouchDevice & {
-      transform: scale(1) translateY(-50%);
-    }
+  .a-form-field__checkbox.has-error:checked + &:after {
+    color: color(error);
   }
 
   .a-form-field__checkbox:not(:checked) + &:hover:after {
     clip-path: inset(0 0 0 0);
-
-    .isTouchDevice & {
-      opacity: 0;
-    }
-  }
-}
-
-.a-form-field__checkbox-options {
-  display: flex;
-  flex-flow: row;
-}
-
-.checkboxFullText {
-  padding-left: 30px;
-
-  .a-form-field__label {
-    flex: 1;
-    order: 2;
-    text-align: left;
   }
 }

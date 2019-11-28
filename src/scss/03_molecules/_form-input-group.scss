@@ -21,6 +21,10 @@
   position: absolute;
   width: map-get($formConfig, fieldHeight);
   z-index: 2;
+
+  &.is-large {
+    width: map-get($formConfig, fieldHeight) * 1.5;
+  }
 }
 
 .m-form-input-group__append {
@@ -29,7 +33,11 @@
   right: 0;
 
   & ~ .a-form-field__input {
-    padding-right: map-get($formConfig, fieldHeight) + 10px;
+    padding-right: map-get($formConfig, fieldHeight) + map-get($formConfig, fieldPadding);
+  }
+
+  &.is-large ~ .a-form-field__input {
+    padding-right: map-get($formConfig, fieldHeight) * 1.5 + nth(map-get($formConfig, fieldPadding), 2);
   }
 
   & ~ .a-form-field__input:disabled {
@@ -38,14 +46,19 @@
   }
 
   &.noBorder {
-    border-left: 0px;
+    border-left: 0;
   }
 }
 
 .m-form-input-group__prepend {
   left: 0;
+  border-right: map-get($formConfig, borderWidth) solid color(shape);
 
   & ~ .a-form-field__input {
-    padding-left: map-get($formConfig, fieldHeight);
+    padding-left: map-get($formConfig, fieldHeight) + nth(map-get($formConfig, fieldPadding), 2);
+  }
+
+  &.is-large ~ .a-form-field__input {
+    padding-left: map-get($formConfig, fieldHeight) * 1.5 + nth(map-get($formConfig, fieldPadding), 2);
   }
 }

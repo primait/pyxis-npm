@@ -1,23 +1,34 @@
-/************************
-  Tablet/Desktop component
-*************************/
 .a-form-field__custom-select {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
   border-radius: map-get($formConfig, borderRadius);
   color: color(brandAlt, dark);
   cursor: pointer;
-  display: flex;
+  display: none;
   flex-direction: column;
   pointer-events: none;
   position: relative;
+  width: 100%;
 
-  .a-form-field.is-touched:not(.has-error):not(.has-warning) & {
-    border-color: color(brandAlt, dark);
+  @include mq(medium) {
+    display: flex;
   }
 
-  &.is-disabled,
-  &[disabled] {
+  &.is-valid {
+    border-color: color(brandAlt, dark);
+    color: color(brandAlt, dark);
+    -webkit-text-fill-color: color(brandAlt, dark);
+  }
+
+  &.has-error {
+    border-color: color(error);
+  }
+
+  &.has-warning {
+    border-color: color(alert, dark);
+  }
+
+  &.is-disabled {
     background: color(background, dark);
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
@@ -26,18 +37,6 @@
   &.is-open {
     border: map-get($formConfig, borderWidth) solid color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
-
-    .a-form-field.has-warning:not(.has-error) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      border-color: color(alert, dark);
-    }
-
-    .a-form-field.has-error &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-      border-color: color(error);
-    }
 
     @include mq(medium) {
       border-radius: map-get($formConfig, borderRadius) map-get($formConfig, borderRadius) 0px 0px;
@@ -58,38 +57,35 @@
   padding: map-get($formConfig, fieldPadding);
   position: relative;
 
-  &:after {
-    color: color(brandAlt, dark);
-    content: "\e90a";
-    font-family: 'pyxisIconset';
-    font-size: map-get($formConfig, iconSize);
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%) rotate(0deg);
-    transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
-    right: 10px;
-
-    .a-form-field.has-warning:not(.has-error) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      color: color(alert, dark);
-    }
-
-    .a-form-field.has-error &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-      color: color(error);
-    }
-  }
-
-  .a-form-field.is-valid:not(.is-pristine) & {
+  .a-form-field__custom-select.is-valid & {
     color: color(brandAlt, dark);
     opacity: 1;
   }
 
-  .is-open &:after {
-    transform: translateY(-50%) rotate(-180deg);
+  .a-form-field__custom-select.has-error & {
+    color: color(error);
+    opacity: 1;
   }
+
+  .a-form-field__custom-select.has-warning & {
+    opacity: 1;
+  }
+}
+
+.a-form-field__custom-select__status:after {
+  color: color(brandAlt, dark);
+  content: "\e90a";
+  font-family: 'pyxisIconset';
+  font-size: map-get($formConfig, iconSize);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.2s cubic-bezier(0, 1, 1, 1);
+  right: 10px;
+}
+
+.a-form-field__custom-select.is-open .a-form-field__custom-select__status:after {
+  transform: translateY(-50%) rotate(-180deg);
 }
 
 .a-form-field__custom-select__list {
@@ -121,32 +117,6 @@
       display: flex;
     }
   }
-
-  .a-form-field.has-warning:not(.has-error) &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-    border-color: color(alert, dark);
-  }
-
-  .a-form-field.has-error &,
-  .m-form-field-list.has-own-errors &,
-  .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-    border-color: color(error);
-  }
-
-  .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-  .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
-    border-color: color(shape);
-  }
-
-  .a-form-field.has-error &,
-  .a-form-field.has-warning:not(.has-error) &,
-  .m-form-field-list.has-own-errors &,
-  .m-form-field-list.has-own-errors .a-form-field.is-valid &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-    border-top-color: color(shape);
-  }
 }
 
 .a-form-field__custom-select__list__item {
@@ -171,9 +141,6 @@
   }
 }
 
-/************************
-  Mobile component
-*************************/
 .a-form-field__select {
   background: color(background);
   border: map-get($formConfig, borderWidth) solid color(shape);
@@ -185,9 +152,8 @@
   height: map-get($formConfig, fieldHeight);
   margin: 0;
   outline: none;
-  opacity: 0;
   padding: map-get($formConfig, fieldPadding);
-  position: absolute;
+  -webkit-appearance: menulist;
 
   @include mq(medium) {
     display: none;
@@ -197,11 +163,25 @@
     border-color: color(brandAlt);
   }
 
-  &.is-disabled,
   &[disabled] {
     background: color(background, dark);
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
+  }
+
+  &.is-valid {
+    border-color: color(brandAlt, dark);
+    color: color(brandAlt, dark);
+  }
+
+  &.has-error {
+    border-color: color(error);
+    color: color(error);
+  }
+
+  &.has-warning {
+    border-color: color(alert, dark);
+    color: color(alert, dark);
   }
 
   option {

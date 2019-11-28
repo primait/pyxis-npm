@@ -1,0 +1,35 @@
+.a-form-field__label {
+  justify-content: flex-start;
+  color: color(text, dark);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  font-size: size(small);
+  margin-bottom: 5px;
+  outline: none;
+  padding: 0;
+
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+
+  @include mq(small) {
+    align-items: center;
+    justify-content: flex-end;
+    height: map-get($formConfig, fieldHeight);
+    margin-bottom: 0;
+  }
+}
+
+.a-form-field__label__subtitle {
+  margin-left: 10px;
+  color: color(text);
+  font-size: size(xsmall);
+  line-height: inherit;
+
+  @include mq(small) {
+    text-align: right;
+    flex: 0 0 100%;
+    margin-left: 0;
+    line-height: 1rem;
+  }
+}

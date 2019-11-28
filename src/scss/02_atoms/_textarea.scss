@@ -13,23 +13,6 @@
   &:focus {
     border-color: color(brandAlt);
     box-shadow: map-get($formConfig, fieldShadow);
-
-    .a-form-field.has-warning:not(.has-error) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      border-color: color(alert, dark);
-    }
-
-    .a-form-field.has-error &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-      border-color: color(error);
-    }
-
-    .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-    .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
-      border-color: color(shape);
-    }
   }
 
   &.is-disabled,

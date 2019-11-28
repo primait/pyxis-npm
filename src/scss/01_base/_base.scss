@@ -58,6 +58,11 @@ button {
   font-size: inherit;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
 p {
   margin: 0;
   
@@ -90,3 +95,28 @@ ul:not(.a-list) {
   margin: 0;
   padding: 0;
 }
+
+::-webkit-input-placeholder {
+  color: color(text);
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
+}
+
+::-moz-placeholder {
+  color: color(text);
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
+}
+
+:-ms-input-placeholder {
+  color: color(text);
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
+}
+
+:-moz-placeholder {
+  color: color(text);
+  opacity: map-get($formConfig, fieldPlaceholderOpacity);
+}
+
+::-ms-clear {
+  display: none;
+}
+

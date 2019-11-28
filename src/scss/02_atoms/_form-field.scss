@@ -1,17 +1,70 @@
 .a-form-field {
-  align-items: flex-start;
-  border-radius: map-get($formConfig, borderRadius);
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  min-height: 70px;
-  padding: map-get($formConfig, formFieldPadding) / 2;
-  position: relative;
+  border-radius: map-get($formConfig, borderRadius);
   transition: background 0.3s;
+  padding: map-get($formConfig, formFieldPadding);
 
   &:hover {
     @include mq(medium) {
       background: color(background, dark);
+    }
+  }
+
+  @include mq(large) {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 30% [mandatory-label] auto [mandatory-content];
+    grid-column-gap: 20px;
+  }
+
+  &[data-children-count="3"] {
+    grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 1fr;
+  }
+
+  &[data-children-count="4"] {
+    grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 15% 1fr;
+  }
+}
+
+.a-form-field__item {
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+
+  @include mq(small) {
+    flex: 0 0 calc(70% - 20px);
+    flex-direction: row;
+    align-items: center;
+  }
+
+  @include mq(large) {
+    flex: 1 0 auto;
+  }
+
+  // Take the first, third an so on..
+  &:nth-child(odd) {
+
+    @include mq(small) {
+      flex: 0 0 30%;
+      padding-right: 20px;
+    }
+
+    @include mq(large) {
+      flex: 1 0 auto;
+      padding-right: 0;
+    }
+  }
+
+  &:nth-child(3n),
+  &:nth-child(3n+1) {
+    margin-top: 20px;
+
+    @include mq(medium) {
+      margin-top: 0;
     }
   }
 }
@@ -27,26 +80,16 @@
   outline: none;
   width: 100%;
 
-  @include mqDown(small) {
-    .m-form-field-group & {
-      width: 100%;
-    }
+  &.is-small {
+    max-width: map-get($formConfig, fieldMaxWidthSmall);
   }
 
-  @include mq(small) {
-    width: map-get($formConfig, fieldMaxWidth);
+  &.is-medium {
+    max-width: map-get($formConfig, fieldMaxWidthMedium);
+  }
 
-    &.is-small {
-      max-width: map-get($formConfig, fieldMaxWidthSmall) - (map-get($formConfig, fieldMargin) * 1.5);
-    }
-
-    &.is-medium {
-      max-width: map-get($formConfig, fieldMaxWidthMedium) - map-get($formConfig, fieldMargin);
-    }
-
-    &.is-large {
-      max-width: map-get($formConfig, fieldMaxWidthLarge);
-    }
+  &.is-large {
+    max-width: map-get($formConfig, fieldMaxWidthLarge);
   }
 
   .a-form-field.has-error & {
@@ -59,39 +102,6 @@
 
   .a-form-field.is-valid:not(.is-pristine) & {
     border-color: color(brandAlt, dark);
-  }
-
-
-  // Field group validation rules
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-  .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-    border-color: color(alert, dark);
-    color: color(text, dark);
-    -webkit-text-fill-color: color(text, dark);
-  }
-
-  .m-form-field-list.has-own-errors &,
-  .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-    border-color: color(error);
-    color: color(text, dark);
-    -webkit-text-fill-color: color(text, dark);
-  }
-
-  .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-  .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
-    border-color: color(shape);
-    color: color(text, dark);
-    -webkit-text-fill-color: color(text, dark);
-  }
-
-  & + & {
-    @include mqDown(small) {
-      margin-top: 10px;
-    }
-
-    @include mq(small) {
-      margin-left: 10px;
-    }
   }
 }
 
@@ -118,69 +128,21 @@
   }
 }
 
-.a-form-field__validation-message {
-  font-family: font(base);
-  font-size: 12px;
-  max-width: map-get($formConfig, fieldMaxWidth);
-
-  .a-form-field.has-error & {
-    color: color(error);
-  }
-
-  .a-form-field.has-warning:not(.has-error) & {
-    color: color(alert, dark);
-  }
+.a-form-field__error,
+.a-form-field__warning {
+  flex-wrap: wrap;
+  flex: 0 0 100%;
+  font-size: size(xsmall);
+  // Be sure this will always be the latter in every.
+  order: 99;
 }
 
-.a-form-field__label {
-  color: color(text, dark);
-  display: flex;
-  flex-flow: row wrap;
-  width: 100%;
-  font-size: map-get($fontSizes, small);
-  margin-bottom: 5px;
-  outline: none;
-  padding: 0 30px 0 0;
-  text-align: left;
-
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-
-  @include mq(small) {
-    align-items: center;
-    font-size: map-get($fontSizes, base);
-    height: map-get($formConfig, fieldHeight) + map-get($formConfig, formFieldPadding);
-    justify-content: flex-end;
-    margin-bottom: 0;
-    text-align: right;
-    width: calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
-  }
+.a-form-field__error {
+  color: color(error);
 }
 
-::-webkit-input-placeholder {
-  color: color(text);
-  opacity: map-get($formConfig, fieldPlaceholderOpacity);
+.a-form-field__warning {
+  color: color(alert, dark);
 }
 
-::-moz-placeholder {
-  color: color(text);
-  opacity: map-get($formConfig, fieldPlaceholderOpacity);
-}
 
-:-ms-input-placeholder {
-  color: color(text);
-  opacity: map-get($formConfig, fieldPlaceholderOpacity);
-}
-
-:-moz-placeholder {
-  color: color(text);
-  opacity: map-get($formConfig, fieldPlaceholderOpacity);
-}
-
-::-ms-clear {
-  display: none;
-}
-
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
-  display: none;
-}

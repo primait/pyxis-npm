@@ -13,28 +13,20 @@
     box-shadow: map-get($formConfig, fieldShadow);
     color: color(text, dark);
     -webkit-text-fill-color: color(text, dark);
-
-    .a-form-field.has-error &,
-    .m-form-field-list.has-own-errors &,
-    .m-form-field-list.has-own-errors .a-form-field.is-valid & {
-      border-color: color(error);
-    }
-
-    .a-form-field.has-warning:not(.has-error) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) &,
-    .m-form-field-list.has-own-warnings:not(.has-own-errors):not(.has-field-errors) .a-form-field.is-valid & {
-      border-color: color(alert, dark);
-    }
-
-    .m-form-field-list.has-own-errors.has-field-warnings .a-form-field.has-warning &,
-    .m-form-field-list.has-field-errors.has-field-warnings .a-form-field.has-warning & {
-      border-color: color(shape);
-    }
   }
 
-  .a-form-field.is-valid:not(.is-pristine) & {
+  &.is-valid:not(.is-pristine) {
     color: color(brandAlt, dark);
+    border-color: color(brandAlt, dark);
     -webkit-text-fill-color: color(brandAlt, dark);
+  }
+
+  &.has-error {
+    border-color: color(error);
+  }
+
+  &.has-warning {
+    border-color: color(alert, dark);
   }
 
   &.is-disabled,
@@ -42,5 +34,20 @@
     background-color: color(background, dark);
     opacity: map-get($formConfig, fieldDisabledOpacity);
     pointer-events: none;
+  }
+}
+
+.m-form-input-group .a-form-field__input {
+
+  &.is-small {
+    width: map-get($formConfig, fieldMaxWidthSmall);
+  }
+
+  &.is-medium {
+    width: map-get($formConfig, fieldMaxWidthMedium);
+  }
+
+  &.is-large {
+    width: map-get($formConfig, fieldMaxWidthLarge);
   }
 }
