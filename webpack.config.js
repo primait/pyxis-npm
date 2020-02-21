@@ -5,21 +5,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = (env, argv) => {
     const devMode = argv.mode !== 'production'
-    const testPlugin = 
-        ['accordions', 
+    const testPlugin =
+        ['accordions',
          'buttons',
          'containers',
         ].map(template => {
-            return new HtmlWebpackPlugin({ 
-                filename: `test/${template}.html`, 
-                template: `test/${template}.html` 
+            return new HtmlWebpackPlugin({
+                filename: `test/${template}.html`,
+                template: `test/${template}.html`
             })
         })
 
     let conf = {
-
         context: path.resolve(__dirname, 'src'),
-
         entry: {
             pyxis: './pyxis.js',
         },
@@ -42,9 +40,11 @@ module.exports = (env, argv) => {
                         {
                             loader: 'sass-loader',
                             options: {
-                                implementation: require('sass'),
+                                implementation: require('node-sass'),
                                 sourceMap: false,
-                                indentedSyntax: false
+                                sassOptions: {
+                                    indentedSyntax: false
+                                }
                             }
                         }
                     ]
