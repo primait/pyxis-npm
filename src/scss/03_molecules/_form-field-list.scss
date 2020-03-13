@@ -67,7 +67,7 @@
   }
 
   @include mq(small) {
-    max-width: calc(50% + (#{map-get($formConfig, fieldMaxWidth)} / 2));
+    max-width: calc(50% + #{(#{map-get($formConfig, fieldMaxWidth)} / 2)});
   }
 }
 
@@ -116,6 +116,6 @@
     justify-content: flex-end;
     margin-bottom: 0;
     text-align: right;
-    width: calc(50% - (#{map-get($formConfig, fieldMaxWidth)} / 2));
+    width: calc(50% - #{(#{map-get($formConfig, fieldMaxWidth)} / 2)});
   }
 }
