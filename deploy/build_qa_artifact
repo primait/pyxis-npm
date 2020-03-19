@@ -1,0 +1,26 @@
+#!/bin/bash
+DEPLOY_ID=$1
+
+set -e
+set -x
+
+mv .fakenpmrc .npmrc
+
+cp docker-compose.yml docker-compose-ci.yml
+
+prepare-docker-compose --directory pyxis-npm && cp docker-compose-qainit.yml docker-compose.yml
+
+docker-compose build web
+docker-compose run -w $PWD -u root -e NPM_TOKEN=$NPM_TOKEN --entrypoint /bin/sh web \
+'-c' 'npm view prima-assicurazioni/pyxis-npm versions --json > versions.json'
+
+published_versions=`sed -E 's/[A-Za-z|^0|^.]*//g' versions.json |jq --raw-output '..' | cut -c1-10`
+
+#qa_versions = JSON.parse(published_versions).select{ |version| version.include? get_pyxis_version(deploy_id) }
+#@pyxis_version = "0.#{get_pyxis_version(deploy_id)}.#{qa_versions.size}"
+#`sed -i '3s/".*/"version": "#{@pyxis_version}",/' package.json`
+
+docker-compose run -w $PWD -u root -e NPM_TOKEN=$NPM_TOKEN --entrypoint /bin/sh web \
+    '-c' 'yarn install && \
+    yarn build:prod && \
+    npm publish'
