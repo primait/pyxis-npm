@@ -16,7 +16,7 @@ docker-compose run -w $PWD -u root -e NPM_TOKEN=$NPM_TOKEN --entrypoint /bin/sh 
 
 get_pyxis_version=`sed -E 's/[A-Za-z|^0]*//g' <<<"$DEPLOY_ID" | cut -c1-10`
 qa_versions=`cat versions.json | jq --arg pyxis_version "$get_pyxis_version" '. | contains([$pyxis_version])'`
-pyxis_version="0.${get_pyxis_version}.${#qa_versions[@]}"
+pyxis_version="0.${get_pyxis_version}.${qa_versions[@]}"
 
 `sed -i '3s/".*/"version": "${pyxis_version}",/' package.json`
 docker-compose run -w $PWD -u root -e NPM_TOKEN=$NPM_TOKEN --entrypoint /bin/sh web \
