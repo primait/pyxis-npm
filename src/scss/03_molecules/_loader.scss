@@ -1,83 +1,109 @@
-.m-loader {
+$loaderConfig: (
+  spinner: (
+    borderBackColor: rgba(color(brand, light), 0.2),
+    borderColor: color(brand, base),
+    borderWidth: rem(6px),
+    size: rem(60px),
+    small: (
+      borderWidth: rem(3px),
+      size: rem(20px),
+    )
+  ),
+  car: (
+    color: color(brand),
+    offset: translateX(-15px),
+  ),
+  text: (
+    paddingTop: rem(20px),
+  )
+) !default;
+
+.loader {
   align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  &.m-loader--small {
-    align-items: normal;
-  }
 }
 
-.m-loader__text {
-  flex-direction: column;
-  padding-top: 20px;
-}
-
-.m-loader__spinner {
+.loader__spinner {
   animation: animateSpinner 1s infinite linear;
-  border: map-get($loaderConfig, borderRadius) solid rgba(color(brand, light), 0.2);
+  border-color: get($loaderConfig, spinner, borderBackColor);
   border-radius: 50%;
-  border-top-color: color(brand, base);
-  height: map-get($loaderConfig, height);
-  width: map-get($loaderConfig, with);
+  border-style: solid;
+  border-top-color: get($loaderConfig, spinner, borderColor);
+  border-width: get($loaderConfig, spinner, borderWidth);
+  height: get($loaderConfig, spinner, size);
+  width: get($loaderConfig, spinner, size);
 
-  .m-loader--small & {
-    border-width: map-get($loaderConfig, borderRadiusSmall);
-    height: map-get($loaderConfig, heightSmall);
-    width: map-get($loaderConfig, withSmall);
+  .loader--small & {
+    border-width: get($loaderConfig, spinner, small, borderWidth);
+    height: get($loaderConfig, spinner, small, size);
+    width: get($loaderConfig, spinner, small, size);
   }
 }
 
-.is-IE .m-loader__car {
-  @extend .m-loader__spinner;
+.loader__text {
+  flex-direction: column;
+  padding-top: get($loaderConfig, text, paddingTop);
+}
 
-  .m-loader__car__group {
-    display: none;
+.loader__car {
+  transform: get($loaderConfig, car, offset);
+
+  @include ie {
+    animation: animateSpinner 1s infinite linear;
+    border-color: get($loaderConfig, spinner, borderBackColor);
+    border-radius: 50%;
+    border-style: solid;
+    border-top-color: get($loaderConfig, spinner, borderColor);
+    border-width: get($loaderConfig, spinner, borderWidth);
+    height: get($loaderConfig, spinner, size);
+    transform: translateX(0);
+    width: get($loaderConfig, spinner, size);
   }
 }
 
-.m-loader__car__group {
+.loader__car__group {
   fill-rule: evenodd;
   stroke-linecap: round;
   stroke-linejoin: round;
   transform: scale(0.4);
-  
-  .m-loader__car--small & {
-    transform: scale(0.2);
+
+  @include ie {
+    display: none;
   }
 }
 
-.m-loader__car__group__body {
+.loader__car__group__body {
   animation: animateShake 0.2s ease-in-out infinite alternate;
-  fill: color(brand);
+  fill: get($loaderConfig, car, color);
 }
 
-.m-loader__car__group__wheel {
-  fill: color(brand);
+.loader__car__group__wheel {
+  fill: get($loaderConfig, car, color);
 }
 
-.m-loader__car__group__line {
+.loader__car__group__line {
   animation: animateLine 0.8s ease-in-out infinite;
   animation-fill-mode: both;
   stroke-dasharray: 100;
   stroke-width: 7;
-  transform-origin: center right;
+  transform-origin: center;
+}
 
-  &.m-loader__car__group__line--top {
-    animation-delay: 0s;
-    stroke: color(brand);
-  }
+.loader__car__group__line--top {
+  animation-delay: 0s;
+  stroke: get($loaderConfig, car, color);
+}
 
-  &.m-loader__car__group__line--middle {
-    animation-delay: 0.2s;
-    stroke: color(brand);
-  }
+.loader__car__group__line--middle {
+  animation-delay: 0.2s;
+  stroke: get($loaderConfig, car, color);
+}
 
-  &.m-loader__car__group__line--bottom {
-    animation-delay: 0.4s;
-    stroke: color(brand);
-  }
+.loader__car__group__line--bottom {
+  animation-delay: 0.4s;
+  stroke: get($loaderConfig, car, color);
 }
 
 @keyframes animateSpinner {
@@ -99,27 +125,15 @@
 }
 
 @keyframes animateLine {
-  0% {
+  0%, 25% {
     stroke-dashoffset: -100;
   }
 
-  25% {
-    stroke-dashoffset: -100;
-  }
-
-  50% {
+  50%, 51% {
     stroke-dashoffset: 0;
   }
 
-  51% {
-    stroke-dashoffset: 0;
-  }
-
-  80% {
-    stroke-dashoffset: 100;
-  }
-
-  100% {
+  80%, 100% {
     stroke-dashoffset: 100;
   }
 }

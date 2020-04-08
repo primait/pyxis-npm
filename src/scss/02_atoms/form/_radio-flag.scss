@@ -1,0 +1,120 @@
+$radioFlag: (
+  color: color(text),
+  fontSize: size(xsmall),
+  height: rem(30px),
+  lineHeight: lineHeight(xsmall),
+  paddingRight: rem(30px),
+  marginBottom: rem(20px),
+  width: rem(35px),
+  label: (
+    borderRadius: rem(5px),
+    borderWidth: rem(1px),
+    paddingBottom: 0,
+    paddingLeft: rem(5px),
+    paddingRight: rem(5px),
+    paddingTop: rem(1px),
+  ),
+) !default;
+
+$toggleSkinConfig: (
+  light: (
+    borderLeftColor: color(background),
+    default: (
+      backgroundColor: color(background, dark),
+      borderColor: transparent,
+      color: color(text, dark),
+    ),
+    hover: (
+      backgroundColor: color(shape),
+      borderColor: transparent,
+      color: color(text, dark),
+    ),
+    checked: (
+      backgroundColor: color(brandAlt, light),
+      borderColor: color(brandAlt),
+      color: color(brandAlt),
+    ),
+  ),
+  dark: (
+    borderLeftColor: color(background, dark),
+    default: (
+      backgroundColor: color(background),
+      borderColor: transparent,
+      color: color(text, dark),
+    ),
+    hover: (
+      backgroundColor: color(shape),
+      borderColor: transparent,
+      color: color(text, dark),
+    ),
+    checked: (
+      backgroundColor: color(brandAlt, light),
+      borderColor: color(brandAlt),
+      color: color(brandAlt),
+    ),
+  ),
+) !default;
+
+.form-radio-flag {
+  display: flex;
+  width: 100%;
+}
+
+.form-radio-flag-options {
+  display: flex;
+  font-size: get($radioFlag, fontSize);
+  height: get($radioFlag, height);
+  justify-content: center;
+}
+
+.form-radio-flag__input {
+  display: none;
+}
+
+
+@each $kind, $kindConfig in $toggleSkinConfig {
+  .form-radio-flag__label {
+    border-bottom-right-radius: get($radioFlag, label, borderRadius);
+    border-color: transparent;
+    border-style: solid;
+    border-top-right-radius: get($radioFlag, label, borderRadius);
+    border-width: get($radioFlag, label, borderWidth);
+    cursor: pointer;
+    height: get($radioFlag, height);
+    justify-content: center;
+    line-height: get($radioFlag, height);
+    min-width: get($radioFlag, width);
+    padding-bottom: get($radioFlag, label, paddingBottom);
+    padding-left: get($radioFlag, label, paddingLeft);
+    padding-right: get($radioFlag, label, paddingRight);
+    padding-top: get($radioFlag, label, paddingTop);
+    text-align: center;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease-in-out, border 0.2s ease-in-out, color 0.2s ease-in-out;
+
+    .form-radio-flag--#{$kind} & {
+      background-color: get($kindConfig, default, backgroundColor);
+      border-color: get($kindConfig, default, borderColor);
+      color: get($kindConfig, default, color);
+    }
+
+    .form-radio-flag:first-of-type & {
+      border-bottom-left-radius: get($radioFlag, label, borderRadius);
+      border-bottom-right-radius: 0;
+      border-top-left-radius: get($radioFlag, label, borderRadius);
+      border-top-right-radius: 0;
+    }
+
+    .form-radio-flag--#{$kind} &:hover {
+      background-color: get($kindConfig, hover, backgroundColor);
+      border-color: get($kindConfig, hover, borderColor);
+      color: get($kindConfig, hover, color);
+    }
+  }
+
+  .form-radio-flag--#{$kind} .form-radio-flag__input:checked + .form-radio-flag__label {
+    background-color: get($kindConfig, checked, backgroundColor);
+    border-color: get($kindConfig, checked, borderColor);
+    color: get($kindConfig, checked, color);
+  }
+}

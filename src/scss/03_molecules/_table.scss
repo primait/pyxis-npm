@@ -1,25 +1,227 @@
-.m-table {
-  border-collapse: collapse;
+$tableConfig: (
+  color: color(text, dark),
+  fontFamily: (
+    base: font(light),
+    strong: font(heavy),
+  ),
+  header: (
+    backgroundColor: color(backgroundAlt),
+    borderColor: color(shape, dark),
+    borderWidth: rem(1px),
+    color: color(textAlt, light),
+  ),
+  body: (
+    backgroundColor: color(background),
+    borderColor: color(shape),
+    borderWidth: rem(1px),
+  ),
+  footer: (
+    backgroundColor: color(backgroundAlt),
+    borderColor: color(shape, dark),
+    borderWidth: rem(1px),
+    color: color(textAlt, light),
+  ),
+  alternate-rows: (
+    backgroundColor: color(background, dark),
+  ),
+  breakpoints: (
+    base: (
+      fontSize: xsmall,
+      lineHeight: xsmall,
+      paddingBottom: rem(3px),
+      paddingLeft: rem(10px),
+      paddingRight: rem(10px),
+      paddingTop: rem(7px),
+    ),
+    small: (
+      fontSize: small,
+      lineHeight: small,
+      paddingBottom: rem(7px),
+      paddingLeft: rem(15px),
+      paddingTop: rem(10px),
+      paddingRight: rem(15px),
+    )
+  ),
+) !default;
+
+$tableLightConfig: (
+  backgroundColor: color(background),
+  borderColor: color(shape),
+  color: color(text, dark),
+) !default;
+
+.table {
+  color: get($tableConfig, color);
+  font-family: get($tableConfig, fontFamily, base);
   width: 100%;
+
+  @each $bp, $bpConfig in get($tableConfig, breakpoints) {
+    @include mq($bp) {
+      @include fontSize(get($bpConfig, fontSize), get($bpConfig, lineHeight));
+    }
+  }
 }
 
-.m-table__header,
-.m-table__body,
-.m-table__body__row {
+.table__header__row__item,
+.table__body__row__item,
+.table__footer__row__item {
+  text-align: left;
+
+  @each $bp, $bpConfig in get($tableConfig, breakpoints) {
+    @include mq($bp) {
+      padding-bottom: get($bpConfig, paddingBottom);
+      padding-left: get($bpConfig, paddingLeft);
+      padding-right: get($bpConfig, paddingRight);
+      padding-top: get($bpConfig, paddingTop);
+    }
+  }
+}
+
+.table__header {
+  background-color: get($tableConfig, header, backgroundColor);
+  color: get($tableConfig, header, color);
+  display: none;
+  font-family: get($tableConfig, fontFamily, strong);
   margin: 0;
   padding: 0;
+
+  @include mq(small) {
+    display: table-header-group;
+  }
+
+  .table--light & {
+    background-color: get($tableLightConfig, backgroundColor);
+    color: get($tableLightConfig, color);
+  }
 }
 
-.m-table.m-table--alternateRows .m-table__body__row:nth-child(odd) {
-  background: color(background, dark);
+.table__header__row__item {
+  border-bottom-width: get($tableConfig, header, borderWidth);
+  border-color: get($tableConfig, header, borderColor);
+  border-left-width: get($tableConfig, header, borderWidth);
+  border-style: solid;
+  border-top-width: get($tableConfig, header, borderWidth);
+  vertical-align: middle;
+
+  @each $bp, $bpConfig in get($tableConfig, breakpoints) {
+    @include mq($bp) {
+      padding-bottom: get($bpConfig, paddingBottom);
+      padding-left: get($bpConfig, paddingLeft);
+      padding-right: get($bpConfig, paddingRight);
+      padding-top: get($bpConfig, paddingTop);
+    }
+  }
+
+  &:last-child {
+    border-right-width: get($tableConfig, header, borderWidth);
+  }
+
+  .table--light & {
+    border-color: get($tableLightConfig, borderColor);
+  }
 }
 
-.m-table__header__item,
-.m-table__body__row__col {
-  padding: 5px;
-  text-align: left;
+.table__body {
+  background-color: get($tableConfig, body, backgroundColor);
+  display: block;
+
+  @include mq(small) {
+    display: table-row-group;
+  }
 }
 
-.m-table__header__item.m-table__header__item--sortable {
+.table__body__row {
+  border-color: get($tableConfig, body, borderColor);
+  border-left-width: get($tableConfig, body, borderWidth);
+  border-right-width: get($tableConfig, body, borderWidth);
+  border-style: solid;
+  border-top-width: get($tableConfig, body, borderWidth);
+  display: inline-block;
+  width: 100%;
+
+  @include mq(small) {
+    display: table-row;
+  }
+
+  &:last-child {
+    border-bottom-width: get($tableConfig, body, borderWidth);
+  }
+}
+
+.table__body__row__item {
+  display: inline-block;
+  width: 100%;
+
+  @include mq(small) {
+    border-bottom-width: get($tableConfig, body, borderWidth);
+    border-color: get($tableConfig, body, borderColor);
+    border-left-width: get($tableConfig, body, borderWidth);
+    border-style: solid;
+    display: table-cell;
+    width: auto;
+  }
+
+  &[data-column-name]:before {
+    content: "" attr(data-column-name) ": ";
+    font-family: get($tableConfig, fontFamily, strong);
+    text-transform: capitalize;
+
+    @include mq(small) {
+      display: none;
+    }
+  }
+
+  &:last-child {
+    @include mq(small) {
+      border-right-width: get($tableConfig, body, borderWidth);
+    }
+  }
+}
+
+.table__footer {
+  background-color: get($tableConfig, footer, backgroundColor);
+  color: get($tableConfig, footer, color);
+  display: none;
+  font-family: get($tableConfig, fontFamily, strong);
+  margin: 0;
+  padding: 0;
+
+  @include mq(small) {
+    display: table-row-group;
+  }
+
+  .table--light & {
+    background-color: get($tableLightConfig, backgroundColor);
+    color: get($tableLightConfig, color);
+  }
+}
+
+.table__footer__row__item {
+  border-bottom-width: get($tableConfig, footer, borderWidth);
+  border-color: get($tableConfig, footer, borderColor);
+  border-left-width: get($tableConfig, footer, borderWidth);
+  border-style: solid;
+  border-top-width: get($tableConfig, footer, borderWidth);
+  vertical-align: middle;
+
+  &:last-child {
+    border-right-width: get($tableConfig, footer, borderWidth);
+  }
+
+  .table--light & {
+    border-color: get($tableLightConfig, borderColor);
+  }
+}
+
+.table__header__row__item.table__header__item--sortable {
   cursor: pointer;
 }
+
+.table--alternate-rows .table__body__row:nth-child(odd) {
+  background: get($tableConfig, alternate-rows, backgroundColor);
+}
+
+.table__header__row__item__icon {
+  position: absolute;
+}
+

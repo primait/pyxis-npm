@@ -1,0 +1,16 @@
+.form-error,
+.form-warning {
+  flex: 0 0 100%;
+  flex-wrap: wrap;
+  font-size: size(xsmall);
+  // Be sure this will always be the last.
+  order: 99;
+}
+
+.form-error {
+  color: color(error);
+}
+
+.form-warning {
+  color: color(alert, dark);
+}

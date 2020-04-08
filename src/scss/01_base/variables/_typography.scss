@@ -1,0 +1,49 @@
+// Physical address of the fonts-containing folder.
+$fontPath: "../assets/fonts" !default;
+
+$fonts: (
+  light: (
+    "avenirltstd-book",
+    Helvetica,
+    Verdana,
+    sans-serif,
+  ),
+  base: (
+    "avenirltstd-medium",
+    Helvetica,
+    Verdana,
+    sans-serif,
+  ),
+  heavy: (
+    "avenirltstd-heavy",
+    Helvetica,
+    Verdana,
+    sans-serif,
+  ),
+) !default;
+
+$fontSizeRoot: 16px !default;
+
+$fontSizes: (
+  xxsmall: rem(10px),
+  xsmall: rem(12px),
+  small: rem(14px),
+  base: rem(16px),
+  medium: rem(18px),
+  large: rem(22px),
+  xlarge: rem(26px),
+  xxlarge: rem(32px),
+) !default;
+
+$lineHeightRoot: 150% !default;
+
+$lineHeight: (
+  xxsmall: 1.618,
+  xsmall: 1.618,
+  small: 1.618,
+  base: 1.618,
+  medium: 1.618,
+  large: 1.618,
+  xlarge: 1.4,
+  xxlarge: 1.4,
+) !default;

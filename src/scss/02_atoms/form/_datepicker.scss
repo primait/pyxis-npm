@@ -1,0 +1,386 @@
+$datepickerConfig: (
+  backgroundColor: color(background),
+  boxShadow: boxShadow(small),
+  cellSize: rem(30px),
+  color: color(text),
+  paddingLeft: rem(20px),
+  paddingRight: rem(20px),
+  top: calc(100% + #{rem(1px)}),
+  width: rem(260px), // minWidth fixed at 240px
+  header: (
+    backgroundColor: color(backgroundAlt),
+    color: color(textAlt, light),
+    fontSize: size(xsmall),
+    lineHeight: rem(20px),
+    paddingBottom: rem(18px),
+    paddingTop: rem(22px),
+    year: (
+      fontFamily: font(heavy),
+      size: rem(6px),
+    )
+  ),
+  yearPicker: (
+    backgroundColor: color(background),
+    color: color(text, dark),
+    fontFamily: font(heavy),
+    fontSize: size(xsmall),
+    maxHeight: rem(300px),
+    paddingBottom: rem(8px),
+    paddingTop: rem(12px),
+    hover: (
+      backgroundColor: color(background, dark),
+    ),
+    selected: (
+      backgroundColor: color(brandAlt, light),
+      color: color(brandAlt, dark),
+    )
+  ),
+  picker: (
+    header: (
+      arrowBackground: color(shape),
+      borderColor: color(shape, light),
+      color: color(text, dark),
+      fontFamily: font(heavy),
+      fontSize: size(xsmall),
+      paddingBottom: rem(5px),
+      paddingTop: rem(9px),
+    ),
+    daysName: (
+      color: color(text),
+      fontSize: size(xsmall),
+      height: rem(40px),
+    ),
+    month: (
+      paddingBottom: rem(10px),
+    ),
+    day: (
+      fontFamily: font(heavy),
+      fontSize: size(xsmall),
+      opticalOffset: rem(2px),
+      hover: (
+        backgroundColor: color(shape, light),
+      ),
+      selected: (
+        backgroundColor: color(brandAlt, light),
+        color: color(brandAlt, dark),
+      ),
+    )
+  )
+) !default;
+
+$pickerConfig: get($datepickerConfig, picker);
+
+.datepicker {
+  background: get($datepickerConfig, backgroundColor);
+  border-radius: get($formFieldStyleConfig, borderRadius);
+  box-shadow: get($datepickerConfig, boxShadow);
+  color: get($datepickerConfig, color);
+  display: none;
+  flex-direction: column;
+  min-width: rem(240px);
+  position: absolute;
+  top: get($datepickerConfig, top);
+  width: get($datepickerConfig, width);
+  z-index: zIndex(formList);
+
+  @include mq(small) {
+    display: flex;
+  }
+}
+
+.datepicker__header {
+  align-items: center;
+  background-color: get($datepickerConfig, header, backgroundColor);
+  border-top-left-radius: get($formFieldStyleConfig, borderRadius);
+  border-top-right-radius: get($formFieldStyleConfig, borderRadius);
+  color: get($datepickerConfig, header, color);
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  line-height: get($datepickerConfig, header, lineHeight);
+  padding-bottom: get($datepickerConfig, header, paddingBottom);
+  padding-left: get($datepickerConfig, paddingLeft);
+  padding-right: get($datepickerConfig, paddingRight);
+  padding-top: get($datepickerConfig, header, paddingTop);
+}
+
+.datepicker__header__year,
+.datepicker__header__day {
+  cursor: pointer;
+  display: flex;
+  font-size: get($datepickerConfig, header, fontSize);
+  overflow: hidden;
+  position: relative;
+
+  &.is-selected {
+    cursor: default;
+    opacity: 1;
+  }
+}
+
+.datepicker__header__year {
+  @include iconArrow(bottom, color(background));
+  font-family: get($datepickerConfig, header, year, fontFamily);
+  height: auto;
+  padding-right: rem(15px);
+  position: relative;
+  width: auto;
+
+  &:after {
+    left: auto;
+    right: rem(2px);
+    top: rem(5px);
+  }
+
+  &.is-selected {
+    @include iconArrow(top, color(background));
+    height: auto;
+    width: auto;
+
+    &:after {
+      left: auto;
+      right: rem(2px);
+      top: rem(7px);
+    }
+  }
+}
+
+.datepicker__year-picker {
+  color: get($datepickerConfig, yearPicker, color);
+}
+
+.datepicker__year-picker__scroller {
+  max-height: get($datepickerConfig, yearPicker, maxHeight);
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.datepicker__year-picker__scroller__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.datepicker__year-picker__scroller__item {
+  background-color: get($datepickerConfig, yearPicker, backgroundColor);
+  cursor: pointer;
+  display: flex;
+  font-family: get($datepickerConfig, yearPicker, fontFamily);
+  font-size: get($datepickerConfig, yearPicker, fontSize);
+  justify-content: center;
+  padding-bottom: get($datepickerConfig, yearPicker, paddingBottom);
+  padding-top: get($datepickerConfig, yearPicker, paddingTop);
+
+  &:hover {
+    background-color: get($datepickerConfig, yearPicker, hover, backgroundColor);
+  }
+
+  &.is-selected {
+    background-color: get($datepickerConfig, yearPicker, selected, backgroundColor);
+    color: get($datepickerConfig, yearPicker, selected, color);
+  }
+}
+
+.datepicker__picker {
+  align-content: space-between;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.datepicker__picker__header {
+  border-bottom-color: get($pickerConfig, header, borderColor);
+  border-bottom-style: solid;
+  border-bottom-width: rem(1px);
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: get($pickerConfig, header, paddingBottom);
+  padding-left: #{uGet($datepickerConfig, paddingLeft) / 2}rem;
+  padding-right: #{uGet($datepickerConfig, paddingRight) / 2}rem;
+  padding-top: get($pickerConfig, header, paddingTop);
+}
+
+.datepicker__picker__header__arrow {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 get($datepickerConfig, cellSize);
+  justify-content: center;
+  position: relative;
+  top: rem(-1px);
+
+  &:before {
+    background-color: transparent;
+    border-radius: 50%;
+    content: "";
+    height: get($datepickerConfig, cellSize);
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease-out;
+    width: get($datepickerConfig, cellSize);
+    z-index: zIndex(formIcon);
+  }
+
+  &:hover:before {
+    background-color: get($pickerConfig, header, arrowBackground);
+    transform: scale(1);
+  }
+}
+
+.datepicker__picker__header__arrow--prev {
+  @include iconArrow(left, color(shape, dark), get($datepickerConfig, cellSize));
+}
+
+.datepicker__picker__header__arrow--next {
+  @include iconArrow(right, color(shape, dark), get($datepickerConfig, cellSize));
+}
+
+.datepicker__picker__header__current-month {
+  align-self: center;
+  color: get($pickerConfig, header, color);
+  flex: 1 0 auto;
+  font-family: get($pickerConfig, header, fontFamily);
+  font-size: get($pickerConfig, header, fontSize);
+  line-height: get($datepickerConfig, cellSize);
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+}
+
+.datepicker__picker__days-name {
+  align-items: center;
+  color: get($pickerConfig, daysName, color);
+  display: flex;
+  flex-direction: row;
+  font-size: get($pickerConfig, daysName, fontSize);
+  height: get($pickerConfig, daysName, height);
+  justify-content: space-between;
+  padding-left: #{uGet($datepickerConfig, paddingLeft) / 2}rem;
+  padding-right: #{uGet($datepickerConfig, paddingRight) / 2}rem;
+  text-align: center;
+}
+
+.datepicker__picker__days-name__item {
+  flex: 0 0 get($datepickerConfig, cellSize);
+}
+
+.datepicker__picker__month {
+  overflow: hidden;
+  padding-bottom: get($pickerConfig, month, paddingBottom);
+  padding-left: #{uGet($datepickerConfig, paddingLeft) / 2}rem;
+  padding-right: #{uGet($datepickerConfig, paddingRight) / 2}rem;
+  position: relative;
+}
+
+.datepicker__picker__week {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  text-align: center;
+}
+
+.datepicker__picker__day {
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  flex: 0 0 calc(100% / 7);
+  font-family: get($pickerConfig, day, fontFamily);
+  font-size: get($pickerConfig, day, fontSize);
+  height: get($datepickerConfig, cellSize);
+  justify-content: center;
+  margin: 0;
+  padding-top: get($pickerConfig, day, opticalOffset);
+  position: relative;
+
+  &:not(.is-empty):before {
+    background-color: transparent;
+    border-radius: 50%;
+    content: "";
+    height: get($datepickerConfig, cellSize);
+    left: 50%;
+    position: absolute;
+    top: 0;
+    transform: scale(0) translateX(-50%);
+    transform-origin: left;
+    transition: all 0.2s ease-out;
+    width: get($datepickerConfig, cellSize);
+    z-index: zIndex(datepickerDay);
+  }
+
+  &:hover:before {
+    background-color: get($pickerConfig, day, hover, backgroundColor);
+    transform: scale(1) translateX(-50%);
+  }
+
+  &.is-selected {
+    color: get($pickerConfig, day, selected, color);
+  }
+
+  &.is-selected:before {
+    background: get($pickerConfig, day, selected, backgroundColor);
+    transform: scale(1) translateX(-50%);
+  }
+
+  &.is-disabled {
+    opacity: get($formFieldStateConfig, disabled, opacity);
+    pointer-events: none;
+  }
+}
+
+.form-datepicker {
+  appearance: none;
+
+  &[type="date"] {
+    @include mq(small) {
+      display: none;
+    }
+  }
+
+  &[type="text"] {
+    display: none;
+    @include mq(small) {
+      display: block;
+    }
+  }
+
+  & + & {
+    margin-left: 0;
+  }
+}
+
+.form-input-group--datepicker__icon {
+  background-color: color(background);
+  border: 1px solid color(brandAlt);
+  border-radius: 2px;
+  height: 15px;
+  left: -1px;
+  position: relative;
+  width: 18px;
+
+  &:before {
+    background-color: color(brandAlt);
+    border-radius: 1px;
+    box-shadow: 8px 0 0 color(brandAlt), -1px 8px 0 0 color(brandAlt), 4px 8px 0 0 color(brandAlt), 9px 8px 0 0 color(brandAlt), -1px 11px 0 0 color(brandAlt), 4px 11px 0 0 color(brandAlt), 9px 11px 0 0 color(brandAlt);
+    content: "";
+    display: block;
+    height: 2px;
+    left: 2px;
+    position: absolute;
+    top: -2px;
+    width: 4px;
+  }
+
+  &:after {
+    background-color: color(brandAlt);
+    content: "";
+    display: block;
+    height: 1px;
+    left: 0;
+    position: absolute;
+    top: 3px;
+    width: 16px;
+  }
+}

@@ -1,0 +1,135 @@
+$alertMessageConfig: (
+  animationDelay: 1.5s,
+  animationDuration: 0.5s,
+  background: color(brand, light),
+  color: color(textAlt, light),
+  fontSize: size(small),
+  opticalOffset: rem(3px),
+  paddingBottom: rem(10px),
+  paddingLeft: 0,
+  paddingRight: 0,
+  paddingTop: rem(10px),
+  link : (
+    color: color(textAlt, light),
+    isAnimated : (
+      color: color(brandAlt),
+    )
+  ),
+  isAnimated : (
+    background: color(shape, light),
+    color: color(text, dark),
+  )
+) !default;
+
+.alert-message {
+  background: get($alertMessageConfig, background);
+  color: get($alertMessageConfig, color);
+  display: flex;
+  padding-bottom: get($alertMessageConfig, paddingBottom);
+  padding-left: get($alertMessageConfig, paddingLeft);
+  padding-right: get($alertMessageConfig, paddingRight);
+  padding-top: get($alertMessageConfig, paddingTop);
+  width: 100%;
+
+  &.is-animated {
+    animation: animateAlertMessage get($alertMessageConfig, animationDuration) ease-out get($alertMessageConfig, animationDelay) forwards;
+
+    @keyframes animateAlertMessage {
+      from {
+        background-color: get($alertMessageConfig, background);
+        color: get($alertMessageConfig, color);
+      }
+      to {
+        background-color: get($alertMessageConfig, isAnimated, background);
+        color: get($alertMessageConfig, isAnimated, color);
+      }
+    }
+  }
+}
+
+.alert-message__icon {
+  animation: animateAlertMessageIcon get($alertMessageConfig, animationDuration) ease-out get($alertMessageConfig, animationDelay) forwards;
+  border-color: color(textAlt, light);
+  border-radius: 50%;
+  border-style: solid;
+  border-width: rem(1px);
+  display: block;
+  flex-basis: rem(18px);
+  height: rem(18px);
+  margin-right: rem(8px);
+  margin-top: get($alertMessageConfig, opticalOffset);
+  position: relative;
+  width: rem(18px);
+
+  &:before {
+    background-color: color(textAlt, light);
+    border-radius: rem(1px);
+    content: "";
+    height: rem(6px);
+    left: rem(7px);
+    position: absolute;
+    top: rem(7px);
+    width: rem(2px);
+  }
+
+  &:after {
+    background-color: color(textAlt, light);
+    border-radius: rem(1px);
+    content: "";
+    height: rem(2px);
+    left: rem(7px);
+    position: absolute;
+    top: rem(4px);
+    width: rem(2px);
+  }
+
+  @include ie {
+    max-width: rem(18px);
+  }
+
+  @keyframes animateAlertMessageIcon {
+    from {
+      border-color: get($alertMessageConfig, color);
+    }
+    to {
+      border-color: get($alertMessageConfig, isAnimated, color);
+    }
+  }
+
+  &:before,
+  &:after {
+    animation: animateAlertMessageIconInner get($alertMessageConfig, animationDuration) ease-out get($alertMessageConfig, animationDelay) forwards;
+
+    @keyframes animateAlertMessageIconInner {
+      from {
+        background-color: get($alertMessageConfig, color);
+      }
+      to {
+        background-color: get($alertMessageConfig, isAnimated, color);
+      }
+    }
+  }
+}
+
+.alert-message__text {
+  flex: 1;
+  font-family: font(base);
+  font-size: get($alertMessageConfig, fontSize);
+}
+
+.alert-message__text__link {
+  color: get($alertMessageConfig, link, color);
+
+  .alert-message.is-animated & {
+    animation: animateAlertMessageLink get($alertMessageConfig, animationDuration) ease-out get($alertMessageConfig, animationDelay) forwards;
+  }
+
+  @keyframes animateAlertMessageLink {
+    from {
+      color: get($alertMessageConfig, link, color);
+    }
+    to {
+      color: get($alertMessageConfig, link, isAnimated, color);
+    }
+  }
+}

@@ -1,0 +1,108 @@
+$arrowSize: (
+  large: (
+    borderRadius: rem(100px),
+    borderWidth: rem(1px),
+    size: rem(50px),
+    marginLeft: rem(12px),
+  ),
+  small: (
+    borderRadius: rem(100px),
+    borderWidth: rem(1px),
+    size: rem(35px),
+    marginLeft: rem(8px),
+  ),
+) !default;
+
+$arrowSkin: (
+  base: (
+    background: color(background),
+    borderColor: color(shape, base),
+    boxShadow: 0 0 1 rgba(color(shape, dark), 0),
+    color: color(text, dark),
+    hover: (
+      borderColor: color(shape, base),
+      boxShadow: 0 5px 10px rgba(color(shape, dark), 0.1),
+      color: color(brandAlt),
+    ),
+  ),
+  alt: (
+    background: transparent,
+    borderColor: rgba(color(shape, base), 0.3),
+    boxShadow: none,
+    color: color(textAlt, light),
+    hover: (
+      borderColor: color(shape, base),
+      boxShadow: 0 5px 10px rgba(color(shape, dark), 0.1),
+      color: color(textAlt, light),
+    ),
+  ),
+) !default;
+
+$arrowDirections: (
+  next: right,
+  prev: left,
+);
+
+@mixin sliderArrowSize($size) {
+  border-radius: get($arrowSize, $size, borderRadius);
+  border-width: get($arrowSize, $size, borderWidth);
+  height: get($arrowSize, $size, size);
+  width: get($arrowSize, $size, size);
+}
+
+@mixin sliderArrowSkin($skin) {
+  background-color: get($arrowSkin, $skin, background);
+  border-color: get($arrowSkin, $skin, borderColor);
+  box-shadow: get($arrowSkin, $skin, boxShadow);
+  color: get($arrowSkin, $skin, color);
+
+  &:hover:not(.is-disabled) {
+    border-color: get($arrowSkin, $skin, hover, borderColor);
+    box-shadow: get($arrowSkin, $skin, hover, boxShadow);
+  }
+
+  &.is-disabled {
+    color: get($arrowSkin, $skin, color);
+    cursor: default;
+    opacity: 0.5;
+  }
+}
+
+.slider-arrow {
+  align-items: center;
+  -webkit-appearance: none;
+  border-style: solid;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+@each $skin, $value in $arrowSkin {
+  .slider-arrow--#{$skin} {
+    @include sliderArrowSkin($skin);
+
+    @each $action, $direction in $arrowDirections {
+      .slider-arrow__icon--#{$action} {
+        @include iconArrow($direction, get($arrowSkin, $skin, color));
+      }
+    }
+
+    @each $action, $direction in $arrowDirections {
+      &:hover .slider-arrow__icon--#{$action} {
+        @include iconArrow($direction, get($arrowSkin, $skin, hover, color));
+      }
+    }
+  }
+}
+
+@each $size, $value in $arrowSize {
+  .slider-arrow--#{$size} {
+    @include sliderArrowSize($size);
+
+    & + & {
+      margin-left: get($arrowSize, $size, marginLeft);
+    }
+  }
+}

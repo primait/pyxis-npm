@@ -1,0 +1,232 @@
+@mixin selectState($state) {
+  background: get($formFieldStateConfig, $state, background);
+  border-color: get($formFieldStateConfig, $state, stateColor);
+  box-shadow: get($formFieldStateConfig, $state, boxShadow);
+  color: get($formFieldStateConfig, $state, color);
+  opacity: get($formFieldStateConfig, $state, opacity);
+  -webkit-text-fill-color: get($formFieldStateConfig, $state, color);
+
+  .form-select__list {
+    border-color: get($formFieldStateConfig, $state, stateColor);
+    border-top-color: get($formFieldStateConfig, default, stateColor);
+  }
+}
+
+$selectOptionsConfig: (
+  background: color(background),
+  itemBackground: color(background),
+  itemBackgroundHover: color(background, dark),
+  itemBackgroundSelected: color(brandAlt, light),
+  itemColor: get($formFieldStateConfig, default, color),
+  itemColorHover: get($formFieldStateConfig, default, color),
+  itemColorSelected: color(brandAlt),
+  maxOptionsToShow: 4,
+) !default;
+
+$selectTinyConfig: (
+  height: rem(32px),
+  paddingTop: 0,
+  paddingRight: rem(10px),
+  paddingBottom: 0,
+  paddingLeft: rem(10px),
+  arrowOffset: rem(5px),
+) !default;
+
+.form-select {
+  @include formFieldSizes;
+  @include selectState(default);
+  border-radius: get($formFieldStyleConfig, borderRadius);
+  cursor: pointer;
+  display: none;
+  flex-direction: column;
+  font-size: get($formFieldStyleConfig, fontSize);
+  height: get($formFieldStyleConfig, height);
+  position: relative;
+  transition: background 0.3s, border 0.3s, color 0.3s;
+  width: 100%;
+
+  &.is-valid {
+    @include selectState(valid);
+  }
+
+  &.has-error {
+    @include selectState(error);
+  }
+
+  &.has-warning {
+    @include selectState(warning);
+  }
+
+  &[disabled],
+  &.is-disabled {
+    @include selectState(disabled);
+    pointer-events: none;
+  }
+
+  &:focus {
+    @include selectState(focus);
+    outline: none;
+  }
+
+  &.is-open {
+    box-shadow: get($formFieldStateConfig, default, boxShadow);
+
+    @include mq(medium) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: get($formFieldStyleConfig, borderRadius);
+      border-top-right-radius: get($formFieldStyleConfig, borderRadius);
+    }
+  }
+
+  & + & {
+    margin-left: 0;
+  }
+
+  @include mq(medium) {
+    display: block;
+  }
+}
+
+.form-select,
+.form-select__list__item {
+  padding-bottom: get($formFieldStyleConfig, paddingBottom);
+  padding-left: get($formFieldStyleConfig, paddingLeft);
+  padding-right: get($formFieldStyleConfig, paddingRight);
+  padding-top: get($formFieldStyleConfig, paddingTop);
+}
+
+.form-select,
+.form-select__list {
+  border-style: solid;
+  border-width: get($formFieldStyleConfig, borderWidth);
+}
+
+.form-select__status {
+  align-items: center;
+  border-color: inherit;
+  display: flex;
+  height: get($formFieldStyleConfig, height);
+}
+
+.form-select__status-icon {
+  @include iconArrow(bottom, color(shape, dark));
+  position: absolute;
+  right: rem(10px);
+  top: calc(50% - #{9px});
+
+  .form-select.is-open & {
+    @include iconArrow(top, color(shape, dark));
+    position: absolute;
+  }
+}
+
+.form-select__list {
+  $selectMaxHeight: uGet($formFieldStyleConfig, height) * uGet($selectOptionsConfig, maxOptionsToShow) + uGet($formFieldStyleConfig, height) * 0.5;
+
+  background: get($selectOptionsConfig, background);
+  border-radius: 0 0 get($formFieldStyleConfig, borderRadius) get($formFieldStyleConfig, borderRadius);
+  display: none;
+  flex-direction: column;
+  left: rem(-1px);
+  list-style: none;
+  margin: rem(-1px) 0 0 0;
+  max-height: #{$selectMaxHeight}rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  right: rem(-1px);
+  top: 100%;
+  z-index: zIndex(formList);
+
+  .form-select.is-open & {
+    box-shadow: get($formFieldStateConfig, focus, boxShadow);
+    @include mq(medium) {
+      display: flex;
+    }
+  }
+}
+
+.form-select__list__item {
+  align-items: center;
+  background-color: get($selectOptionsConfig, itemBackground);
+  color: get($selectOptionsConfig, itemColor);
+  display: flex;
+  list-style: none;
+  min-height: get($formFieldStyleConfig, height);
+  outline: none;
+  -webkit-text-fill-color: get($selectOptionsConfig, itemColor);
+
+  &.is-selected,
+  &.is-selected:hover,
+  &.is-selected:focus {
+    background-color: get($selectOptionsConfig, itemBackgroundSelected);
+    color: get($selectOptionsConfig, itemColorSelected);
+    -webkit-text-fill-color: get($selectOptionsConfig, itemColorSelected);
+  }
+
+  &:hover,
+  &:focus {
+    background-color: get($selectOptionsConfig, itemBackgroundHover);
+    color: get($selectOptionsConfig, itemColorHover);
+    -webkit-text-fill-color: get($selectOptionsConfig, itemColorHover);
+  }
+
+  @include ie {
+    // IE bug: https://github.com/webhintio/webhint.io/issues/210
+    list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  }
+}
+
+.form-select--tiny {
+  height: get($selectTinyConfig, height);
+  padding-bottom: get($selectTinyConfig, paddingBottom);
+  padding-left: get($selectTinyConfig, paddingLeft);
+  padding-right: get($selectTinyConfig, paddingRight);
+  padding-top: get($selectTinyConfig, paddingTop);
+
+  .form-select__status {
+    height: get($selectTinyConfig, height);
+  }
+
+  .form-select__status:after {
+    right: get($selectTinyConfig, arrowOffset);
+  }
+
+  .form-select__list__item {
+    min-height: get($selectTinyConfig, height);
+    padding-bottom: get($selectTinyConfig, paddingBottom);
+    padding-left: get($selectTinyConfig, paddingLeft);
+    padding-right: get($selectTinyConfig, paddingRight);
+    padding-top: get($selectTinyConfig, paddingTop);
+  }
+
+  .form-select__list {
+    max-height: calc(#{get($selectTinyConfig, height)} * #{get($selectOptionsConfig, maxOptionsToShow)} + #{get($selectTinyConfig, height)} * 0.5);
+  }
+}
+
+.form-select.form-select--native {
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjBweCIgaGVpZ2h0PSIyMHB4IiB2aWV3Qm94PSIwIDAgMjAgMjAiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8dGl0bGU+YXJyb3c8L3RpdGxlPgogICAgPGcgaWQ9ImFycm93IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cGF0aCBkPSJNMTMsNiBMMTMsNyBMOCw3IEw4LDEyIEw3LDEyIEw3LDYgTDEzLDYgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlIiBmaWxsPSIjNEQ1OTY5IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMC4wMDAwMDAsIDkuMDAwMDAwKSByb3RhdGUoLTEzNS4wMDAwMDApIHRyYW5zbGF0ZSgtMTAuMDAwMDAwLCAtOS4wMDAwMDApICI+PC9wYXRoPgogICAgPC9nPgo8L3N2Zz4=");
+  background-position-x: calc(100% - #{get($formFieldStyleConfig, paddingRight)});
+  background-position-y: 50%;
+  background-repeat: no-repeat;
+  display: block;
+  line-height: get($formFieldStyleConfig, height);
+  margin-right: 0;
+  width: 100%;
+
+  @include mq(medium) {
+    display: none;
+  }
+
+  option {
+    color: get($formFieldStateConfig, default, color);
+  }
+
+  &.form-select--tiny {
+    line-height: get($selectTinyConfig, height);
+  }
+}

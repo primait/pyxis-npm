@@ -1,0 +1,77 @@
+// Wraps an IE's specific rule. Don't use it inside a pseudoselector.
+@mixin ie {
+  _:-ms-fullscreen,
+  :root & {
+    @content;
+  }
+}
+
+// Writes a font-size and a line-height rules.
+// @param {String} $fontSize
+// @param {String} $lineHeight
+@mixin fontSize($fontSize, $lineHeight: null) {
+  font-size: size($fontSize);
+  @if $lineHeight {
+    line-height: lineHeight($lineHeight);
+  } @else {
+    line-height: lineHeight($fontSize);
+  }
+}
+
+// Given a $selector and a $number generates a class that applies only if there are $n children with that selector.
+// @param {String} $selector
+// @param {Number} $n
+@mixin withNElements($selector, $n) {
+  #{$selector}:first-child:nth-last-child(#{$n}),
+  #{$selector}:nth-last-child(#{$n}) ~ #{$selector} {
+    @content;
+  }
+}
+
+// Wraps a rule inside a media-query with a min-width defined by the $breakpoint.
+// @param {String} $breakpoint
+// @throws {Warn}
+@mixin mqUp($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (min-width: get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint #{$breakpoint} not found in $breakpoints map.";
+  }
+}
+
+// Convenient alias for @mixin mqUp.
+@mixin mq($breakpoint) {
+  @include mqUp($breakpoint) {
+    @content;
+  }
+}
+
+// Wraps a rule inside a media-query with a max-width defined by the $breakpoint.
+// @param {String} $breakpoint
+// @throws {Warn}
+@mixin mqDown($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: get($breakpoints, $breakpoint) - $breakpointBoundDiff) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint #{$breakpoint} not found in $breakpoints map.";
+  }
+}
+
+// Wraps a rule inside a media-query with a min-width defined by the $lowerBound and max-width defined by the $upperBound.
+// @param {String} $breakpoint
+// @throws {Warn}
+@mixin mqBetween($lowerBound, $upperBound) {
+  @if not map-has-key($breakpoints, $lowerBound) {
+    @warn "Breakpoint #{$lowerBound} not found in $breakpoints map.";
+  } @else if not map-has-key($breakpoints, $upperBound) {
+    @warn "Breakpoint #{$upperBound} not found in $breakpoints map.";
+  } @else {
+    @media screen and (min-width: get($breakpoints, $lowerBound)) and (max-width: get($breakpoints, $upperBound) - $breakpointBoundDiff) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,43 @@
+<html>
+<head>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="/pyxis.css" rel="stylesheet"/>
+  <link href="https://s3.amazonaws.com/icomoon.io/98538/PyxisIconset30/style.css?226kae" rel="stylesheet">
+  <style>
+    .section--small {
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Standard Badges -->
+  <div class="container-fluid section text-align-center flex-direction-column">
+    <h3>List Chooser</h3>
+    <div class="section--small">
+      <div class="list-chooser">
+        <div class="list-chooser__item">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean dui ligula, placerat quis lectus a, consequat ornare arcu.
+        </div>
+        <div class="list-chooser__item">
+          Lorem ipsum dolor sit amet.
+        </div>
+        <div class="list-chooser__item">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+      document.querySelectorAll('.list-chooser__item').forEach((clickedElement) => {
+          clickedElement.addEventListener('click', (evt) => {
+              document.querySelectorAll('.list-chooser__item').forEach((el) => {
+                  el.classList.remove('is-selected')
+              })
+              clickedElement.classList.add('is-selected')
+          })
+      })
+  </script>
+
+</body>
+</html>

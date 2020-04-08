@@ -1,0 +1,64 @@
+$fieldsetConfig: (
+  paddingBottom: rem(20px),
+  legend: (
+    borderColor: color(shape),
+    borderWidth: rem(1px),
+    color: color(text, dark),
+    fontSize: small,
+    lineHeight: 100%,
+    marginBottom: rem(10px),
+    breakpoints: (
+      base: (
+        paddingBottom: rem(11px),
+        paddingLeft: rem(10px),
+        paddingRight: rem(10px),
+        paddingTop: rem(14px),
+      ),
+      small: (
+        paddingBottom: rem(16px),
+        paddingLeft: rem(20px),
+        paddingRight: rem(20px),
+        paddingTop: rem(19px),
+      )
+    ),
+  ),
+  title: (
+    fontFamily: font(heavy)
+  ),
+) !default;
+
+.form__fieldset {
+  margin: 0;
+  padding-bottom: get($fieldsetConfig, paddingBottom);
+}
+
+.form__fieldset__legend {
+  @include fontSize(get($fieldsetConfig, legend, fontSize));
+  border-bottom-color: get($fieldsetConfig, legend, borderColor);
+  border-bottom-style: solid;
+  border-bottom-width: get($fieldsetConfig, legend, borderWidth);
+  color: get($fieldsetConfig, legend, color);
+  line-height: get($fieldsetConfig, legend, lineHeight);
+  margin-bottom: get($fieldsetConfig, legend, marginBottom);
+  width: 100%;
+
+  @each $bp, $bpConfig in get($fieldsetConfig, legend, breakpoints) {
+    @include mq($bp) {
+      padding-bottom: get($bpConfig, paddingBottom);
+      padding-left: get($bpConfig, paddingLeft);
+      padding-right: get($bpConfig, paddingRight);
+      padding-top: get($bpConfig, paddingTop);
+    }
+  }
+}
+
+.form__fieldset__legend__title {
+  display: inline-block;
+  font-family: get($fieldsetConfig, title, fontFamily);
+  text-transform: uppercase;
+}
+
+.form__fieldset__legend__prepend,
+.form__fieldset__legend__append {
+  display: inline-block;
+}

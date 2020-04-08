@@ -1,0 +1,49 @@
+$colors: (
+  brand: (
+    light: #b967d9,
+    base: #8334c2,
+    dark: #7230ac,
+  ),
+  brandAlt: (
+    light: #edf9f7,
+    base: #1db1aa,
+    dark: #1ba49d,
+  ),
+  shape: (
+    light: #f7f7f7,
+    base: #e0e0e0,
+    dark: #4d5969,
+  ),
+  text: (
+    light: #e0e0e0,
+    base: #7e8890,
+    dark: #4d5969,
+  ),
+  textAlt: (
+    light: #ffffff,
+    base: rgba(255, 255, 255, 0.5),
+    dark: rgba(255, 255, 255, 0.3),
+  ),
+  background: (
+    base: #ffffff,
+    dark: #f7f7f7,
+  ),
+  backgroundAlt: (
+    light: #3c4355,
+    base: #343a4b,
+    dark: #1e2331,
+  ),
+  action: (
+    base: #21c7a7,
+    dark: #1db396,
+  ),
+  error: (
+    light: #ffecea,
+    base: #e74c3c,
+  ),
+  alert: (
+    light: #fef8e5,
+    base: #f7da7e,
+    dark: #f7b900,
+  ),
+) !default;

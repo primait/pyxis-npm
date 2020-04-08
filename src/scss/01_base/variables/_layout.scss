@@ -1,0 +1,24 @@
+/************************************
+  Upper bound of any mediaQuery
+*************************************/
+$breakpoints: (
+  base:    1px,
+  xsmall:  576px,
+  small:   768px,
+  medium:  992px,
+  large:   1200px,
+  xlarge:  1920px,
+) !default;
+
+$breakpointBoundDiff: 0.2px !default;
+
+$containerGutter: 20px !default;
+
+$containers: (
+  base: calc(100% - (#{$containerGutter} * 2)),
+  xsmall: 540px,
+  small: 700px,
+  medium: 960px,
+  large: 1140px,
+  xlarge: 1370px,
+) !default;

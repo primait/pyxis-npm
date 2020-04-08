@@ -1,10 +1,27 @@
-.a-list {
-  list-style: disc;
-  margin: rem(15px) 0;
-  padding: 0 0 0 rem(30px);
+$listConfig: (
+  listStyle: disc,
+  paddingLeft: rem(30px),
+  breakpoints: (
+    base: (
+      marginTop: rem(15px),
+      marginBottom: rem(15px),
+    ),
+    small: (
+      marginTop: rem(20px),
+      marginBottom: rem(20px),
+    )
+  )
+) !default;
 
-  @include mq(small) {
-    margin: rem(20px) 0;
+.list {
+  list-style: get($listConfig, listStyle);
+  padding: 0;
+  padding-left: get($listConfig, paddingLeft);
+
+  @each $bp, $bpConfig in get($listConfig, breakpoints) {
+    @include mq($bp) {
+      margin-bottom: get($bpConfig, marginBottom);
+      margin-top: get($bpConfig, marginTop);
+    }
   }
 }
-  

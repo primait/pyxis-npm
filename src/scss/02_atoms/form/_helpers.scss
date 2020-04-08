@@ -1,0 +1,56 @@
+@mixin formFieldSizes {
+  flex: 1;
+  width: 100%;
+
+  &.is-small,
+  &.is-medium {
+    margin-bottom: get($formRowStyleConfig, gutter);
+    margin-right: get($formRowStyleConfig, gutter);
+
+    @include mq(small) {
+      margin-bottom: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &.is-small {
+    flex: 1 0 calc(100% / 3 - #{get($formRowStyleConfig, gutter)});
+
+    &:nth-child(3n),
+    &:nth-child(3n):nth-last-child(2) {
+      margin-right: 0;
+    }
+  }
+
+  &.is-medium {
+    flex: 1 0 calc(100% / 2 - #{get($formRowStyleConfig, gutter)});
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+
+  @include mq(small) {
+    max-width: get($formFieldSizeConfig, large);
+
+    & + & {
+      margin-left: get($formRowStyleConfig, gutter);
+      margin-right: inherit;
+    }
+  }
+
+  @each $size, $val in $formFieldSizeConfig {
+    &.is-#{$size} {
+      @include mq(small) {
+        flex: 0 0 get($formFieldSizeConfig, $size);
+        margin-bottom: 0;
+        margin-right: 0;
+        max-width: get($formFieldSizeConfig, $size);
+        width: get($formFieldSizeConfig, $size);
+      }
+    }
+  }
+}

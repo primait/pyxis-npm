@@ -1,114 +1,165 @@
-$tooltipMode: (
+$tooltipConfig: (
+  arrowSize: rem(12px),
+  background: color(backgroundAlt, base),
+  borderRadius: rem(5px),
+  color: color(textAlt, light),
+  offset: rem(15px),
+  paddingTop: rem(10px),
+  paddingRight: rem(15px),
+  paddingBottom: rem(6px),
+  paddingLeft: rem(15px),
+  breakpoints: (
+    base: (
+      width: 100%,
+    ),
+    small: (
+      width: rem(320px),
+    )
+  )
+) !default;
+
+$tooltipKind: (
+  error: color(error),
   warning: color(alert),
-  error: color(error)
+) !default;
+
+$tooltipPositions: (
+  top: (
+    top: initial,
+    right: initial,
+    bottom: 100%,
+    left: 50%,
+  ),
+  right: (
+    top: 50%,
+    right: initial,
+    left: 100%,
+    bottom: initial,
+  ),
+  bottom: (
+    top: 100%,
+    right: initial,
+    left: 50%,
+    bottom: initial,
+  ),
+  left: (
+    top: 50%,
+    right: 100%,
+    left: initial,
+    bottom: initial,
+  ),
 );
 
-@each $mode, $color in $tooltipMode {
-  .a-tooltip.a-tooltip--#{$mode},
-  .a-tooltip.a-tooltip--#{$mode}:before {
+.tooltip {
+  background-color: get($tooltipConfig, background);
+  border-radius: get($tooltipConfig, borderRadius);
+  color: get($tooltipConfig, color);
+  padding-bottom: get($tooltipConfig, paddingBottom);
+  padding-left: get($tooltipConfig, paddingLeft);
+  padding-right: get($tooltipConfig, paddingRight);
+  padding-top: get($tooltipConfig, paddingTop);
+  position: relative;
+  width: 100%;
+  z-index: zIndex(tooltip);
+
+  @include mq(small) {
+    position: absolute;
+  }
+
+  @each $bp, $bpConfig in get($tooltipConfig, breakpoints) {
+    @include mq($bp) {
+      width: get($bpConfig, width);
+    }
+  }
+
+  &:before {
+    background-color: get($tooltipConfig, background);
+    content: "";
+    height: get($tooltipConfig, arrowSize);
+    position: absolute;
+    top: #{(uGet($tooltipConfig, arrowSize) / -2)}rem;
+    transform: rotate(45deg);
+    width: get($tooltipConfig, arrowSize);
+  }
+}
+
+@mixin tooltipPosition($position) {
+  bottom: get($tooltipPositions, $position, bottom);
+  left: get($tooltipPositions, $position, left);
+  right: get($tooltipPositions, $position, right);
+  top: get($tooltipPositions, $position, top);
+
+  @if $position == top {
+    transform: translate(-50%, -(get($tooltipConfig, offset)));
+  } @else if $position == right {
+    transform: translate(get($tooltipConfig, offset), -50%);
+  } @else if $position == left {
+    transform: translate(-(get($tooltipConfig, offset)), -50%);
+  } @else if $position == bottom {
+    transform: translate(-50%, get($tooltipConfig, offset));
+  }
+}
+
+@mixin arrowPosition($position) {
+  #{$position}: calc(100% - #{get($tooltipConfig, arrowSize) / 2});
+
+  @if $position == top or $position == bottom {
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  } @else {
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+  }
+}
+
+@each $position, $props in $tooltipPositions {
+  .tooltip--#{$position} {
+    @include mq(small) {
+      @include tooltipPosition($position);
+    }
+
+    &:before {
+      @include mq(small) {
+        @include arrowPosition($position);
+      }
+    }
+  }
+}
+
+@each $kind, $color in $tooltipKind {
+  .tooltip--#{$kind},
+  .tooltip--#{$kind}:before {
     background-color: $color;
 
-    @if $mode == warning {
+    @if $kind == warning {
       color: color(text, dark);
     }
   }
 }
 
-.a-tooltip {
-  background-color: color(backgroundAlt, base);
-  border-radius: map-get($tooltipConfig, borderRadius);
-  color: color(textAlt, light);
-  padding: map-get($tooltipConfig, padding);
-  position: absolute;
-  width: map-get($tooltipConfig, width);
-  z-index: zIndex(tooltip);
+$bpIndex: 1;
+$bpLength: length($breakpoints);
 
-  &:before {
-    background-color: color(backgroundAlt, base);
-    content: "";
-    height: map-get($tooltipConfig, arrowSize);
-    position: absolute;
-    width: map-get($tooltipConfig, arrowSize);
+@each $bpKey, $bpSize in $breakpoints {
+  @each $position, $props in $tooltipPositions {
+    .tooltip--#{$position}-on-bp-#{$bpKey} {
+      @if ($bpIndex + 1) <= $bpLength {
+        $nextBpKey: nth(nth($breakpoints, ($bpIndex + 1)), 1);
+        @include mqBetween($bpKey, $nextBpKey) {
+          @include tooltipPosition($position);
+          &:before {
+            @include arrowPosition($position);
+          }
+        }
+      } @else {
+        @include mq($bpKey) {
+          @include tooltipPosition($position);
+          &:before {
+            @include arrowPosition($position);
+          }
+        }
+      }
+    }
   }
-
-  p {
-    margin: 0;
-    font-size: size(small);
-    line-height: lineHeight(small);
-  }
-}
-
-.a-tooltip__wrapper {
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  right: -30px;
-  top: 0;
-  bottom: 0;
-
-  .a-tooltip {
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s;
-  }
-
-  &:hover .a-tooltip {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-.a-tooltip.a-tooltip--up:before,
-.a-tooltip.a-tooltip--down:before {
-  transform: translateX(-50%) rotate(45deg);
-}
-
-.a-tooltip.a-tooltip--left:before,
-.a-tooltip.a-tooltip--right:before {
-  transform: translateY(-50%) rotate(45deg);
-}
-
-.a-tooltip.a-tooltip--up {
-  bottom: 100%;
-  left: 50%;
-  transform: translate(-50%, -(map-get($tooltipConfig, margin)));
-
-  &:before {
-    bottom: -(map-get($tooltipConfig, arrowSize) / 2);
-    left: 50%;
-  }
-}
-
-.a-tooltip.a-tooltip--down {
-  left: 50%;
-  top: 100%;
-  transform: translate(-50%, map-get($tooltipConfig, margin));
-
-  &:before {
-    left: 50%;
-    top: -(map-get($tooltipConfig, arrowSize) / 2);
-  }
-}
-
-.a-tooltip.a-tooltip--right {
-  left: 100%;
-  top: 50%;
-  transform: translate(map-get($tooltipConfig, margin), -50%);
-
-  &:before {
-    left: -(map-get($tooltipConfig, arrowSize) / 2);
-    top: 50%;
-  }
-}
-
-.a-tooltip.a-tooltip--left {
-  right: 100%;
-  top: 50%;
-  transform: translate(-(map-get($tooltipConfig, margin)), -50%);
-
-  &:before {
-    right: -(map-get($tooltipConfig, arrowSize) / 2);
-    top: 50%;
-  }
+  $bpIndex: $bpIndex + 1;
 }

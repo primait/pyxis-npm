@@ -1,16 +1,8 @@
 html {
   box-sizing: border-box;
-  font-size: size(root);
+  font-size: $fontSizeRoot;
+  line-height: $lineHeightRoot;
   overflow-x: hidden;
-
-  @include mq(medium) {
-    font-size: size(root);
-    line-height: lineHeight(root);
-  }
-
-  @include mq(xlarge) {
-    font-size: map-get($fontSizes, root) * $largeScreenRatio;
-  }
 }
 
 *,
@@ -20,23 +12,18 @@ html {
 }
 
 body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
   box-sizing: border-box;
   font-family: font(light);
   font-size: inherit;
+  -webkit-font-smoothing: antialiased;
   height: 100%;
+  line-height: inherit;
+  margin: 0;
   width: 100%;
-  @extend .fs-small;
-
-  @include mq(small) {
-    font-size: size(small);
-    line-height: lineHeight(small);
-  }
+  @include fontSize(small);
 
   @include mq(medium) {
-    font-size: size(base);
-    line-height: lineHeight(base);
+    @include fontSize(base);
   }
 }
 
@@ -44,11 +31,7 @@ h1,
 h2,
 h3,
 h4 {
-  margin-bottom: rem(20px);
-
-  @include mq(small) {
-    margin-bottom: rem(30px);
-  }
+  margin-bottom: rem(5px);
 }
 
 input,
@@ -58,15 +41,20 @@ button {
   font-size: inherit;
 }
 
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
 p {
   margin: 0;
-  
-  & + & {
-    margin-top: rem(15px);
+}
 
-    @include mq(small) {
-      margin-top: rem(20px);
-    }
+p + p {
+  margin-top: rem(15px);
+
+  @include mq(small) {
+    margin-top: rem(20px);
   }
 }
 
@@ -82,11 +70,35 @@ hr {
 }
 
 a {
-  text-decoration: none; 
+  text-decoration: none;
 }
 
-ul:not(.a-list) {
+ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+::-webkit-input-placeholder {
+  color: color(text);
+  opacity: get($formFieldStyleConfig, placeholderOpacity);
+}
+
+::-moz-placeholder {
+  color: color(text);
+  opacity: get($formFieldStyleConfig, placeholderOpacity);
+}
+
+:-ms-input-placeholder {
+  color: color(text);
+  opacity: get($formFieldStyleConfig, placeholderOpacity);
+}
+
+:-moz-placeholder {
+  color: color(text);
+  opacity: get($formFieldStyleConfig, placeholderOpacity);
+}
+
+::-ms-clear {
+  display: none;
 }

@@ -1,122 +1,236 @@
-.o-modal {
+$modalConfig: (
+  backgroundColor: color(background),
+  borderRadius: rem(10px),
+  maxHeight: calc(100vh - #{rem(20px)}),
+  maxWidth: calc(100% - #{rem(20px)}),
+  header: (
+    paddingLeft: rem(40px),
+    paddingRight: rem(40px),
+  ),
+  close: (
+    backgroundColor: transparent,
+    borderColor: color(shape),
+    borderWidth: rem(1px),
+    hover: (
+      backgroundColor: rgba(color(brandAlt), 0.1),
+      borderColor: color(brandAlt, dark),
+    )
+  ),
+  overlay: (
+    backgroundColor: rgba(color(backgroundAlt, dark), 0.7),
+  ),
+  footer: (
+    paddingTop: rem(20px)
+  ),
+  breakpoints: (
+    base: (
+      padding: rem(20px),
+      title: (
+        fontSize: medium,
+        paddingTop: rem(3px),
+        paddingBottom: rem(10px),
+      ),
+      content: (
+        fontSize: small
+      ),
+      close: (
+        size: rem(30px),
+      )
+    ),
+    small: (
+      padding: rem(30px),
+      title: (
+        fontSize: large,
+        paddingTop: rem(6px),
+        paddingBottom: rem(20px),
+      ),
+      content: (
+        fontSize: base
+      ),
+      close: (
+        size: rem(40px),
+      )
+    )
+  )
+) !default;
+
+$modalSize: (
+  small: (
+    width: rem(500px),
+  ),
+  medium: (
+    width: rem(800px),
+  ),
+  large: (
+    width: rem(1000px),
+  ),
+) !default;
+
+$modalKind: (
+  light: (
+    backgroundColor: color(background),
+    contentColor: color(text, dark),
+    title: (
+      color: color(text, dark),
+    ),
+    icon: (
+      backgroundColor: color(shape, dark),
+      borderColor: color(shape),
+    ),
+    hover: (
+      borderColor: color(brandAlt),
+    )
+  ),
+  dark: (
+    backgroundColor: color(backgroundAlt, light),
+    contentColor: color(textAlt, light),
+    title: (
+      color: color(textAlt, light),
+    ),
+    icon: (
+      backgroundColor: color(background),
+      borderColor: color(background),
+    ),
+    hover: (
+      borderColor: color(brandAlt),
+    )
+  ),
+) !default;
+
+@mixin modalKind($kind) {
+  background-color: get($modalKind, $kind, backgroundColor);
+
+  .modal__header__title {
+    color: get($modalKind, $kind, title, color);
+  }
+
+  .modal__content {
+    color: get($modalKind, $kind, contentColor);
+  }
+
+  .modal__header__close {
+    border-color: get($modalKind, $kind, icon, borderColor);
+  }
+
+  .modal__header__close:before,
+  .modal__header__close:after {
+    background-color: get($modalKind, $kind, icon, backgroundColor);
+  }
+}
+
+.modal {
+  background: get($modalConfig, overlay, backgroundColor);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: zIndex(modal);
+}
+
+.modal__wrapper {
+  @include modalKind(light);
   align-items: center;
-  background: color(background, base);
-  border-radius: map-get($modalConfig, borderRadius);
+  border-radius: get($modalConfig, borderRadius);
   display: flex;
   flex-direction: column;
   left: 50%;
-  max-width: map-get($modalConfig, maxWidthDefault);
-  padding: map-get($modalConfig, paddingMobile);
+  max-height: get($modalConfig, maxHeight);
+  max-width: get($modalConfig, maxWidth);
   position: absolute;
-  transform: translate3d(-50%, -50%, 0);
+  text-align: center;
   top: 50%;
-  width: map-get($modalConfig, width);
+  transform: translate3d(-50%, -50%, 0);
+  width: 100%;
 
-  @include mq(small) {
-    padding: map-get($modalConfig, padding);
+  @each $bp, $bpConfig in get($modalConfig, breakpoints) {
+    @include mq($bp) {
+      padding: get($bpConfig, padding);
+    }
   }
 
-  &.o-modal--small {
-    max-width: map-get($modalConfig, maxWidthSmall);
+  .modal--small & {
+    @include mq(small) {
+      width: get($modalSize, small, width);
+    }
   }
 
-  &.o-modal--medium {
-    max-width: map-get($modalConfig, maxWidthMedium);
+  .modal--medium & {
+    @include mq(small) {
+      width: get($modalSize, medium, width);
+    }
   }
 
-  &.o-modal--large {
-    max-width: map-get($modalConfig, maxWidthLarge);
+  .modal--large & {
+    @include mq(small) {
+      width: get($modalSize, large, width);
+    }
   }
 
-  .m-btnGroup {
-    justify-content: space-around;
-    width: 100%;
+  .modal--dark & {
+    @include modalKind(dark);
   }
 }
 
-.o-modal__close {
+.modal__header {
+  padding-left: get($modalConfig, header, paddingLeft);
+  padding-right: get($modalConfig, header, paddingRight);
+  position: relative;
+  width: 100%;
+}
+
+.modal__header__title {
+  margin: 0;
+
+  @each $bp, $bpConfig in get($modalConfig, breakpoints) {
+    @include mq($bp) {
+      @include fontSize(get($bpConfig, title, fontSize));
+      padding-bottom: get($bpConfig, title, paddingBottom);
+      padding-top: get($bpConfig, title, paddingTop);
+    }
+  }
+}
+
+.modal__content {
+  overflow-y: scroll;
+  width: 100%;
+
+  @each $bp, $bpConfig in get($modalConfig, breakpoints) {
+    @include mq($bp) {
+      @include fontSize(get($bpConfig, content, fontSize));
+    }
+  }
+}
+
+.modal__header__close {
+  @include iconClose(color(shape, dark));
   align-items: center;
-  border: 1px solid;
-  border-color: color(brandAlt, dark);
-  border-radius: map-get($modalConfig, closeButtonSize) * 2;
+  background-color: get($modalConfig, close, backgroundColor);
+  border-radius: 50%;
+  border-style: solid;
+  border-width: get($modalConfig, close, borderWidth);
   color: color(brandAlt, dark);
+  cursor: pointer;
   display: flex;
-  height: map-get($modalConfig, closeButtonSizeMobile);
   justify-content: center;
   position: absolute;
-  right: map-get($modalConfig, closeButtonSizeMobile);
-  top: map-get($modalConfig, closeButtonSizeMobile);
-  width: map-get($modalConfig, closeButtonSizeMobile);
+  right: 0;
+  top: 0;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 
-  @include mq(small) {
-    height: map-get($modalConfig, closeButtonSize);
-    right: map-get($modalConfig, closeButtonSize);
-    top: map-get($modalConfig, closeButtonSize);
-    width: map-get($modalConfig, closeButtonSize);
-  }
-}
-
-.o-modal__title {
-  color: color(text, dark);
-  font-size: size(large);
-  margin: 0;
-  padding: map-get($modalConfig, titlePadding);
-  text-align: center;
-}
-
-.o-modal__content {
-  color: color(text, base);
-  font-size: size(base);
-  line-height: lineHeight(base);
-  max-height: calc(70vh - 150px);
-  margin-bottom: 20px;
-  width: 90%;
-}
-
-
-/*************************
-  Dark skin
-*************************/
-.o-modal.o-modal--dark {
-  background: color(backgroundAlt, light);
-  color: color(textAlt, light);
-
-  .o-modal__title,
-  .o-modal__content {
-    color: color(textAlt, light);
-  }
-
-  .a-btn--primary {
-    background-color: color(background, base);
-    color: color(backgroundAlt, light);
-
-    &:hover {
-      background-color: color(shape);
+  @each $bp, $bpConfig in get($modalConfig, breakpoints) {
+    @include mq($bp) {
+      height: get($bpConfig, close, size);
+      width: get($bpConfig, close, size);
     }
   }
 
-  .a-btn--primary,
-  .a-btn--secondary {
-    border-color: color(background, base);
-
-    &:hover {
-      border-color: color(shape);
-    }
+  &:hover {
+    background-color: get($modalConfig, close, hover, backgroundColor);
+    border-color: get($modalConfig, close, hover, borderColor);
   }
+}
 
-  .a-btn--secondary,
-  .a-btn--tertiary {
-    background-color: transparent;
-    color: color(textAlt, light);
-
-    &:hover {
-      color: color(shape);
-    }
-  }
-
-  .o-modal__close {
-    border-color: color(background, base);
-    color: color(textAlt, light);
-    cursor: pointer;
-  }
+.modal__footer {
+  padding-top: get($modalConfig, footer, paddingTop);
 }

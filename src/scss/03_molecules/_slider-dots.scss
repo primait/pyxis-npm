@@ -1,0 +1,43 @@
+$dotsConfig: (
+  size: 10px,
+  borderWidth: 1px,
+  borderRadius: 20px,
+) !default;
+
+$dotsSkin: (
+  base: color(brand, light),
+  alt: color(background)
+) !default;
+
+@mixin dotsSkin($skin) {
+  .slider-dots__item {
+    background-color: transparent;
+    border-color: get($dotsSkin, $skin);
+  }
+
+  .slider-dots__item.is-active {
+    background-color: get($dotsSkin, $skin);
+  }
+}
+
+.slider-dots {
+  display: flex;
+}
+
+.slider-dots__item {
+  border-radius: get($dotsConfig, borderRadius);
+  border-style: solid;
+  border-width: get($dotsConfig, borderWidth);
+  height: get($dotsConfig, size);
+  width: get($dotsConfig, size);
+}
+
+.slider-dots__item + .slider-dots__item {
+  margin-left: rem(10px);
+}
+
+@each $skin, $color in $dotsSkin {
+  .slider-dots--#{$skin} {
+    @include dotsSkin($skin);
+  }
+}

@@ -1,0 +1,133 @@
+// Configuration maps
+$radioConfig: (
+  fontSize: size(small),
+  lineHeight: rem(20px),
+  opticalOffset: rem(1px),
+  paddingBottom: rem(5px),
+  paddingLeft: rem(30px),
+  paddingRight: rem(20px),
+  paddingTop: rem(5px),
+) !default;
+
+.form-radio-options {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-height: get($formFieldStyleConfig, height);
+
+  @include ie {
+    align-items: center;
+    align-self: flex-start;
+    height: get($formFieldStyleConfig, height);
+    min-height: 50%;
+  }
+}
+
+.form-radio {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: get($radioConfig, paddingBottom);
+  padding-top: get($radioConfig, paddingTop);
+}
+
+.form-radio__input {
+  display: none;
+}
+
+.form-radio__label {
+  color: get($formFieldStateConfig, default, color);
+  cursor: pointer;
+  font-size: get($radioConfig, fontSize);
+  line-height: get($radioConfig, lineHeight);
+  padding-left: get($radioConfig, paddingLeft);
+  padding-right: get($radioConfig, paddingRight);
+  position: relative;
+  top: get($radioConfig, opticalOffset);
+  transition: color 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  width: auto;
+
+  .form-radio__input:checked + & {
+    color: get($formFieldStateConfig, valid, stateColor);
+  }
+
+  .form-radio__input[disabled] + & {
+    opacity: get($formFieldStateConfig, disabled, opacity);
+    pointer-events: none;
+  }
+
+  &:hover {
+    color: get($formFieldStateConfig, valid, stateColor);
+  }
+
+  .form-radio__input.has-error + &:hover,
+  .form-radio__input.has-warning + &:hover {
+    color: get($formFieldStateConfig, default, color);
+  }
+
+  &:before,
+  &:after {
+    border-radius: 50%;
+    content: "";
+    display: flex;
+    position: absolute;
+    text-align: center;
+    transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, transform 0.1s ease-in-out, color 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  }
+
+  &:before {
+    background-color: get($formFieldStateConfig, default, background);
+    border-color: get($formFieldStateConfig, focus, stateColor);
+    border-style: solid;
+    border-width: get($formFieldStyleConfig, borderWidth);
+    height: rem(20px);
+    left: 0;
+    margin-top: - get($radioConfig, opticalOffset);
+    top: 50%;
+    transform: translateY(-50%);
+    width: rem(20px);
+  }
+
+  .form-radio__input.has-error + &:before {
+    border-color: get($formFieldStateConfig, error, stateColor);
+  }
+
+  .form-radio__input.has-warning + &:before {
+    border-color: get($formFieldStateConfig, warning, stateColor);
+  }
+
+  .form-radio__input[disabled] + &:before {
+    background-color: get($formFieldStateConfig, disabled, background);
+    border-color: get($formFieldStateConfig, disabled, stateColor);
+  }
+
+  &:after {
+    background: get($formFieldStateConfig, valid, stateColor);
+    height: rem(10px);
+    left: rem(5px);
+    margin-top: -(rem(6px));
+    top: 50%;
+    transform: scale(0);
+    width: rem(10px);
+  }
+
+  &:hover:after,
+  .form-radio__input:checked + &:after {
+    transform: scale(1);
+  }
+
+  .form-radio__input:not(:checked) + &:hover:after {
+    opacity: get($formFieldStateConfig, disabled, opacity);
+  }
+
+  .form-radio__input.has-error + &:after {
+    background-color: get($formFieldStateConfig, error, stateColor);
+    color: get($formFieldStateConfig, error, stateColor);
+  }
+
+  .form-radio__input.has-warning + &:after {
+    background-color: get($formFieldStateConfig, warning, stateColor);
+    color: get($formFieldStateConfig, error, stateColor);
+  }
+}
