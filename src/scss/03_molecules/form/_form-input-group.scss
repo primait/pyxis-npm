@@ -55,3 +55,15 @@
     padding-left: #{uGet($formFieldStyleConfig, height) * 1.5 + uGet($formFieldStyleConfig, paddingLeft)}rem;
   }
 }
+
+.form-input-group__append__icon,
+.form-input-group__prepend__icon {
+  align-items: center;
+  color: get($formFieldStyleConfig, iconColor);
+  display: flex;
+  font-size: size(large);
+  height: get($formFieldStyleConfig, height);
+  justify-content: center;
+  text-align: center;
+  width: get($formFieldStyleConfig, height);
+}

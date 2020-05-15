@@ -1,20 +1,3 @@
-$iconConfig: (
-  size: size(large),
-);
-
-.icon {
-  font-size: get($iconConfig, size);
-}
-
-.form-input-group__append .icon,
-.form-input-group__prepend .icon {
-  color: get($formFieldStyleConfig, iconColor);
-  height: get($formFieldStyleConfig, height);
-  line-height: get($formFieldStyleConfig, height);
-  text-align: center;
-  width: get($formFieldStyleConfig, height);
-}
-
 // @param {String} $direction - Direction of icon (top, right, bottom, left)
 // @param {String} $color
 // @param {String} $size
