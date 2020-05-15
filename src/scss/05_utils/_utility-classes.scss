@@ -1,0 +1,227 @@
+$utilityClasses: (
+  justify-content: (
+    flex-start,
+    flex-end,
+    center,
+    space-between,
+    space-around,
+    space-evenly,
+  ),
+  align-items: (
+    flex-start,
+    flex-end,
+    center,
+    baseline,
+    stretch,
+  ),
+  align-content: (
+    flex-start,
+    flex-end,
+    center,
+    space-between,
+    space-around,
+    stretch,
+  ),
+  flex-wrap: (
+    wrap,
+    wrap-reverse,
+    nowrap,
+  ),
+  flex-direction: (
+    column,
+    row,
+  ),
+  text-align: (
+    left,
+    right,
+    center,
+  ),
+  display: (
+    inline,
+    inline-block,
+    block,
+    flex,
+  ),
+  position: (
+    relative,
+    absolute,
+  ),
+  text-decoration: (
+    none,
+    underline,
+    line-through,
+  ),
+  text-transform: (
+    uppercase,
+    lowercase,
+  ),
+  overflow: (
+    hidden,
+    scroll,
+  ),
+  overflow-x: (
+    hidden,
+    scroll,
+  ),
+  overflow-y: (
+    hidden,
+    scroll,
+  ),
+  white-space: (
+    nowrap,
+    normal,
+    pre-wrap,
+  ),
+  word-break: (
+    break-all,
+    break-word
+  )
+);
+
+@each $property, $propertyValues in $utilityClasses {
+  @each $value in $propertyValues {
+    .#{$property}-#{$value} {
+      #{$property}: #{$value};
+    }
+  }
+}
+
+@each $bpKey, $bpSize in $breakpoints {
+  .direction-column--from-bp-#{$bpKey} {
+    @include mq($bpKey) {
+      flex-direction: column;
+    }
+  }
+}
+
+@each $bpKey, $bpSize in $breakpoints {
+  .direction-row--from-bp-#{$bpKey} {
+    @include mq($bpKey) {
+      flex-direction: row;
+    }
+  }
+}
+
+
+
+@each $color, $tones in $colors {
+  @each $colorTone, $colorHex in $tones {
+    .bg-#{camelToKebabCase($color)}-#{$colorTone} {
+      background-color: $colorHex;
+    }
+
+    .c-#{camelToKebabCase($color)}-#{$colorTone} {
+      color: $colorHex;
+    }
+  }
+}
+
+@each $fontKey, $size in $fontSizes {
+  .fs-#{$fontKey} {
+    font-size: size($fontKey);
+    line-height: lineHeight($fontKey);
+  }
+}
+
+@each $fontWeight, $font in $fonts {
+  .fw-#{$fontWeight} {
+    font-family: font($fontWeight);
+  }
+}
+
+@for $i from 0 through 10 {
+  .opacity-#{$i} {
+    opacity: $i/10;
+  }
+}
+
+@each $mqKey, $size in $containers {
+  .hide-#{$mqKey}-down {
+    @include mqDown($mqKey) {
+      display: none;
+    }
+  }
+
+  .hide-#{$mqKey}-up {
+    @include mq($mqKey) {
+      display: none;
+    }
+  }
+}
+
+@each $fontKey, $size in $fontSizes {
+  $bpIndex: 1;
+  $bpLength: length($breakpoints);
+
+  @each $bpKey, $bpSize in $breakpoints {
+    .fs-#{$fontKey}-on-bp-#{$bpKey} {
+      @if ($bpIndex + 1) <= $bpLength {
+        $nextBpKey: nth(nth($breakpoints, ($bpIndex + 1)), 1);
+        @include mqBetween($bpKey, $nextBpKey) {
+          font-size: size($fontKey);
+        }
+      } @else {
+        @include mq($bpKey) {
+          font-size: size($fontKey);
+        }
+      }
+    }
+
+    $bpIndex: $bpIndex + 1;
+  }
+}
+
+@each $size, $props in $boxShadows {
+  .box-shadow--#{$size} {
+    box-shadow: $props;
+  }
+}
+
+.border {
+  border: rem(1px) solid color(shape);
+}
+
+.border-bottom {
+  border-bottom: rem(1px) solid color(shape);
+}
+
+.border-top {
+  border-top: rem(1px) solid color(shape);
+}
+
+.full-width {
+  width: 100%;
+}
+
+.is-unscrollable {
+  overflow: hidden;
+  position: fixed;
+}
+
+.list-style-none {
+  list-style: none;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.visually-hidden {
+  clip: rect(0 0 0 0);
+  height: rem(1px);
+  margin: rem(-1px);
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: rem(1px);
+}

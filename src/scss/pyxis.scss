@@ -1,9 +1,13 @@
-// Default Pyxis Entry point, you can start from here to build your Custom Theme
 @import
-  '00_reset/_root',
-  '01_base/_root',
-  '02_atoms/_root',
-  '03_molecules/_root',
-  '04_organisms/_root',
-  '05_utils/_root',
-  '06_fonts/root';
+  "00_reset/_root",
+  "01_base/_root",
+  "02_atoms/_root",
+  "03_molecules/_root",
+  "04_organisms/_root",
+  "05_utils/_root",
+  "06_fonts/_root";
+
+// This is useful to break compile cycle while keeping stack trace infos.
+@if($errorCount > 0) {
+  @error "Found #{$errorCount} errors. Aborting.";
+}

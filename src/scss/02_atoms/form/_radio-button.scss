@@ -1,0 +1,111 @@
+$radioButtonConfig: (
+  backgroundColor: get($formFieldStateConfig, default, background),
+  borderWidth: rem(1px),
+  boxShadow: boxShadow(small),
+  fontSize: size(small),
+  lineHeight: lineHeight(xsmall),
+  paddingBottom: rem(10px),
+  paddingLeft: rem(15px),
+  paddingRight: rem(15px),
+  paddingTop: rem(10px),
+  subtitleColor: color(text),
+  titleColor: color(text, dark),
+  fontFamily: (
+    base: font(base),
+    heavy: font(heavy),
+  ),
+  selected: (
+    backgroundColor: color(brandAlt, light),
+  ),
+  breakpoints: (
+    base: (
+      marginLeft: 0,
+      marginTop: rem(10px),
+    ),
+    medium: (
+      marginLeft: rem(20px),
+      marginTop: 0,
+    )
+  )
+) !default;
+
+.form-radio-button-options {
+  display: block;
+  min-height: get($formFieldStyleConfig, height);
+  width: 100%;
+
+  @include mq(medium) {
+    display: flex;
+    flex-flow: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+}
+
+.form-radio-button {
+  background-color: get($radioButtonConfig, backgroundColor);
+  border-color: transparent;
+  border-radius: get($formFieldStyleConfig, borderRadius);
+  border-style: solid;
+  border-width: get($radioButtonConfig, borderWidth);
+  box-shadow: get($radioButtonConfig, boxShadow);
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  font-family: get($radioButtonConfig, fontFamily, base);
+  justify-content: center;
+  min-height: get($formFieldStyleConfig, height);
+  padding-bottom: get($radioButtonConfig, paddingBottom);
+  padding-left: get($radioButtonConfig, paddingLeft);
+  padding-right: get($radioButtonConfig, paddingRight);
+  padding-top: get($radioButtonConfig, paddingTop);
+  transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+
+  &:hover {
+    border-color: get($formFieldStateConfig, focus, stateColor);
+  }
+
+  & + & {
+    @each $bp, $bpConfig in get($radioButtonConfig, breakpoints) {
+      @include mq($bp) {
+        margin-left: get($bpConfig, marginLeft);
+        margin-top: get($bpConfig, marginTop);
+      }
+    }
+  }
+
+  &.has-subtitle {
+    justify-content: flex-start;
+  }
+
+  &.is-selected {
+    background-color: get($radioButtonConfig, selected, backgroundColor);
+    border-color: get($formFieldStateConfig, focus, stateColor);
+  }
+
+  &.has-warning {
+    border-color: get($formFieldStateConfig, warning, stateColor);
+  }
+
+  &.has-error {
+    border-color: get($formFieldStateConfig, error, stateColor);
+  }
+}
+
+.form-radio-button__title {
+  color: get($radioButtonConfig, titleColor);
+  font-size: get($radioButtonConfig, fontSize);
+  text-align: center;
+
+  .form-radio-button.has-subtitle & {
+    font-family: get($radioButtonConfig, fontFamily, heavy);
+    text-align: left;
+  }
+}
+
+.form-radio-button__subtitle {
+  color: get($radioButtonConfig, subtitleColor);
+  font-size: get($radioButtonConfig, fontSize);
+  line-height: get($radioButtonConfig, lineHeight);
+}

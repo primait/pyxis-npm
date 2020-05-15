@@ -1,62 +1,209 @@
-@function map-deep-get($map, $keys...) {
+$errorCount: 0 !global;
+
+// Returns a boxShadow of $size.
+// @param {String} $size
+// @return {Property value}
+// @throws {Warn}
+@function boxShadow($size) {
+  @if (isSetOrDie($size) and map-has-key($boxShadows, $size)) {
+    @return get($boxShadows, $size);
+  } @else {
+    @warn "Shadow #{$size} not found in $shadows map.";
+  }
+}
+
+// Returns the $color hex with a $variant.
+// @param {String} $color
+// @param {String} $variant
+// @return {Property value}
+// @throws {Warn}
+@function color($color, $variant: base) {
+  @if (isSetOrDie($color) and map-has-key($colors, $color) and map-has-key(get($colors, $color), $variant)) {
+    @return get($colors, $color, $variant);
+  } @else {
+    @warn "Color #{$color} not found in $colors map.";
+  }
+}
+
+// Returns the $font.
+// @param {String} $font
+// @return {Property value}
+// @throws {Warn}
+@function font($font) {
+  @if (isSetOrDie($font) and map-has-key($fonts, $font)) {
+    @return get($fonts, $font);
+  } @else {
+    @warn "Font #{$font} not found in $fonts map.";
+  }
+}
+
+// Checks if $var exists. Throws warn on failure.
+// @param {String} $var
+// @return {Bool}
+// @throws {Warn}
+@function isSetOrDie($var) {
+  @if $var {
+    @return true;
+  } @else {
+    @warn "Invoked isSetOrDie with a null parameter";
+  }
+}
+
+// Returns a lineHeight of $size.
+// @param {String} $size
+// @return {Property value}
+// @throws {Warn}
+@function lineHeight($size) {
+  @if (isSetOrDie($size) and map-has-key($lineHeight, $size)) {
+    @return get($lineHeight, $size) * 100%;
+  } @else {
+    @warn "Line-height #{$size} not found in $lineHeight map.";
+  }
+}
+
+// Recursive search of a $key(s) inside the $map.
+// @param {Map} $map
+// @param {Args} $keys
+// @return {any}
+// @throws {Warn}
+@function get($map, $keys...) {
+  $originalMap: $map;
+
   @each $key in $keys {
     $map: map-get($map, $key);
+    @if (not $map) {
+      $errorCount: $errorCount + 1 !global;
+      @warn "Key #{$key} not found.";
+    }
   }
   @return $map;
 }
 
-@function capitalize($str) {
-  @return to_upper_case(str_slice($str, 1, 1)) + str_slice($str, 2, -1);
+// Unitless version of get.
+// @param {Map} $map
+// @param {Args} $keys
+// @return {Number}
+// @throws {Warn}
+@function uGet($map, $keys...) {
+  @return toNumber(strReplace("#{get($map, $keys...)}", "rem", ""));
 }
 
-@function color($color, $variation: base) {
-  @if( map-has-key($colors, $color) ) {
-    @return map-deep-get($colors, $color, $variation);
-  }
-  @else {
-    @error "Color `#{$color}` not found in `$colors` map, which is #{$colors}.";
-  }
-}
-
-@function font($font) {
-  @if( map-has-key($fonts, $font) ) {
-    @return map-get($fonts, $font);
-  }
-  @else {
-    @error "Font `#{$font}` not found in `$fonts` map, which is #{$fonts}.";
+// Converts an $amount into a rem one.
+// @param {String} $amount
+// @return {Property value}
+// @throws {Warn}
+@function rem($amount) {
+  @if (isSetOrDie($amount)) {
+    $remSize: $amount / $fontSizeRoot;
+    @return #{$remSize}rem;
+  } @else {
+    @warn "#{$amount} is not a value which I can convert to rem.";
   }
 }
 
+// Returns a font-size of $size.
+// @param {String} $size
+// @return {Property value}
+// @throws {Warn}
 @function size($size) {
-  @if( map-has-key($fontSizes, $size) ) {
-    @return map-get($fontSizes, $size);
-  }
-  @else {
-    @error "Font `#{$size}` not found in `$fontSizes` map, which is #{$fontSizes}.";
-  }
-}
-
-@function lineHeight($size) {
-  @if( map-has-key($fontSizes, $size) ) {
-    @return map-get($fontSizes, $size) * $goldenRatio;
-  }
-  @else {
-    @error "Font `#{$size}` not found in `$fontSizes` map, which is #{$fontSizes}.";
+  @if (isSetOrDie($size) and map-has-key($fontSizes, $size)) {
+    @return get($fontSizes, $size);
+  } @else {
+    @warn "Size #{$size} not found in $fontSizes map.";
   }
 }
 
-@function containerWidth($container: base) {
-  @if($container == base) {
-    @return calc(100% - #{rem($containerGutter)} - #{rem($containerGutter)});
-  }
-  @else if( map-has-key($containerConfig, $container) ) {
-    @return map-get($containerConfig, $container);
-  }
-  @else {
-    @error "Container `#{$container}` not found in `$containerConfig` map, which is #{$containerConfig}.";
+// Strips the unit from a $number.
+// @param {Number} $number
+// @return {Number}
+// @throws {Warn}
+@function stripUnit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  } @else {
+    @warn "Cannot strip the unit from #{$number}.";
   }
 }
 
-@function zIndex($key) {
-  @return index($zIndexes, $key);
+// Replace `$search` with `$replace` in `$string`
+// @param {String} $string
+// @param {String} $search
+// @param {String} $replace
+// @return {String}
+@function strReplace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + strReplace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+}
+
+// Returns the z-index for the $element.
+// @param {String} $element
+// @return {Number}
+// @throws {Warn}
+@function zIndex($element) {
+  @if (isSetOrDie($element) and map-has-key($zIndexes, $element)) {
+    @return get($zIndexes, $element);
+  } @else {
+    @warn "zIndex #{$element} not found in $zIndexes map.";
+  }
+}
+
+// Converts a $value to a Number.
+// @param {String} $element
+// @return {Number}
+// @throws {Warn}
+@function toNumber($value) {
+  @if type-of($value) == "number" {
+    @return $value;
+  } @else if type-of($value) != "string" {
+    @warn "Value for to-number should be a number or a string.";
+  }
+  $result: 0;
+  $digits: 0;
+  $minus: str-slice($value, 1, 1) == "-";
+  $numbers: ("0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9);
+  @for $i from if($minus, 2, 1) through str-length($value) {
+    $character: str-slice($value, $i, $i);
+    @if not (index(map-keys($numbers), $character) or $character == ".") {
+      @return length(if($minus, -$result, $result), str-slice($value, $i));
+    }
+    @if $character == "." {
+      $digits: 1;
+    } @else if $digits == 0 {
+      $result: $result * 10 + get($numbers, $character);
+    } @else {
+      $digits: $digits * 10;
+      $result: $result + get($numbers, $character) / $digits;
+    }
+  }
+  @return if($minus, -$result, $result);
+}
+
+// Splits a $string into a list of characters.
+// @param {String} $string
+// @return {List}
+@function stringToCharList($string: "") {
+  $chars: ();
+  @for $i from 1 through str-length($string) {
+    $chars: append($chars, str-slice($string, $i, $i));
+  }
+  @return $chars;
+}
+
+// Converts a camelCase $string into a kebab-case one.
+// @param {String} $string
+// @return {List}
+@function camelToKebabCase($string: "") {
+  $alphabet: "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z";
+  $kebabString: "";
+  @each $char in stringToCharList($string) {
+    @if index($alphabet, $char) == null {
+      $kebabString: $kebabString + $char;
+    } @else {
+      $kebabString: $kebabString + "-" + to_lower_case($char);
+    }
+  }
+  @return $kebabString;
 }

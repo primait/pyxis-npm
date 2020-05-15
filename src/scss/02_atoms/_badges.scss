@@ -1,0 +1,76 @@
+$badgeConfig: (
+  borderRadius: rem(8px),
+  fontFamily: font(heavy),
+  fontSize: xsmall,
+  lineHeight: 100%,
+  letterSpacing: rem(0.3px),
+  paddingBottom: rem(6px),
+  paddingLeft: rem(8px),
+  paddingRight: rem(8px),
+  paddingTop: rem(8px),
+) !default;
+
+$badgeKinds: (
+  primary: (
+    backgroundColor: rgba(color(brand, light), 0.1),
+    color: color(brand, light),
+  ),
+  primaryAlt: (
+    backgroundColor: rgba(color(background), 0.1),
+    color: color(textAlt, light),
+  ),
+  info: (
+    backgroundColor: color(shape, light),
+    color: color(text, dark),
+  ),
+  infoAlt: (
+    backgroundColor: color(background),
+    color: color(text, dark),
+  ),
+  success: (
+    backgroundColor: color(brandAlt, light),
+    color: color(brandAlt),
+  ),
+  successAlt: (
+    backgroundColor: color(background),
+    color: color(brandAlt),
+  ),
+  warning: (
+    backgroundColor: color(alert, light),
+    color: color(alert, dark),
+  ),
+  warningAlt: (
+    backgroundColor: color(background),
+    color: color(alert, dark),
+  ),
+  danger: (
+    backgroundColor: color(error, light),
+    color: color(error),
+  ),
+  dangerAlt: (
+    backgroundColor: color(background),
+    color: color(error),
+  )
+) !default;
+
+.badge {
+  @include fontSize(get($badgeConfig, fontSize));
+  border-radius: get($badgeConfig, borderRadius);
+  display: inline-flex;
+  font-family: get($badgeConfig, fontFamily);
+  justify-content: center;
+  letter-spacing: get($badgeConfig, letterSpacing);
+  line-height: get($badgeConfig, lineHeight);
+  padding-bottom: get($badgeConfig, paddingBottom);
+  padding-left: get($badgeConfig, paddingLeft);
+  padding-right: get($badgeConfig, paddingRight);
+  padding-top: get($badgeConfig, paddingTop);
+  width: fit-content;
+}
+
+@each $kind, $kindConfig in $badgeKinds {
+  .badge--#{camelToKebabCase($kind)} {
+    background-color: get($kindConfig, backgroundColor);
+    color: get($kindConfig, color);
+  }
+}

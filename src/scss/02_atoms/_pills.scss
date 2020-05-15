@@ -1,0 +1,82 @@
+$pillConfig: (
+  borderRadius: rem(10px),
+  fontFamily: font(heavy),
+  fontSize: rem(11px),
+  letterSpacing: 0,
+  lineHeight: size(xsmall),
+  paddingBottom: rem(2px),
+  paddingLeft: rem(10px),
+  paddingRight: rem(10px),
+  paddingTop: rem(6px),
+  ie: (
+    paddingTop: rem(3px),
+  ),
+) !default;
+
+$pillKinds: (
+  primary: (
+    backgroundColor: color(brand, light),
+    color: color(textAlt, light),
+  ),
+  primary-alt: (
+    backgroundColor: color(background),
+    color: color(brand),
+  ),
+  info: (
+    backgroundColor: color(shape, light),
+    color: color(text, dark),
+  ),
+  info-alt: (
+    backgroundColor: color(background),
+    color: color(text, dark),
+  ),
+  success: (
+    backgroundColor: color(brandAlt),
+    color: color(textAlt, light),
+  ),
+  success-alt: (
+    backgroundColor: color(background),
+    color: color(brandAlt),
+  ),
+  warning: (
+    backgroundColor: color(alert, dark),
+    color: color(textAlt, light),
+  ),
+  warning-alt: (
+    backgroundColor: color(background),
+    color: color(alert, dark),
+  ),
+  danger: (
+    backgroundColor: color(error),
+    color: color(textAlt, light),
+  ),
+  danger-alt: (
+    backgroundColor: color(background),
+    color: color(error),
+  )
+) !default;
+
+.pill {
+  border-radius: get($pillConfig, borderRadius);
+  display: inline-flex;
+  font-family: get($pillConfig, fontFamily);
+  font-size: get($pillConfig, fontSize);
+  justify-content: center;
+  letter-spacing: get($pillConfig, letterSpacing);
+  line-height: get($pillConfig, lineHeight);
+  padding-bottom: get($pillConfig, paddingBottom);
+  padding-left: get($pillConfig, paddingLeft);
+  padding-right: get($pillConfig, paddingRight);
+  padding-top: get($pillConfig, paddingTop);
+
+  @include ie {
+    padding-top: get($pillConfig, ie, paddingTop);
+  }
+}
+
+@each $kind, $kindConfig in $pillKinds {
+  .pill--#{$kind} {
+    background-color: get($kindConfig, backgroundColor);
+    color: get($kindConfig, color);
+  }
+}

@@ -1,0 +1,142 @@
+$checkboxConfig: (
+  borderRadius: rem(3px),
+  fontSize: size(small),
+  lineHeight: rem(20px),
+  opticalOffset: rem(1px),
+  paddingBottom: rem(5px),
+  paddingLeft: rem(30px),
+  paddingRight: rem(20px),
+  paddingTop: rem(5px),
+  checkColor: color(text, light),
+) !default;
+
+.form-checkbox-options {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  min-height: get($formFieldStyleConfig, height);
+
+  @include ie {
+    align-items: center;
+    align-self: flex-start;
+    height: get($formFieldStyleConfig, height);
+    min-height: 50%;
+  }
+}
+
+.form-checkbox {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: get($checkboxConfig, paddingBottom);
+  padding-top: get($checkboxConfig, paddingTop);
+}
+
+.form-checkbox__input {
+  display: none;
+}
+
+.form-checkbox__label {
+  color: get($formFieldStateConfig, default, color);
+  cursor: pointer;
+  font-size: get($checkboxConfig, fontSize);
+  line-height: get($checkboxConfig, lineHeight);
+  padding-left: get($checkboxConfig, paddingLeft);
+  padding-right: get($checkboxConfig, paddingRight);
+  position: relative;
+  top: get($checkboxConfig, opticalOffset);
+  transition: color 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  width: auto;
+
+  .form-checkbox__input:checked + & {
+    color: get($formFieldStateConfig, valid, stateColor);
+  }
+
+  .form-checkbox__input[disabled] + & {
+    opacity: get($formFieldStateConfig, disabled, opacity);
+    pointer-events: none;
+  }
+
+  &:hover {
+    color: get($formFieldStateConfig, valid, stateColor);
+  }
+
+  .form-checkbox__input.has-error + &:hover,
+  .form-checkbox__input.has-warning + &:hover {
+    color: get($formFieldStateConfig, default, color);
+  }
+
+  &:before,
+  &:after {
+    content: "";
+    display: flex;
+    margin-top: - get($checkboxConfig, opticalOffset);
+    position: absolute;
+    text-align: center;
+    top: 0;
+    transform-origin: center center;
+    transition: background-color 0.1s ease-in-out, border-color 0.1s ease-in-out, transform 0.1s ease-in-out, opacity 0.1s ease-in-out;
+  }
+
+  &:before {
+    background-color: get($formFieldStateConfig, default, background);
+    border-color: get($formFieldStateConfig, focus, stateColor);
+    border-radius: get($checkboxConfig, borderRadius);
+    border-style: solid;
+    border-width: get($formFieldStyleConfig, borderWidth);
+    display: block;
+    height: rem(20px);
+    left: 0;
+    width: rem(20px);
+  }
+
+  .form-checkbox__input.has-error + &:before {
+    border-color: get($formFieldStateConfig, error, stateColor);
+  }
+
+  .form-checkbox__input.has-warning + &:before {
+    border-color: get($formFieldStateConfig, warning, stateColor);
+  }
+
+  .form-checkbox__input[disabled] + &:before {
+    background-color: get($formFieldStateConfig, disabled, background);
+    border-color: get($formFieldStateConfig, disabled, stateColor);
+  }
+
+  .form-checkbox__input:not(:checked) + &:hover:before {
+    transform: scale(1.05);
+  }
+
+  &:after {
+    border-bottom-color: get($checkboxConfig, checkColor);
+    border-bottom-style: solid;
+    border-bottom-width: rem(2px);
+    border-right-color: get($checkboxConfig, checkColor);
+    border-right-style: solid;
+    border-right-width: rem(2px);
+    height: rem(10px);
+    left: rem(7px);
+    opacity: 0;
+    top: rem(9px);
+    transform: translateY(-50%) rotate(45deg);
+    width: rem(6px);
+  }
+
+  &:hover:after {
+    opacity: 1;
+  }
+
+  .form-checkbox__input:checked + &:after {
+    border-color: get($formFieldStateConfig, valid, stateColor);
+    opacity: 1;
+  }
+
+  .form-checkbox__input.has-error:checked + &:after {
+    border-color: get($formFieldStateConfig, error, stateColor);
+  }
+
+  .form-checkbox__input.has-warning:checked + &:after {
+    border-color: get($formFieldStateConfig, warning, stateColor);
+  }
+}

@@ -1,0 +1,209 @@
+$autocompleteConfig: (
+  paddingRight: rem(60px),
+  list: (
+    hoverBackgroundColor: color(background, dark),
+    maxOptionsToShow: 4,
+    paddingLeft: rem(15px),
+    paddingRight: rem(15px),
+    selectedBackgroundColor: color(brandAlt, light),
+    selectedColor: color(brandAlt, dark),
+  ),
+  searchIcon: (
+    color: color(shape),
+  ),
+  resetIcon: (
+    backgroundColor: color(shape, light),
+    borderRadius: 50%,
+    color: color(shape, dark),
+    offset: rem(10px),
+    size: rem(30px),
+  ),
+  noResult: (
+    color: color(text, dark),
+    fontSize: size(xsmall),
+  )
+) !default;
+
+.form-autocomplete {
+  @include formFieldSizes;
+  position: relative;
+
+  @include mqDown(small) {
+    flex: 1;
+  }
+}
+
+.form-autocomplete__input {
+  padding-right: get($autocompleteConfig, paddingRight);
+
+  .form-autocomplete.is-open & {
+    border-bottom-color: color(shape);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    box-shadow: get($formFieldStateConfig, focus, boxShadow);
+  }
+}
+
+.form-autocomplete__search-icon {
+  display: inline-block;
+  height: rem(24px);
+  position: absolute;
+  right: rem(13px);
+  top: rem(13px);
+  width: rem(24px);
+
+  &:before {
+    background-color: get($autocompleteConfig, searchIcon, color);
+    content: "";
+    display: block;
+    height: rem(1px);
+    left: rem(14px);
+    position: absolute;
+    top: rem(17px);
+    transform: rotate(45deg);
+    transition: all 0.2s ease-in-out;
+    width: rem(6px);
+  }
+
+  &:after {
+    border-color: get($autocompleteConfig, searchIcon, color);
+    border-radius: 50%;
+    border-style: solid;
+    border-width: rem(1px);
+    content: "";
+    display: block;
+    height: rem(14px);
+    left: rem(4px);
+    position: absolute;
+    top: rem(4px);
+    transition: all 0.2s ease-in-out;
+    width: rem(14px);
+  }
+}
+
+.form-autocomplete__list {
+  $autocompleteMaxHeight: uGet($formFieldStyleConfig, height) * uGet($autocompleteConfig, list, maxOptionsToShow) + uGet($formFieldStyleConfig, height) * 0.5;
+
+  background: get($formFieldStateConfig, default, background);
+  border-bottom-left-radius: get($formFieldStyleConfig, borderRadius);
+  border-bottom-right-radius: get($formFieldStyleConfig, borderRadius);
+  border-color: get($formFieldStateConfig, default, stateColor);
+  border-style: solid;
+  border-width: get($formFieldStyleConfig, borderWidth);
+  display: none;
+  flex-direction: column;
+  left: 0;
+  list-style: none;
+  max-height: #{$autocompleteMaxHeight}rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: zIndex(formList);
+
+  .form-autocomplete.is-open & {
+    border-color: get($formFieldStateConfig, focus, stateColor);
+    border-top: none;
+    box-shadow: get($formFieldStateConfig, focus, boxShadow);
+    display: flex;
+  }
+
+  .form-autocomplete.has-error & {
+    border-color: get($formFieldStateConfig, error, stateColor);
+  }
+
+  .form-autocomplete.has-warning & {
+    border-color: get($formFieldStateConfig, warning, stateColor);
+  }
+}
+
+.form-autocomplete__list__item {
+  align-items: center;
+  color: get($formFieldStateConfig, default, color);
+  display: flex;
+  flex: 0 0 100%;
+  font-size: get($formFieldStyleConfig, fontSize);
+  min-height: get($formFieldStyleConfig, height);
+  outline: none;
+  padding-left: get($autocompleteConfig, list, paddingLeft);
+  padding-right: get($autocompleteConfig, list, paddingRight);
+
+  &.is-selected,
+  &.is-selected:hover,
+  &.is-selected:focus {
+    background-color: get($autocompleteConfig, list, selectedBackgroundColor);
+    color: get($autocompleteConfig, list, selectedColor);
+  }
+
+  &:hover,
+  &:focus {
+    background-color: get($autocompleteConfig, list, hoverBackgroundColor);
+  }
+
+  @include ie {
+    // IE bug: https://github.com/webhintio/webhint.io/issues/210
+    list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  }
+}
+
+.form-autocomplete__list--no-results {
+  align-items: center;
+  color: get($autocompleteConfig, noResult, color);
+  cursor: default;
+  display: flex;
+  font-size: get($autocompleteConfig, noResult, fontSize);
+  height: get($formFieldStyleConfig, height);
+  padding-left: get($autocompleteConfig, list, paddingLeft);
+  padding-right: get($autocompleteConfig, list, paddingRight);
+  pointer-events: none;
+
+  @include ie {
+    // IE bug: https://github.com/webhintio/webhint.io/issues/210
+    list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+  }
+}
+
+.form-autocomplete__reset-icon {
+  background-color: get($autocompleteConfig, resetIcon, backgroundColor);
+  border-radius: get($autocompleteConfig, resetIcon, borderRadius);
+  cursor: pointer;
+  display: none;
+  height: get($autocompleteConfig, resetIcon, size);
+  pointer-events: all;
+  position: absolute;
+  right: get($autocompleteConfig, resetIcon, offset);
+  top: get($autocompleteConfig, resetIcon, offset);
+  transition: all 0.2s ease-in-out;
+  width: get($autocompleteConfig, resetIcon, size);
+  z-index: zIndex(formIcon);
+
+  &:hover {
+    transform: scale(1.2);
+  }
+
+  &:after,
+  &:before {
+    background-color: get($autocompleteConfig, resetIcon, color);
+    border-radius: rem(1px);
+    content: "";
+    height: rem(2px);
+    left: rem(10px);
+    position: absolute;
+    top: rem(14px);
+    width: rem(10px);
+  }
+
+  &:before {
+    transform: rotate(-45deg);
+  }
+
+  &:after {
+    transform: rotate(45deg);
+  }
+
+  .form-autocomplete.has-selected-choice & {
+    display: block;
+  }
+}

@@ -1,107 +1,196 @@
-.a-accordion {
-  background: inherit;
-  border-bottom: 1px solid color(shape);
-  color: inherit;
+$accordionConfig: (
+  borderWidth: rem(1px),
+  accordionToggle: (
+    paddingTop: rem(21px),
+    paddingRight: rem(20px),
+    paddingBottom: rem(19px),
+    paddingLeft: rem(20px),
+    fontSize: size(small),
+    fontFamily: font(base),
+  ),
+  accordionContent: (
+    paddingTop: 0,
+    paddingRight: rem(20px),
+    paddingBottom: 0,
+    paddingLeft: rem(20px),
+    fontSize: size(small),
+    fontFamily: font(light),
+  ),
+  accordionIcon: (
+    color: color(brandAlt),
+    size: rem(24px),
+    stroke: rem(2px),
+    padding: rem(10px),
+  ),
+  isOpen: (
+    accordionContent: (
+      paddingBottom: rem(20px),
+    )
+  )
+) !default;
+
+$lightAccordionConfig: (
+  background: color(background),
+  borderColor: color(shape),
+  color: color(text, dark),
+  hover: (
+    background: darken(color(background), 2%),
+  ),
+  isOpen: (
+    background: color(background, dark),
+  ),
+) !default;
+
+$baseAccordionConfig: (
+  background: color(background, dark),
+  borderColor: color(shape),
+  color: color(text, dark),
+  hover: (
+    background: lighten(color(background, dark), 2%),
+  ),
+  isOpen: (
+    background: color(background),
+  ),
+) !default;
+
+$darkAccordionConfig: (
+  background: color(backgroundAlt, base),
+  borderColor: color(shape, dark),
+  color: color(text, light),
+  hover: (
+    background: lighten(color(backgroundAlt, base), 2%),
+  ),
+  isOpen: (
+    background: color(backgroundAlt, light),
+  ),
+) !default;
+
+@mixin accordionSkin($skinConfig) {
+  background-color: get($skinConfig, background);
+  border-color: get($skinConfig, borderColor);
+  color: get($skinConfig, color);
+
+  &:hover {
+    background-color: get($skinConfig, hover, background);
+  }
+
+  &.is-open {
+    background-color: get($skinConfig, isOpen, background);
+  }
+}
+
+.accordion {
+  @include accordionSkin($baseAccordionConfig);
+  border-bottom-style: solid;
+  border-top-style: solid;
+  border-width: get($accordionConfig, borderWidth);
   display: flex;
   flex: 1 0 auto;
   flex-direction: column;
   position: relative;
-  transition: background-color 0.3s;
-
-  &.is-open .a-icon {
-    transform: rotate(45deg);
-  }
+  transition: background-color 0.3s, border-radius 0.3s;
 }
 
-.a-accordion.a-accordion--base {
-  background: color(background, dark);
-  color: color(text, dark);
-
-  &.is-open {
-    background: color(background, base);
-  }
+.accordion--light {
+  @include accordionSkin($lightAccordionConfig);
 }
 
-.a-accordion.a-accordion--light {
-  background: color(background, light);
-  color: color(text, dark);
-
-  &.is-open {
-    background: color(background, dark);
-  }
+.accordion--dark {
+  @include accordionSkin($darkAccordionConfig);
 }
 
-.a-accordion.a-accordion--dark {
-  background: color(backgroundAlt, dark);
-  color: color(text, light);
-
-  &.is-open {
-    background: color(backgroundAlt, light);
-  }
-}
-
-
-.a-accordion__toggle {
+.accordion__toggle {
   align-items: center;
-  border-top: 1px solid color(shape);
   color: inherit;
   cursor: pointer;
   display: flex;
   flex: 1 0 auto;
   flex-direction: row;
+  font-family: get($accordionConfig, accordionToggle, fontFamily);
+  font-size: get($accordionConfig, accordionToggle, fontSize);
   justify-content: space-between;
-  padding: rem(map-get($accordionConfig, accordionPadding));
+  padding-bottom: get($accordionConfig, accordionToggle, paddingBottom);
+  padding-left: get($accordionConfig, accordionToggle, paddingLeft);
+  padding-right: get($accordionConfig, accordionToggle, paddingRight);
+  padding-top: get($accordionConfig, accordionToggle, paddingTop);
   text-decoration: none;
   width: 100%;
-
-  .a-accordion--dark & {
-    border-top: 1px solid color(shape, dark);
-  }
 }
 
-.a-accordion .a-icon {
+.accordion__toggle__icon {
+  align-items: center;
+  border: rem(1px) solid transparent;
+  border-radius: 50%;
   cursor: pointer;
-  height: map-get($accordionConfig, iconHeight);
-  width: map-get($accordionConfig, iconWidth);
-  padding: 0 (map-get($accordionConfig, accordionPadding) / 2);
+  display: flex;
+  height: get($accordionConfig, accordionIcon, size);
+  justify-content: center;
+  padding: 0 get($accordionConfig, accordionIcon, padding);
+  position: relative;
   transition: all 0.3s;
+  width: get($accordionConfig, accordionIcon, size);
 
-  &:before, 
+  &:before,
   &:after {
-    background: color(brandAlt);
-    content: '';
+    background: get($accordionConfig, accordionIcon, color);
+    content: "";
+    height: #{uGet($accordionConfig, accordionIcon, size) / 2}rem;
     position: absolute;
-    height: map-get($accordionConfig, iconHeight);
-    width: map-get($accordionConfig, iconWidth);
+    width: get($accordionConfig, accordionIcon, stroke);
+  }
+
+  @include ie {
+    &:after {
+      transform: translateY(-50%);
+    }
   }
 
   &:before {
     transform: rotate(90deg);
   }
+
+  @include ie {
+    &:before {
+      transform: translateY(-50%) rotate(90deg);
+    }
+  }
+
+  .accordion.is-open &,
+  .accordion:hover & {
+    border-color: rgba(get($accordionConfig, accordionIcon, color), 0.3);
+  }
+
+  .accordion.is-open & {
+    transform: rotate(45deg);
+  }
 }
 
-.a-accordion__content {
+.accordion__content {
   flex: 0 0 0;
   flex-flow: column;
-  padding: 0 map-get($accordionConfig, accordionPadding);
+  font-family: get($accordionConfig, accordionContent, fontFamily);
+  font-size: get($accordionConfig, accordionContent, fontSize);
   opacity: 0;
   overflow: hidden;
+  padding-bottom: get($accordionConfig, accordionContent, paddingBottom);
+  padding-left: get($accordionConfig, accordionContent, paddingLeft);
+  padding-right: get($accordionConfig, accordionContent, paddingRight);
+  padding-top: get($accordionConfig, accordionContent, paddingTop);
   transition: opacity 0.3s, padding 0.3s, flex 0.3s;
   visibility: hidden;
 
-  .a-accordion.is-open & {
+  .accordion.is-open & {
     flex: 1 0 auto;
     opacity: 1;
-    padding: rem(map-get($accordionConfig, accordionPadding));
-    padding-top: 0;
+    padding-bottom: get($accordionConfig, isOpen, accordionContent, paddingBottom);
     visibility: visible;
-  }
-
-  .a-accordion.is-open.a-accordion--dark & {
-    border-bottom: 1px solid color(shape, dark);
   }
 }
 
-.a-accordion:not(.is-open) .a-accordion__content > * {
+.accordion:not(.is-open) .accordion__content > * {
   display: none;
+}
+
+.accordion:not(:first-child) {
+  border-top: none;
 }

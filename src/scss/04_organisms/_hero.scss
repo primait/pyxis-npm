@@ -1,0 +1,223 @@
+$heroConfig: (
+  height: 70vh,
+  minHeight: 70vh,
+  paddingTop: rem(20px),
+  paddingBottom: rem(20px),
+  titleColor: color(brand),
+  subtitleColor: color(text),
+  background: (
+    height: 100vh,
+  ),
+  image: (
+    paddingTop: rem(20px),
+  ),
+  paragraph: (
+    color: color(text),
+    paddingTop: rem(20px),
+  ),
+  breakpoints: (
+    base: (
+      heroWithBackground: (
+        offset: rem(50px),
+      ),
+      intro: (
+        flex: initial,
+      ),
+      introWithFigure: (
+        flex: initial,
+      ),
+      paragraph: (
+        maxWidth: 100%,
+      ),
+      figure: (
+        flex: initial,
+        paddingTop: rem(20px),
+      ),
+    ),
+    small: (
+      heroWithBackground: (
+        offset: rem(50px),
+      ),
+      intro: (
+        flex: 0 0 55%,
+      ),
+      introWithFigure: (
+        flex: 0 0 50%,
+      ),
+      paragraph: (
+        maxWidth: 80%,
+      ),
+      figure: (
+        flex: 0 0 50%,
+        paddingTop: 0,
+      ),
+    ),
+    medium: (
+      heroWithBackground: (
+        offset: rem(70px),
+      ),
+      intro: (
+        flex: 0 0 55%,
+      ),
+      introWithFigure: (
+        flex: 0 0 55%,
+      ),
+      paragraph: (
+        maxWidth: 90%,
+      ),
+      figure: (
+        flex: 0 0 45%,
+        paddingTop: 0,
+      ),
+    ),
+    large: (
+      heroWithBackground: (
+        offset: rem(70px),
+      ),
+      intro: (
+        flex: 0 0 55%,
+      ),
+      introWithFigure: (
+        flex: 0 0 55%,
+      ),
+      paragraph: (
+        maxWidth: 80%,
+      ),
+      figure: (
+        flex: 0 0 45%,
+        paddingTop: 0,
+      ),
+    ),
+  )
+) !default;
+
+.hero {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  min-height: get($heroConfig, minHeight);
+  padding-bottom: get($heroConfig, paddingBottom);
+  padding-top: get($heroConfig, paddingTop);
+  position: relative;
+
+  @include mq(medium) {
+    flex-flow: row;
+    justify-content: space-between;
+  }
+
+  @include ie {
+    height: get($heroConfig, height);
+  }
+}
+
+.hero--with-background {
+  overflow: hidden;
+
+  @each $bp, $bpConfig in get($heroConfig, breakpoints) {
+    @include mq($bp) {
+      height: calc(#{get($heroConfig, background, height)} - #{get($bpConfig, heroWithBackground, offset)});
+    }
+  }
+}
+
+.hero__container {
+  align-items: flex-start;
+  flex-direction: column;
+
+  @include mq(small) {
+    align-items: center;
+    flex-direction: row;
+  }
+}
+
+.hero__intro {
+  position: relative;
+  width: 100%;
+  z-index: zIndex(hero);
+
+  @each $bp, $bpConfig in get($heroConfig, breakpoints) {
+    @include mq($bp) {
+      flex: get($bpConfig, intro, flex);
+    }
+  }
+}
+
+.hero__intro--with-figure {
+  @each $bp, $bpConfig in get($heroConfig, breakpoints) {
+    @include mq($bp) {
+      flex: get($bpConfig, introWithFigure, flex);
+    }
+  }
+}
+
+.hero__intro__title {
+  color: get($heroConfig, titleColor);
+  margin-bottom: 0;
+  position: relative;
+  z-index: zIndex(hero);
+}
+
+.hero__intro_subtitle {
+  color: get($heroConfig, subtitleColor);
+  font-family: font(light);
+  margin-bottom: 0;
+}
+
+.hero__intro__paragraph {
+  color: get($heroConfig, paragraph, color);
+  font-family: font(light);
+  margin-bottom: 0;
+  padding-top: get($heroConfig, paragraph, paddingTop);
+
+  @each $bp, $bpConfig in get($heroConfig, breakpoints) {
+    @include mq($bp) {
+      max-width: get($bpConfig, paragraph, maxWidth);
+    }
+  }
+}
+
+.hero__figure {
+  padding-top: get($heroConfig, image, paddingTop);
+
+  @each $bp, $bpConfig in get($heroConfig, breakpoints) {
+    @include mq($bp) {
+      flex: get($bpConfig, figure, flex);
+      padding-top: get($bpConfig, figure, paddingTop);
+    }
+  }
+}
+
+.hero__figure__picture {
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+
+  @include mq(small) {
+    justify-content: flex-end;
+  }
+}
+
+.hero__figure__picture__image {
+  display: block;
+  max-width: 100%;
+
+  @include ie {
+    max-width: initial;
+    width: 100%;
+  }
+}
+
+.hero__background {
+  bottom: 0;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.hero__background__image {
+  @include ie {
+    height: 100%;
+  }
+}

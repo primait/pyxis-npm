@@ -1,0 +1,202 @@
+$linkConfig: (
+  color: color(brandAlt),
+  fontFamily: font(base),
+  letterSpacing: rem(0.3px),
+  hover: (
+    color: color(brandAlt, dark),
+  ),
+  underline: (
+    color: rgba(color(brandAlt), 0.5),
+    height: rem(2px),
+  )
+) !default;
+
+$linkStandaloneConfig: (
+  height: rem(20px),
+  lineHeight: rem(17px),
+  paddingRight: rem(30px),
+  paddingTop: rem(3px),
+  line: (
+    animation: rem(15px),
+    top: rem(10px),
+    width: rem(2px),
+  ),
+  arrow: (
+    animation: rem(15px),
+    left: rem(5px),
+    size: rem(8px),
+    top: rem(4px),
+    width: rem(2px),
+  )
+) !default;
+
+$linkWithIconConfig: (
+  size: rem(20px),
+  paddingRight: rem(5px),
+  offset: rem(2px),
+  backgroundOffset: rem(25px),
+) !default;
+
+$linkKinds: (
+  dark: (
+    backgroundSize: 100% get($linkConfig, underline, height),
+    color: color(textAlt, light),
+    hover: (
+      backgroundSize: 100% get($linkConfig, underline, height),
+    ),
+    underline: (
+      color: color(textAlt),
+      hover: (
+        color: color(textAlt, light),
+      )
+    )
+  ),
+  danger: (
+    backgroundSize: 100% 0,
+    color: color(error),
+    hover: (
+      backgroundSize: 100% get($linkConfig, underline, height),
+    ),
+    underline: (
+      color: rgba(color(error), 0.5),
+      hover: (
+        color: rgba(color(error), 0.5),
+      )
+    )
+  ),
+) !default;
+
+.link {
+  background-image: linear-gradient(get($linkConfig, underline, color), get($linkConfig, underline, color));
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 0;
+  color: get($linkConfig, color);
+  display: inline;
+  font-family: get($linkConfig, fontFamily);
+  letter-spacing: get($linkConfig, letterSpacing);
+  position: relative;
+  text-decoration: none;
+  transition: background-image 0.1s ease-in-out, background-size 0.1s ease-in-out, color 0.1s ease-in-out, opacity 0.1s ease-in-out;
+
+  &:hover {
+    background-size: 100% get($linkConfig, underline, height);
+    color: get($linkConfig, hover, color);
+  }
+
+  &:active {
+    color: get($linkConfig, hover, color);
+    opacity: 0.7;
+  }
+}
+
+.link--standalone {
+  align-self: flex-start;
+  background: none;
+  display: inline-flex;
+  height: get($linkStandaloneConfig, height);
+  line-height: get($linkStandaloneConfig, lineHeight);
+  padding-right: get($linkStandaloneConfig, paddingRight);
+  padding-top: get($linkStandaloneConfig, paddingTop);
+  position: relative;
+  transition: all .1s ease-in-out;
+
+  &:before {
+    background-color: color(brandAlt);
+    content: "";
+    display: block;
+    height: get($linkStandaloneConfig, line, width);
+    left: calc(100% - (#{get($linkStandaloneConfig, line, animation)} * 2));
+    position: absolute;
+    top: get($linkStandaloneConfig, line, top);
+    transition: width .1s ease-in-out;
+    width: 0;
+  }
+
+  &:after {
+    border-right-color: color(brandAlt);
+    border-right-style: solid;
+    border-right-width: get($linkStandaloneConfig, arrow, width);
+    border-top-color: color(brandAlt);
+    border-top-style: solid;
+    border-top-width: get($linkStandaloneConfig, arrow, width);
+    content: "";
+    display: block;
+    height: get($linkStandaloneConfig, arrow, size);
+    left: get($linkStandaloneConfig, arrow, left);
+    position: relative;
+    top: get($linkStandaloneConfig, arrow, top);
+    transform: rotate(45deg);
+    transition: left .1s ease-in-out;
+    width: get($linkStandaloneConfig, arrow, size);
+  }
+
+  &:hover:before {
+    width: get($linkStandaloneConfig, line, animation);
+  }
+
+  &:hover:after {
+    left: get($linkStandaloneConfig, arrow, animation);
+  }
+}
+
+.link--with-icon {
+  align-self: flex-start;
+  background-position-x: get($linkWithIconConfig, backgroundOffset);
+  background-size: calc(100% - #{get($linkWithIconConfig, backgroundOffset)}) 0;
+  display: inline-flex;
+  line-height: get($linkWithIconConfig, size);
+
+  .icon {
+    font-size: get($linkWithIconConfig, size);
+    line-height: get($linkWithIconConfig, size);
+    padding-right: get($linkWithIconConfig, paddingRight);
+    position: relative;
+    top: -(get($linkWithIconConfig, offset));
+    width: get($linkWithIconConfig, backgroundOffset);
+  }
+
+  &:hover {
+    background-size: calc(100% - #{get($linkWithIconConfig, backgroundOffset)}) rem(2px);
+  }
+}
+
+@each $kind, $kindConfig in $linkKinds {
+  .link--#{$kind} {
+    background-image: linear-gradient(get($kindConfig, underline, color), get($kindConfig, underline, color));
+    background-size: get($kindConfig, backgroundSize);
+    color: get($kindConfig, color);
+
+    &:hover {
+      background-image: linear-gradient(get($kindConfig, underline, hover, color), get($kindConfig, underline, hover, color));
+      background-size: get($kindConfig, hover, backgroundSize);
+      color: get($kindConfig, color);
+    }
+
+    &:active {
+      color: get($kindConfig, color);
+    }
+  }
+
+  .link--standalone.link--#{$kind} {
+    background-image: none;
+
+    &:before {
+      background-color: get($kindConfig, color);
+    }
+
+    &:after {
+      border-right-color: get($kindConfig, color);
+      border-top-color: get($kindConfig, color);
+    }
+  }
+}
+
+.form-input-group__append .link,
+.form-input-group__prepend .link {
+  font-size: size(xsmall);
+
+  &:hover {
+    background: none;
+  }
+}

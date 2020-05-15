@@ -1,0 +1,69 @@
+.form-input-group {
+  flex: 1;
+  position: relative;
+
+  @include mq(small) {
+    flex: 0 0 auto;
+  }
+}
+
+.form-input-group__append,
+.form-input-group__prepend {
+  align-items: center;
+  display: flex;
+  height: get($formFieldStyleConfig, height);
+  justify-content: center;
+  mix-blend-mode: darken;
+  position: absolute;
+  width: get($formFieldStyleConfig, height);
+  z-index: zIndex(formGroup);
+
+  &.is-large {
+    width: #{uGet($formFieldStyleConfig, height) * 1.5}rem;
+  }
+}
+
+.form-input-group__append {
+  border-left: get($formFieldStyleConfig, borderWidth) solid get($formFieldStyleConfig, borderColor);
+  cursor: pointer;
+  right: 0;
+
+  & ~ .form-input {
+    padding-right: #{uGet($formFieldStyleConfig, height) + uGet($formFieldStyleConfig, paddingLeft)}rem;
+  }
+
+  &.is-large ~ .form-input {
+    padding-right: #{uGet($formFieldStyleConfig, height) * 1.5 + uGet($formFieldStyleConfig, paddingLeft)}rem;
+  }
+
+  & ~ .form-input[disabled],
+  & ~ .form-input.is-disabled {
+    pointer-events: all;
+    z-index: zIndex(formGroup);
+  }
+}
+
+.form-input-group__prepend {
+  border-right: get($formFieldStyleConfig, borderWidth) solid get($formFieldStyleConfig, borderColor);
+  left: 0;
+
+  & ~ .form-input {
+    padding-left: #{uGet($formFieldStyleConfig, height) + uGet($formFieldStyleConfig, paddingLeft)}rem;
+  }
+
+  &.is-large ~ .form-input {
+    padding-left: #{uGet($formFieldStyleConfig, height) * 1.5 + uGet($formFieldStyleConfig, paddingLeft)}rem;
+  }
+}
+
+.form-input-group__append__icon,
+.form-input-group__prepend__icon {
+  align-items: center;
+  color: get($formFieldStyleConfig, iconColor);
+  display: flex;
+  font-size: size(large);
+  height: get($formFieldStyleConfig, height);
+  justify-content: center;
+  text-align: center;
+  width: get($formFieldStyleConfig, height);
+}

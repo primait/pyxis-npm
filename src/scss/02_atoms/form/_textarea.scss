@@ -1,0 +1,37 @@
+$textAreaConfig: (
+  minHeight: rem(100px),
+  padding: rem(15px),
+) !default;
+
+.form-textarea {
+  @include formFieldSizes;
+  -webkit-appearance: none;
+  background: get($formFieldStateConfig, default, background);
+  border-color: get($formFieldStateConfig, default, stateColor);
+  border-radius: get($formFieldStyleConfig, borderRadius);
+  border-style: solid;
+  border-width: get($formFieldStyleConfig, borderWidth);
+  color: get($formFieldStateConfig, default, color);
+  font-family: get($formFieldStyleConfig, fontFamily);
+  font-size: get($formFieldStyleConfig, fontSize);
+  margin: 0;
+  min-height: get($textAreaConfig, padding);
+  outline: get($formFieldStyleConfig, outline);
+  -ms-overflow-style: none;
+  padding: get($textAreaConfig, padding);
+  -webkit-text-fill-color: get($formFieldStateConfig, default, color);
+  transition: background 0.3s, border 0.3s, color 0.3s;
+
+  &:focus {
+    border-color: get($formFieldStateConfig, focus, stateColor);
+    box-shadow: get($formFieldStateConfig, focus, boxShadow);
+  }
+
+  &.is-disabled,
+  &[disabled] {
+    background-color: get($formFieldStateConfig, disabled, background);
+    border-color: get($formFieldStateConfig, disabled, stateColor);
+    opacity: get($formFieldStateConfig, disabled, opacity);
+    pointer-events: none;
+  }
+}

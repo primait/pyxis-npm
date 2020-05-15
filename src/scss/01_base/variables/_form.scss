@@ -1,0 +1,76 @@
+$formRowStyleConfig: (
+  background: transparent,
+  backgroundHover: color(background, dark),
+  borderRadius: rem(8px),
+  gutter: rem(10px),
+  padding: rem(10px), 
+) !default;
+
+$formFieldStyleConfig: (
+  borderColor: color(shape),
+  borderRadius: rem(5px),
+  borderWidth: rem(1px),
+  fontFamily: font(light),
+  fontSize: size(small),
+  height: rem(50px),
+  iconSize: rem(25px),
+  iconColor: color(brandAlt),
+  outline: none,
+  paddingBottom: 0,
+  paddingLeft: rem(15px),
+  paddingRight: rem(15px),
+  paddingTop: 0,
+  placeholderOpacity: 0.5,
+  width: 100%,
+) !default;
+
+$formFieldStateConfig: (
+  default: (
+    stateColor: color(shape),
+    background: color(background),
+    color: color(text, dark),
+    boxShadow: none,
+    opacity: 1,
+  ),
+  focus: (
+    stateColor: color(brandAlt),
+    background: color(background),
+    color: color(text, dark),
+    boxShadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1),
+    opacity: 1,
+  ),
+  valid: (
+    stateColor: color(brandAlt, dark),
+    background: color(background),
+    color: color(brandAlt, dark),
+    boxShadow: none,
+    opacity: 1,
+  ),
+  disabled: (
+    stateColor: color(shape),
+    background: color(background, dark),
+    color: color(text, dark),
+    boxShadow: none,
+    opacity: 0.5,
+  ),
+  error: (
+    stateColor: color(error),
+    background: color(background),
+    color: color(text, dark),
+    boxShadow: none,
+    opacity: 1,
+  ),
+  warning: (
+    stateColor: color(alert, dark),
+    background: color(background),
+    color: color(text, dark),
+    boxShadow: none,
+    opacity: 1,
+  ),
+) !default;
+
+$formFieldSizeConfig: (
+  small: rem(110px),
+  medium: rem(170px),
+  large: rem(350px),
+) !default;

@@ -1,0 +1,44 @@
+$jumbotronConfig: (
+  backgroundColor: color(background, dark),
+  borderRadius: rem(20px),
+  breakpoints: (
+    base: (
+      paddingBottom: rem(30px),
+      paddingLeft: rem(30px),
+      paddingRight: rem(30px),
+      paddingTop: rem(25px),
+    ),
+    small: (
+      paddingBottom: rem(60px),
+      paddingLeft: rem(60px),
+      paddingRight: rem(60px),
+      paddingTop: rem(55px),
+    ),
+    medium: (
+      paddingBottom: rem(60px),
+      paddingLeft: rem(90px),
+      paddingRight: rem(90px),
+      paddingTop: rem(55px),
+    ),
+  )
+) !default;
+
+.jumbotron {
+  background-color: get($jumbotronConfig, backgroundColor);
+  border-radius: get($jumbotronConfig, borderRadius);
+  flex-direction: column;
+
+  @include mq(small) {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  @each $bp, $bpConfig in get($jumbotronConfig, breakpoints) {
+    @include mq($bp) {
+      padding-bottom: get($bpConfig, paddingBottom);
+      padding-left: get($bpConfig, paddingLeft);
+      padding-right: get($bpConfig, paddingRight);
+      padding-top: get($bpConfig, paddingTop);
+    }
+  }
+} 

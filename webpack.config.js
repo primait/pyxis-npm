@@ -1,18 +1,29 @@
 const path = require('path')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const StylelintPlugin = require('stylelint-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const stylelintOptions = {
+    configFile: '.stylelintrc',
+    context: 'scss',
+    emitError: true,
+    emitWarning: true,
+    failOnWarning: true,
+    ignoreDisables: true,
+    syntax: 'scss',
+}
 
 module.exports = (env, argv) => {
     const devMode = argv.mode !== 'production'
-    const testPlugin = 
-        ['accordions', 
-         'buttons',
-         'containers',
+    const testPlugin =
+        ['accordions',
+            'buttons',
+            'containers',
         ].map(template => {
-            return new HtmlWebpackPlugin({ 
-                filename: `test/${template}.html`, 
-                template: `test/${template}.html` 
+            return new HtmlWebpackPlugin({
+                filename: `test/${template}.html`,
+                template: `test/${template}.html`
             })
         })
 
@@ -42,7 +53,7 @@ module.exports = (env, argv) => {
                         {
                             loader: 'sass-loader',
                             options: {
-                                implementation: require('sass'),
+                                // implementation: require('sass'),
                                 sourceMap: false,
                                 indentedSyntax: false
                             }
@@ -74,9 +85,8 @@ module.exports = (env, argv) => {
         },
         plugins: ([
             new CleanWebpackPlugin(),
-            new MiniCssExtractPlugin({
-                filename: '[name].css'
-            }),
+            new MiniCssExtractPlugin({ filename: '[name].css' }),
+            new StylelintPlugin(stylelintOptions),
         ]).concat(testPlugin),
         devServer: {
             compress: false,

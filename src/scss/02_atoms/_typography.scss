@@ -1,60 +1,36 @@
 h1,
-h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: font(base);
-  font-weight: normal;
+  font-family: font(heavy);
 }
 
 h1 {
-  @extend .fs-large;
+  @include fontSize(xlarge);
 
-  @include mq(small) {
-    font-size: size(xlarge);
-    line-height: lineHeight(xlarge);
-  }
-
-  @include mq(medium) {
-    font-size: size(xxlarge);
-    line-height: lineHeight(xxlarge);
+  @include mq(large) {
+    @include fontSize(xxlarge);
   }
 }
 
 h2 {
-  @extend .fs-base;
+  font-family: font(light);
+  @include fontSize(large);
 
-  @include mq(small) {
-    font-size: size(large);
-    line-height: lineHeight(large);
-  }
-
-  @include mq(medium) {
-    font-size: size(xlarge);
-    line-height: lineHeight(xlarge);
+  @include mq(large) {
+    @include fontSize(xlarge);
   }
 }
 
 h3 {
-  @extend .fs-base;
-
-  @include mq(small) {
-    font-size: size(medium);
-    line-height: lineHeight(medium);
-  }
+  @include fontSize(large);
 
   @include mq(medium) {
-    font-size: size(large);
-    line-height: lineHeight(large);
+    @include fontSize(xlarge);
   }
 }
 
 h4 {
-  @extend .fs-small;
-
-  @include mq(small) {
-    font-size: size(base);
-    line-height: lineHeight(base);
-  }
+  @include fontSize(medium);
 }

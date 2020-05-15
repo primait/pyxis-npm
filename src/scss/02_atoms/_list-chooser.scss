@@ -1,0 +1,82 @@
+$listChooserConfig: (
+  backgroundColor: color(background, dark),
+  paddingBottom: rem(30px),
+  paddingTop: rem(30px),
+) !default;
+
+$listChooserItemConfig: (
+  backgroundColor: color(background),
+  borderColor: color(shape, light),
+  borderRadius: rem(5px),
+  borderWidth: rem(1px),
+  boxShadow: boxShadow(small),
+  fontFamily: font(light),
+  fontSize: size(small),
+  lineHeight: lineHeight(small),
+  paddingBottom: rem(18px),
+  paddingLeft: rem(20px),
+  paddingRight: rem(20px),
+  paddingTop: rem(22px),
+  textAlign: left,
+  selected: (
+    backgroundColor: color(brandAlt, light),
+    borderColor: color(brandAlt, dark),
+  ),
+  breakpoints: (
+    base: (
+      maxWidth: calc(100% - #{rem(20px)}),
+    ),
+    small: (
+      maxWidth: rem(360px),
+    ),
+  )
+) !default;
+
+.list-chooser {
+  align-items: center;
+  background-color: get($listChooserConfig, backgroundColor);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-bottom: get($listChooserConfig, paddingBottom);
+  padding-top: get($listChooserConfig, paddingTop);
+}
+
+.list-chooser__item {
+  background-color: get($listChooserItemConfig, backgroundColor);
+  border-color: transparent;
+  border-radius: get($listChooserItemConfig, borderRadius);
+  border-style: solid;
+  border-width: get($listChooserItemConfig, borderWidth);
+  box-shadow: get($listChooserItemConfig, boxShadow);
+  cursor: pointer;
+  font-family: get($listChooserItemConfig, fontFamily);
+  font-size: get($listChooserItemConfig, fontSize);
+  padding-bottom: get($listChooserItemConfig, paddingBottom);
+  padding-left: get($listChooserItemConfig, paddingLeft);
+  padding-right: get($listChooserItemConfig, paddingRight);
+  padding-top: get($listChooserItemConfig, paddingTop);
+  text-align: get($listChooserItemConfig, textAlign);
+  transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  width: 100%;
+
+  & + & {
+    margin-top: rem(10px);
+  }
+
+  &:hover,
+  &.is-selected {
+    border-color: get($listChooserItemConfig, selected, borderColor);
+    box-shadow: get($listChooserItemConfig, boxShadow);
+  }
+
+  &.is-selected {
+    background-color: get($listChooserItemConfig, selected, backgroundColor);
+  }
+
+  @each $bp, $bpConfig in get($listChooserItemConfig, breakpoints) {
+    @include mq($bp) {
+      max-width: get($bpConfig, maxWidth);
+    }
+  }
+}

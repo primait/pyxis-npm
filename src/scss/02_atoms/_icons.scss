@@ -1,19 +1,93 @@
-.a-icon {
-  font-size: size(large);
+// @param {String} $direction - Direction of icon (top, right, bottom, left)
+// @param {String} $color
+// @param {String} $size
+// @param {String} $thickness
+@mixin iconArrow($direction, $color, $size: rem(18px), $thickness: rem(1px)) {
+  $opticalOffset: 7.5%;
+
+  height: $size;
+  position: relative;
+  width: $size;
+
+  &:after {
+    align-items: center;
+    border-bottom: $thickness solid $color;
+    border-right: $thickness solid $color;
+    content: "";
+    height: calc(#{$size} / 3);
+    position: absolute;
+    transition: all 0.2s ease-in-out;
+    width: calc(#{$size} / 3);
+
+    @if $direction == top {
+      left: calc(#{$size} / 3);
+      top: calc(#{$size} / 3 + #{$opticalOffset});
+      transform: rotate(-135deg);
+    } @else if $direction == right {
+      left: calc(#{$size} / 3 - #{$opticalOffset});
+      top: calc(#{$size} / 3);
+      transform: rotate(-45deg);
+    } @else if $direction == bottom {
+      left: calc(#{$size} / 3);
+      top: calc(#{$size} / 3 - #{$opticalOffset});
+      transform: rotate(45deg);
+    } @else if $direction == left {
+      left: calc(#{$size} / 3 + #{$opticalOffset});
+      top: calc(#{$size} / 3);
+      transform: rotate(135deg);
+    } @else {
+      @warn "Direction #{$direction} not exists.";
+    }
+  }
 }
 
-.m-form-input-group__append .a-icon,
-.m-form-input-group__prepend .a-icon {
-  height: map-get($formConfig, fieldHeight);
-  line-height: map-get($formConfig, fieldHeight);
-  text-align: center;
-  width: map-get($formConfig, fieldHeight);
+// @param {String} $color
+// @param {String} $size
+// @param {String} $thickness
+@mixin iconLoader($color: color(shape, dark), $size: rem(16px), $thickness: rem(2px)) {
+  position: relative;
 
-  .a-form-field.has-error & {
-    color: color(error);
+  &:after {
+    border-bottom-color: $color;
+    border-left-color: $color;
+    border-radius: 100%;
+    border-right-color: $color;
+    border-style: solid;
+    border-top-color: transparent;
+    border-width: $thickness;
+    content: "";
+    display: block;
+    height: $size;
+    line-height: $size;
+    margin-top: calc(#{$size} / -2);
+    position: absolute;
+    right: $size;
+    top: 50%;
+    width: $size;
+  }
+}
+
+// @param {String} $color
+// @param {String} $size
+// @param {String} $thickness
+@mixin iconClose($color: color(shape, dark), $size: rem(14px), $thickness: rem(2px)) {
+  &:before,
+  &:after {
+    background-color: $color;
+    border-radius: calc(#{$thickness} / 2);
+    content: "";
+    height: $thickness;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    width: $size;
   }
 
-  .a-form-field.has-warning:not(.has-error) & {
-    color: color(alert, dark);
+  &:before {
+    transform: translate3d(-50%, -50%, 0) rotate(45deg);
+  }
+
+  &:after {
+    transform: translate3d(-50%, -50%, 0) rotate(-45deg);
   }
 }

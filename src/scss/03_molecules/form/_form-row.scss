@@ -1,0 +1,134 @@
+$formRowAppendConfig: (
+  height: rem(30px),
+  width: rem(30px),
+  offset: rem(-5px),
+);
+
+@mixin rowGrid {
+  display: grid;
+  grid-column-gap: rem(20px);
+  grid-template-rows: auto;
+}
+
+.form-row {
+  background: get($formRowStyleConfig, background);
+  border-radius: get($formRowStyleConfig, borderRadius);
+  display: flex;
+  flex-wrap: wrap;
+  padding: get($formRowStyleConfig, padding);
+  position: relative;
+  transition: background 0.3s ease-in-out;
+
+  &:hover {
+    @include mq(medium) {
+      background: get($formRowStyleConfig, backgroundHover);
+    }
+  }
+
+  &[data-children-count="1"]:hover {
+    @include mq(medium) {
+      background: get($formRowStyleConfig, background);
+    }
+  }
+
+  &[data-children-count="2"] {
+    @include mq(large) {
+      @include rowGrid;
+      grid-template-columns: 30% [mandatory-label] auto [mandatory-content];
+    }
+  }
+
+  &[data-children-count="3"] {
+    @include mq(large) {
+      @include rowGrid;
+      grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 1fr;
+    }
+  }
+
+  &[data-children-count="4"] {
+    @include mq(large) {
+      @include rowGrid;
+      grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 15% 1fr;
+    }
+  }
+}
+
+.form-row__item {
+  align-content: flex-start;
+  align-items: center;
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  position: relative;
+  width: 100%;
+
+  @include mq(small) {
+    align-items: center;
+    flex: 0 0 calc(70% - #{rem(20px)});
+  }
+
+  @include mq(large) {
+    flex: 1 0 auto;
+  }
+
+  @include ie {
+    align-items: center;
+
+    @include mq(large) {
+      flex: 1;
+    }
+  }
+
+  // Take the first, third an so on..
+  &:nth-child(odd) {
+    margin-top: rem(10px);
+
+    @include mq(small) {
+      flex: 0 0 30%;
+      margin-top: 0;
+      padding-right: rem(20px);
+
+      [data-children-count="1"] & {
+        flex: 0 0 auto;
+
+        @include ie {
+          flex: 1;
+        }
+      }
+    }
+
+    @include mq(large) {
+      flex: 1 0 auto;
+      padding-right: 0;
+
+      @include ie {
+        flex: 0 0 30%;
+        padding-right: rem(20px);
+      }
+    }
+  }
+
+  // Necessary for correct spacing between two fields with label in the same row
+  &:nth-child(3n),
+  &:nth-child(4n) {
+    @include mqBetween(small, large) {
+      margin-top: rem(20px);
+    }
+  }
+}
+
+.form-row__item__append {
+  align-items: center;
+  display: flex;
+  height: get($formRowAppendConfig, height);
+  justify-content: center;
+  position: relative;
+  top: get($formRowAppendConfig, offset);
+  width: get($formRowAppendConfig, width);
+
+  @include mq(small) {
+    top: 0;
+  }
+}

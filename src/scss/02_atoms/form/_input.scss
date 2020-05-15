@@ -1,0 +1,47 @@
+@mixin inputState($state) {
+  background: get($formFieldStateConfig, $state, background);
+  border-color: get($formFieldStateConfig, $state, stateColor);
+  box-shadow: get($formFieldStateConfig, $state, boxShadow);
+  color: get($formFieldStateConfig, $state, color);
+  opacity: get($formFieldStateConfig, $state, opacity);
+  -webkit-text-fill-color: get($formFieldStateConfig, $state, color);
+}
+
+.form-input {
+  @include formFieldSizes;
+  @include inputState(default);
+  border-radius: get($formFieldStyleConfig, borderRadius);
+  border-style: solid;
+  border-width: get($formFieldStyleConfig, borderWidth);
+  font-family: get($formFieldStyleConfig, fontFamily);
+  font-size: get($formFieldStyleConfig, fontSize);
+  height: get($formFieldStyleConfig, height);
+  outline: get($formFieldStyleConfig, outline);
+  padding-bottom: get($formFieldStyleConfig, paddingBottom);
+  padding-left: get($formFieldStyleConfig, paddingLeft);
+  padding-right: get($formFieldStyleConfig, paddingRight);
+  padding-top: get($formFieldStyleConfig, paddingTop);
+  transition: background 0.3s, border 0.3s, color 0.3s;
+
+  &.is-valid {
+    @include inputState(valid);
+  }
+
+  &.has-error {
+    @include inputState(error);
+  }
+
+  &.has-warning {
+    @include inputState(warning);
+  }
+
+  &.is-disabled,
+  &[disabled] {
+    @include inputState(disabled);
+    pointer-events: none;
+  }
+
+  &:focus {
+    @include inputState(focus);
+  }
+}
