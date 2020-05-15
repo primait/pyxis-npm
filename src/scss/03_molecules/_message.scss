@@ -3,9 +3,11 @@ $messageConfig: (
   borderWidth: rem(1px),
   fontSize: size(base),
   height: rem(50px),
-  iconSize: size(large),
   paddingBottom: rem(8px),
   paddingTop: rem(12px),
+  icon: (
+    fontSize: size(large),
+  ),
   breakpoints: (
     base: (
       title: (
@@ -75,6 +77,7 @@ $messageSkin: (
   align-self: stretch;
   display: none;
   flex: 0 0 get($messageConfig, height);
+  font-size: get($messageConfig, icon, fontSize);
   justify-content: center;
   margin-right: rem(20px);
   min-height: get($messageConfig, height);
@@ -98,12 +101,6 @@ $messageSkin: (
   @include mq(small) {
     display: flex;
   }
-}
-
-.message__icon__item {
-  font-size: get($messageConfig, iconSize);
-  line-height: get($messageConfig, height);
-  text-align: center;
 }
 
 .message__title {

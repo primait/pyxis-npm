@@ -140,7 +140,7 @@ $linkKinds: (
   }
 }
 
-.link--icon {
+.link--with-icon {
   align-self: flex-start;
   background-position-x: get($linkWithIconConfig, backgroundOffset);
   background-size: calc(100% - #{get($linkWithIconConfig, backgroundOffset)}) 0;
