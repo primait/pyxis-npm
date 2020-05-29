@@ -1,0 +1,132 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  depth: 1
+
+steps:
+- name: pre-start
+  image: prima/drone-tools:1.17.6
+  commands:
+  - pre-start-scripts
+
+- name: cache-restore
+  image: prima/drone-tools:1.17.6
+  commands:
+  - . /etc/profile.d/ecs-credentials-endpoint
+  - cache-restore
+  volumes:
+  - name: ecs
+    path: /etc/profile.d/ecs-credentials-endpoint
+  - name: docker
+    path: /var/run/docker.sock
+
+- name: check-secrets
+  image: prima/drone-tools:1.17.6
+  commands:
+  - . /etc/profile.d/ecs-credentials-endpoint
+  - check-secrets-grants
+  volumes:
+  - name: ecs
+    path: /etc/profile.d/ecs-credentials-endpoint
+
+- name: build-image
+  image: prima/drone-tools:1.17.6
+  commands:
+  - sed -i 's/USER node/USER root/g' ./Dockerfile
+  - docker build -t prima/pyxis-npm-ci:1 ./
+  volumes:
+  - name: docker
+    path: /var/run/docker.sock
+  depends_on:
+  - cache-restore
+
+- name: dependencies
+  image: prima/pyxis-npm-ci:1
+  commands:
+  - yarn
+  environment:
+    YARN_CACHE_FOLDER: /drone/src/.cache/yarn
+  depends_on:
+  - build-image
+
+- name: build
+  image: prima/pyxis-npm-ci:1
+  commands:
+  - yarn run build:prod
+  environment:
+    YARN_CACHE_FOLDER: /drone/src/.cache/yarn
+  depends_on:
+  - dependencies
+
+- name: cache-save
+  image: prima/drone-tools:1.17.6
+  commands:
+  - . /etc/profile.d/ecs-credentials-endpoint
+  - cache-save .cache node_modules
+  volumes:
+  - name: ecs
+    path: /etc/profile.d/ecs-credentials-endpoint
+  - name: docker
+    path: /var/run/docker.sock
+  when:
+    branch:
+    - master
+  depends_on:
+  - dependencies
+  - build
+
+volumes:
+- name: docker
+  host:
+    path: /var/run/docker.sock
+- name: ecs
+  host:
+    path: /etc/profile.d/ecs-credentials-endpoint
+
+trigger:
+  event:
+  - push
+
+---
+kind: pipeline
+name: email-failure
+
+platform:
+  os: linux
+  arch: amd64
+
+clone:
+  disable: true
+
+steps:
+- name: email-failure
+  image: drillster/drone-email
+  settings:
+    from: noreply@prima.it
+    host: email-smtp.eu-west-1.amazonaws.com
+  environment:
+    PLUGIN_PASSWORD:
+      from_secret: email_password
+    PLUGIN_USERNAME:
+      from_secret: email_username
+
+trigger:
+  event:
+  - push
+  status:
+  - failure
+
+depends_on:
+- default
+
+---
+kind: signature
+hmac: 9af177037bc0cd547f69c3b0e9da4c1f6a32e852f8c64d32a175f20b68e6e3ea
+
+...
