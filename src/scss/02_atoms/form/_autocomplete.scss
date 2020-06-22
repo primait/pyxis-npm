@@ -81,6 +81,30 @@ $autocompleteConfig: (
   }
 }
 
+
+.form-autocomplete__spinner-icon {
+  animation: animateSpinner 1s infinite linear;
+  @include iconLoader();
+  display: inline-block;
+  height: rem(24px);
+  position: absolute;
+  right: rem(13px);
+  top: rem(13px);
+  width: rem(24px);
+
+  &:after {
+    border-radius: 50%;
+    border-style: solid;
+    border-width: rem(1px);
+    display: block;
+    position: absolute;
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
 .form-autocomplete__list {
   $autocompleteMaxHeight: uGet($formFieldStyleConfig, height) * uGet($autocompleteConfig, list, maxOptionsToShow) + uGet($formFieldStyleConfig, height) * 0.5;
 
