@@ -11,7 +11,7 @@ $autocompleteConfig: (
   searchIcon: (
     color: color(shape),
   ),
-  spinnerIcon: (
+  loaderIcon: (
     size: rem(24px),
     sideDistance: rem(13px),
   ),
@@ -90,11 +90,11 @@ $autocompleteConfig: (
   animation: animateLoader 1s infinite linear;
   @include iconLoader();
   display: inline-block;
-  height: get($autocompleteConfig, spinnerIcon, size);
+  height: get($autocompleteConfig, loaderIcon, size);
   position: absolute;
-  right: get($autocompleteConfig, spinnerIcon, sideDistance);
-  top: get($autocompleteConfig, spinnerIcon, sideDistance);
-  width: get($autocompleteConfig, spinnerIcon, size);
+  right: get($autocompleteConfig, loaderIcon, sideDistance);
+  top: get($autocompleteConfig, loaderIcon, sideDistance);
+  width: get($autocompleteConfig, loaderIcon, size);
 
   &:after {
     left: 50%;
