@@ -11,6 +11,10 @@ $autocompleteConfig: (
   searchIcon: (
     color: color(shape),
   ),
+  loaderIcon: (
+    size: rem(24px),
+    sideDistance: rem(13px),
+  ),
   resetIcon: (
     backgroundColor: color(shape, light),
     borderRadius: 50%,
@@ -78,6 +82,35 @@ $autocompleteConfig: (
     top: rem(4px);
     transition: all 0.2s ease-in-out;
     width: rem(14px);
+  }
+}
+
+
+.form-autocomplete__loader-icon {
+  animation: animateLoader 1s infinite linear;
+  @include iconLoader();
+  display: inline-block;
+  height: get($autocompleteConfig, loaderIcon, size);
+  position: absolute;
+  right: get($autocompleteConfig, loaderIcon, sideDistance);
+  top: get($autocompleteConfig, loaderIcon, sideDistance);
+  width: get($autocompleteConfig, loaderIcon, size);
+
+  &:after {
+    left: 50%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @keyframes animateLoader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 
