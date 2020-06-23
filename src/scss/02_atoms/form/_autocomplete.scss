@@ -11,6 +11,10 @@ $autocompleteConfig: (
   searchIcon: (
     color: color(shape),
   ),
+  spinnerIcon: (
+    size: rem(24px),
+    sideDistance: rem(13px),
+  ),
   resetIcon: (
     backgroundColor: color(shape, light),
     borderRadius: 50%,
@@ -82,26 +86,31 @@ $autocompleteConfig: (
 }
 
 
-.form-autocomplete__spinner-icon {
-  animation: animateSpinner 1s infinite linear;
+.form-autocomplete__loader-icon {
+  animation: animateLoader 1s infinite linear;
   @include iconLoader();
   display: inline-block;
-  height: rem(24px);
+  height: get($autocompleteConfig, spinnerIcon, size);
   position: absolute;
-  right: rem(13px);
-  top: rem(13px);
-  width: rem(24px);
+  right: get($autocompleteConfig, spinnerIcon, sideDistance);
+  top: get($autocompleteConfig, spinnerIcon, sideDistance);
+  width: get($autocompleteConfig, spinnerIcon, size);
 
   &:after {
-    border-radius: 50%;
-    border-style: solid;
-    border-width: rem(1px);
-    display: block;
     left: 50%;
     margin: 0;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  @keyframes animateLoader {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 }
 
@@ -229,14 +238,5 @@ $autocompleteConfig: (
 
   .form-autocomplete.has-selected-choice & {
     display: block;
-  }
-}
-
-@keyframes animateSpinner {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }
