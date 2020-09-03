@@ -21,6 +21,7 @@ $tooltipConfig: (
 $tooltipKind: (
   error: color(error),
   warning: color(alert),
+  brandlgt: color(brand, light),
 ) !default;
 
 $tooltipPositions: (
