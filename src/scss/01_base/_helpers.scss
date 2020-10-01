@@ -1,4 +1,4 @@
-$errorCount: 0 !global;
+$errorCount: 0;
 
 // Returns a boxShadow of $size.
 // @param {String} $size
@@ -72,7 +72,7 @@ $errorCount: 0 !global;
   @each $key in $keys {
     $map: map-get($map, $key);
     @if (not $map) {
-      $errorCount: $errorCount + 1 !global;
+      $errorCount: $errorCount + 1;
       @warn "Key #{$key} not found.";
     }
   }
