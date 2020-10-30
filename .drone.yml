@@ -11,15 +11,19 @@ clone:
 
 steps:
 - name: pre-start
-  image: prima/drone-tools:1.17.6
+  image: 001575623345.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.12
   commands:
   - pre-start-scripts
+  environment:
+    COUNTRY: it
 
 - name: cache-restore
-  image: prima/drone-tools:1.17.6
+  image: 001575623345.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.12
   commands:
   - . /etc/profile.d/ecs-credentials-endpoint
   - cache-restore
+  environment:
+    COUNTRY: it
   volumes:
   - name: ecs
     path: /etc/profile.d/ecs-credentials-endpoint
@@ -27,7 +31,7 @@ steps:
     path: /var/run/docker.sock
 
 - name: check-secrets
-  image: prima/drone-tools:1.17.6
+  image: 001575623345.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.12
   commands:
   - . /etc/profile.d/ecs-credentials-endpoint
   - check-secrets-grants
@@ -36,13 +40,15 @@ steps:
     path: /etc/profile.d/ecs-credentials-endpoint
 
 - name: build-image
-  image: prima/drone-tools:1.17.6
+  image: 001575623345.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.12
   commands:
   - sed -i 's/USER node/USER root/g' ./Dockerfile
   - docker build -t prima/pyxis-npm-ci:1 ./
   volumes:
   - name: docker
     path: /var/run/docker.sock
+  - name: docker-conf
+    path: /root/.docker
   depends_on:
   - cache-restore
 
@@ -53,6 +59,7 @@ steps:
   environment:
     YARN_CACHE_FOLDER: /drone/src/.cache/yarn
   depends_on:
+  - pre-start
   - build-image
 
 - name: build
@@ -65,10 +72,12 @@ steps:
   - dependencies
 
 - name: cache-save
-  image: prima/drone-tools:1.17.6
+  image: 001575623345.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.12
   commands:
   - . /etc/profile.d/ecs-credentials-endpoint
   - cache-save .cache node_modules
+  environment:
+    COUNTRY: it
   volumes:
   - name: ecs
     path: /etc/profile.d/ecs-credentials-endpoint
@@ -88,6 +97,9 @@ volumes:
 - name: ecs
   host:
     path: /etc/profile.d/ecs-credentials-endpoint
+- name: docker-conf
+  host:
+    path: /home/ec2-user/.docker
 
 trigger:
   event:
@@ -127,6 +139,6 @@ depends_on:
 
 ---
 kind: signature
-hmac: 9af177037bc0cd547f69c3b0e9da4c1f6a32e852f8c64d32a175f20b68e6e3ea
+hmac: 9ebc5e53fe1743a13e0f58104804671fbddb7b921df175f6a83c16a4883b6102
 
 ...
