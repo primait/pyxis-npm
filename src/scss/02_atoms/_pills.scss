@@ -22,6 +22,10 @@ $pillKinds: (
     backgroundColor: color(background),
     color: color(brand),
   ),
+  primary-uk: (
+    backgroundColor: color(brandUk, light),
+    color: color(textAlt, light),
+  ),
   info: (
     backgroundColor: color(shape, light),
     color: color(text, dark),
@@ -53,7 +57,7 @@ $pillKinds: (
   danger-alt: (
     backgroundColor: color(background),
     color: color(error),
-  )
+  ),
 ) !default;
 
 .pill {

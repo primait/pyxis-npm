@@ -19,6 +19,10 @@ $badgeKinds: (
     backgroundColor: rgba(color(background), 0.1),
     color: color(textAlt, light),
   ),
+  primaryUk: (
+    backgroundColor: rgba(color(background), 0.1),
+    color: color(brandUk, light),
+  ),
   info: (
     backgroundColor: color(shape, light),
     color: color(text, dark),
@@ -50,7 +54,7 @@ $badgeKinds: (
   dangerAlt: (
     backgroundColor: color(background),
     color: color(error),
-  )
+  ),
 ) !default;
 
 .badge {
