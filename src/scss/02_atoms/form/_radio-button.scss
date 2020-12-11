@@ -91,6 +91,24 @@ $radioButtonConfig: (
   &.has-error {
     border-color: get($formFieldStateConfig, error, stateColor);
   }
+
+  &.is-large {
+    flex: inherit;
+    min-height: rem(70px);
+    min-width: rem(120px);
+
+    @include mq(large) {
+      min-width: rem(150px);
+    }
+
+    &:first-child {
+      margin-left: rem(30px);
+
+      @include mq(large) {
+        margin-left: rem(-20px);
+      }
+    }
+  }
 }
 
 .form-radio-button__title {

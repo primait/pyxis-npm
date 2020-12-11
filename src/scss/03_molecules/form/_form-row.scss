@@ -125,6 +125,21 @@ $formRowAppendConfig: (
       margin-top: rem(20px);
     }
   }
+
+  [data-children-count="3"] & {
+    &:nth-child(2n) {
+      @include mq(small) {
+        flex: 0 0 calc(35% - #{rem(20px)});
+      }
+    }
+
+    &:nth-child(3n) {
+      @include mq(small) {
+        flex: 0 0 calc(35% - #{rem(20px)});
+        margin-top: 0px;
+      }
+    }
+  }
 }
 
 .form-row__item__append {

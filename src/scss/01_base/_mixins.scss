@@ -75,3 +75,83 @@
     }
   }
 }
+
+@mixin remRule($rule, $size-in-px) {
+  #{$rule}: $size-in-px;
+  #{$rule}: rem($size-in-px);
+}
+
+// Writes an any space attribute rules.
+// @param {String} $spaceRule
+// @param {String} $spaceUnit
+@mixin space-rule($rule, $unit) {
+  @if type-of($unit) == number and unit($unit) == "px" {
+    @include remRule($rule, $unit);
+  } @else if unitless($unit) {
+    @include remRule($rule, $unit * $spaceUnit);
+  } @else if type-of($unit) == "number" {
+    #{$rule}: $unit;
+  } @else {
+    @warn "value ‘#{$unit}’ invalid";
+  }
+}
+
+@mixin margin-left($value) {
+  @include space-rule(margin-left, $value);
+}
+
+@mixin margin-right($value) {
+  @include space-rule(margin-right, $value);
+}
+
+@mixin margin-bottom($value) {
+  @include space-rule(margin-bottom, $value);
+}
+
+@mixin margin-top($value) {
+  @include space-rule(margin-top, $value);
+}
+
+@mixin horizontal-margin($value) {
+  @include margin-left($value);
+  @include margin-right($value);
+}
+
+@mixin vertical-margin($value) {
+  @include margin-top($value);
+  @include margin-bottom($value);
+}
+
+@mixin margin($value) {
+  @include space-rule(margin, $value);
+}
+
+@mixin padding-left($value) {
+  @include space-rule(padding-left, $value);
+}
+
+@mixin padding-right($value) {
+  @include space-rule(padding-right, $value);
+}
+
+@mixin padding-bottom($value) {
+  @include space-rule(padding-bottom, $value);
+}
+
+@mixin padding-top($value) {
+  @include space-rule(padding-top, $value);
+}
+
+@mixin horizontal-padding($value) {
+  @include padding-left($value);
+  @include padding-right($value);
+}
+
+@mixin vertical-padding($value) {
+  @include padding-top($value);
+  @include padding-bottom($value);
+}
+
+@mixin padding($value) {
+  @include space-rule(padding, $value);
+}
