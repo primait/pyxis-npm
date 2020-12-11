@@ -79,6 +79,20 @@ ul {
   padding: 0;
 }
 
+svg {
+  box-sizing: border-box;
+  display: inline-block;
+  fill: currentColor;
+  height: auto;
+  width: auto;
+
+  &[role=icon] {
+    height: 1em;
+    vertical-align: middle;
+    width: 1em;
+  }
+}
+
 ::-webkit-input-placeholder {
   color: color(text);
   opacity: get($formFieldStyleConfig, placeholderOpacity);
