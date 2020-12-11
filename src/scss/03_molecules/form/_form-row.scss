@@ -136,7 +136,7 @@ $formRowAppendConfig: (
     &:nth-child(3n) {
       @include mq(small) {
         flex: 0 0 calc(35% - #{rem(20px)});
-        margin-top: 0px;
+        margin-top: 0;
       }
     }
   }
