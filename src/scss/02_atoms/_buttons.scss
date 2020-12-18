@@ -270,12 +270,9 @@ $downloadButtonConfig: (
 
 .btn {
   @include buttonSize(base);
-  align-content: center;
-  align-items: center;
-  align-self: center;
   border-style: solid;
   cursor: pointer;
-  display: flex;
+  display: inline-block;
   font-family: font(heavy);
   justify-content: center;
   letter-spacing: rem(0.8px);
@@ -304,9 +301,16 @@ $downloadButtonConfig: (
     transition: transform 0.25s cubic-bezier(0.694, 0.048, 0.335, 1);
     z-index: zIndex(buttonText);
   }
+
+  &.is-flex {
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    display: flex;
+  }
 }
 
-.btn.btn--primary {
+.btn--primary {
   @include buttonKind($primaryButtonConfig);
   transition: border-color ease 0s 0s, background-color ease 0s 0s, transform 0.2s ease-in-out;
 

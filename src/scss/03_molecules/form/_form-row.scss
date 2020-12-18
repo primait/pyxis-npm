@@ -41,7 +41,14 @@ $formRowAppendConfig: (
   &[data-children-count="3"] {
     @include mq(large) {
       @include rowGrid;
-      grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 1fr;
+      grid-template-columns: 30% [mandatory-label] 1fr 30%;
+    }
+
+    &.is-small {
+      @include mq(large) {
+        @include rowGrid;
+        grid-template-columns: 15% [mandatory-label] 1fr 15%;
+      }
     }
   }
 
