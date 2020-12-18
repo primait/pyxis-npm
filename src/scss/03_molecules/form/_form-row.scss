@@ -51,6 +51,10 @@ $formRowAppendConfig: (
       grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 15% 1fr;
     }
   }
+
+  &.is-vertical {
+    display: block;
+  }
 }
 
 .form-row__item {

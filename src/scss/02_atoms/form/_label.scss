@@ -58,6 +58,13 @@ $formLabelConfig: (
       margin-bottom: get($bpConfig, marginBottom);
       min-height: get($bpConfig, minHeight);
     }
+
+    .is-vertical & {
+      @include mq($bp) {
+        margin-bottom: rem(5px);
+        min-height: get($bpConfig, minHeight);
+      }
+    }
   }
 
   [data-children-count="1"] & {
