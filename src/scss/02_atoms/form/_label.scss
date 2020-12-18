@@ -46,11 +46,13 @@ $formLabelConfig: (
   margin-bottom: rem(5px);
   outline: none;
   padding: 0;
+  text-align: left;
   width: 100%;
 
   @include mq(small) {
     align-items: center;
     justify-content: flex-end;
+    text-align: right;
   }
 
   @each $bp, $bpConfig in get($formLabelConfig, breakpoints) {
@@ -61,8 +63,10 @@ $formLabelConfig: (
 
     .is-vertical & {
       @include mq($bp) {
+        justify-content: flex-start;
         margin-bottom: rem(5px);
-        min-height: get($bpConfig, minHeight);
+        min-height: auto;
+        text-align: left;
       }
     }
   }

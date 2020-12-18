@@ -54,6 +54,10 @@ $formRowAppendConfig: (
 
   &.is-vertical {
     display: block;
+    width: 100%;
+    @include mq(small) {
+      width: auto;
+    }
   }
 }
 
@@ -134,5 +138,19 @@ $formRowAppendConfig: (
 
   @include mq(small) {
     top: 0;
+  }
+}
+
+.form-row__item__column {
+  width: 100%;
+
+  @include mq(small) {
+    width: get($formRowStyleConfig, columnWidth);
+  }
+
+  &:last-child {
+    @include mq(small) {
+      margin-left: get($formRowStyleConfig, gutter);
+    }
   }
 }

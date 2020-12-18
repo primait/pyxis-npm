@@ -44,4 +44,8 @@
   &:focus {
     @include inputState(focus);
   }
+
+  .is-vertical & {
+    min-width: 100%;
+  }
 }
