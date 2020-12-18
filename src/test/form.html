@@ -8,34 +8,18 @@
 
   <div class="section">
       <div class="container flex-direction-column bg">
-        <div class="quote-form-wrapper" id="quoteForm">
+        <div class="form-wrapper" id="verticalForm">
           <fieldset class="form display-flex flex-direction-column align-content-center" id="step_plate_number">
             <legend class="form__fieldset__legend">
-              <div class="form__fieldset__legend__title">Form vertical esempio</div>
+              <div class="form__fieldset__legend__title">Vertical Form</div>
             </legend>
-            <div class="display-flex flex-direction-row justify-content-flex-start align-items-flex-start flex-wrap-wrap">
+            <div class="form display-flex flex-direction-column justify-content-center align-items-center flex-wrap-wrap">
               <div class="form-row is-vertical">
                 <div class="form-row__item is-vertical">
                   <label class="form-label" for="originalInsuranceCode">Label</label>
                 </div>
                 <div class="form-row__item is-vertical">
-                  <input class="is-touched is-valid is-large form-input" type="text" minlength="5" id="originalInsuranceCode" placeholder="Large">
-                </div>
-              </div>
-              <div class="form-row is-vertical">
-                <div class="form-row__item is-vertical">
-                  <label class="form-label" for="plate">Label</label>
-                </div>
-                <div class="form-row__item is-vertical">
-                  <input class="is-touched is-valid is-medium form-input" type="text" minlength="5" id="plate" placeholder="Medium">
-                </div>
-              </div>
-              <div class="form-row is-vertical">
-                <div class="form-row__item is-vertical">
-                  <label class="form-label" for="plate">Label</label>
-                </div>
-                <div class="form-row__item is-vertical">
-                  <input class="is-touched is-valid is-small form-input" type="text" minlength="5" id="plate" placeholder="Small">
+                  <input class="is-touched is-valid is-large form-input" type="text" placeholder="Large">
                 </div>
               </div>
               <div class="form-row is-vertical">
@@ -43,7 +27,7 @@
                   <label class="form-label" for="plate">Select</label>
                 </div>
                 <div class="form-row__item is-vertical">
-                  <select class="is-touched is-valid is-medium form-select form-select--native" id="vehicle_registration_date_month">
+                  <select class="is-touched is-valid is-large form-select form-select--native">
                     <option value="">Mese</option>
                     <option value="01">01</option>
                     <option value="02">02</option>
@@ -58,7 +42,7 @@
                     <option value="11">11</option>
                     <option value="12">12</option>
                   </select>
-                  <div class="form-select is-medium is-valid"><span class="form-select__status">06</span><i class="form-select__status-icon"></i>
+                  <div class="form-select is-large is-valid"><span class="form-select__status">06</span><i class="form-select__status-icon"></i>
                     <ul class="form-select__list">
                       <li class="form-select__list__item">01</li>
                       <li class="form-select__list__item">02</li>
@@ -79,10 +63,83 @@
             </div>
           </fieldset>
         </div>
-        <div class="quote-form-wrapper" id="quoteForm">
+
+        <div class="form-wrapper" id="verticalFormInline">
           <fieldset class="form display-flex flex-direction-column align-content-center" id="step_plate_number">
             <legend class="form__fieldset__legend">
-              <div class="form__fieldset__legend__title">Form esempio</div>
+              <div class="form__fieldset__legend__title">Vertical Form with inline inputo</div>
+            </legend>
+            <div class="display-flex flex-direction-row justify-content-flex-start align-items-flex-start flex-wrap-wrap">
+              <div class="form-row is-vertical">
+                <div class="form-row__item is-vertical">
+                  <label class="form-label" for="originalInsuranceCode">Label</label>
+                </div>
+                <div class="form-row__item is-vertical">
+                  <input class="is-touched is-valid is-large form-input" type="text" placeholder="Large">
+                </div>
+              </div>
+              <div class="form-row is-vertical">
+                <div class="form-row__item is-vertical">
+                  <label class="form-label" for="plate">Label</label>
+                </div>
+                <div class="form-row__item is-vertical">
+                  <input class="is-touched is-valid is-medium form-input" type="text" placeholder="Medium">
+                </div>
+              </div>
+              <div class="form-row is-vertical">
+                <div class="form-row__item is-vertical">
+                  <label class="form-label" for="plate">Label</label>
+                </div>
+                <div class="form-row__item is-vertical">
+                  <input class="is-touched is-valid is-small form-input" type="text" placeholder="Small">
+                </div>
+              </div>
+              <div class="form-row is-vertical">
+                <div class="form-row__item is-vertical">
+                  <label class="form-label" for="plate">Select</label>
+                </div>
+                <div class="form-row__item is-vertical">
+                  <select class="is-touched is-valid is-small form-select form-select--native" >
+                    <option value="">Mese</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                  <div class="form-select is-small is-valid"><span class="form-select__status">06</span><i class="form-select__status-icon"></i>
+                    <ul class="form-select__list">
+                      <li class="form-select__list__item">01</li>
+                      <li class="form-select__list__item">02</li>
+                      <li class="form-select__list__item">03</li>
+                      <li class="form-select__list__item">04</li>
+                      <li class="form-select__list__item">05</li>
+                      <li class="form-select__list__item is-selected">06</li>
+                      <li class="form-select__list__item">07</li>
+                      <li class="form-select__list__item">08</li>
+                      <li class="form-select__list__item">09</li>
+                      <li class="form-select__list__item">10</li>
+                      <li class="form-select__list__item">11</li>
+                      <li class="form-select__list__item">12</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="form-wrapper" id="besideForm">
+          <fieldset class="form display-flex flex-direction-column align-content-center">
+            <legend class="form__fieldset__legend">
+              <div class="form__fieldset__legend__title">Grid Form with double input inside same column</div>
             </legend>
             <div>
               <div class="form-row" data-children-count="2">
@@ -166,6 +223,16 @@
                   </div>
                 </div>
               </div>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="form-wrapper" id="gridForm">
+          <fieldset class="form display-flex flex-direction-column align-content-center">
+            <legend class="form__fieldset__legend">
+              <div class="form__fieldset__legend__title">Grid Form</div>
+            </legend>
+            <div class="form">
               <div class="form-row" data-children-count="2">
                 <div class="form-row__item">
                   <label class="form-label" for="entity_type">Il veicolo è intestato a</label>
