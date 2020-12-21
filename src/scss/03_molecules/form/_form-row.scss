@@ -34,14 +34,14 @@ $formRowAppendConfig: (
   &[data-children-count="2"] {
     @include mq(large) {
       @include rowGrid;
-      grid-template-columns: 30% [mandatory-label] auto [mandatory-content];
+      grid-template-columns: 33% [mandatory-label] auto [mandatory-content];
     }
   }
 
   &[data-children-count="3"] {
     @include mq(large) {
       @include rowGrid;
-      grid-template-columns: 30% [mandatory-label] 1fr 30%;
+      grid-template-columns: 33% [mandatory-label] 1fr 33%;
     }
 
     &.is-small {
@@ -55,7 +55,7 @@ $formRowAppendConfig: (
   &[data-children-count="4"] {
     @include mq(large) {
       @include rowGrid;
-      grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 15% 1fr;
+      grid-template-columns: 33% [mandatory-label] 1fr [mandatory-content] 15% 1fr;
     }
   }
 
@@ -101,7 +101,7 @@ $formRowAppendConfig: (
     margin-top: rem(10px);
 
     @include mq(small) {
-      flex: 0 0 30%;
+      flex: 0 0 33%;
       margin-top: 0;
       padding-right: rem(20px);
 
@@ -119,7 +119,7 @@ $formRowAppendConfig: (
       padding-right: 0;
 
       @include ie {
-        flex: 0 0 30%;
+        flex: 0 0 33%;
         padding-right: rem(20px);
       }
     }
