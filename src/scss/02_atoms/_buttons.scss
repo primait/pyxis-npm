@@ -5,6 +5,7 @@ $buttonSizeConfig: (
     height: rem(40px),
     minWidth: rem(160px),
     fontSize: size(small),
+    lineHeight: rem(38px),
     paddingTop: 0,
     paddingRight: rem(25px),
     paddingBottom: 0,
@@ -14,8 +15,9 @@ $buttonSizeConfig: (
     borderRadius: rem(80px),
     borderWidth: rem(2px),
     height: rem(36px),
-    minWidth: rem(120px),
+    minWidth: rem(130px),
     fontSize: size(xsmall),
+    lineHeight: rem(34px),
     paddingTop: 0,
     paddingRight: rem(25px),
     paddingBottom: 0,
@@ -27,6 +29,7 @@ $buttonSizeConfig: (
     height: rem(28px),
     minWidth: rem(100px),
     fontSize: size(xsmall),
+    lineHeight: rem(26px),
     paddingTop: 0,
     paddingRight: rem(15px),
     paddingBottom: 0,
@@ -268,7 +271,7 @@ $downloadButtonConfig: (
   padding-top: get($buttonSizeConfig, $size, paddingTop);
 
   .btn__text {
-    line-height: get($buttonSizeConfig, $size, height);
+    line-height: get($buttonSizeConfig, $size, lineHeight);
   }
 }
 
