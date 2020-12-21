@@ -266,6 +266,10 @@ $downloadButtonConfig: (
   padding-left: get($buttonSizeConfig, $size, paddingLeft);
   padding-right: get($buttonSizeConfig, $size, paddingRight);
   padding-top: get($buttonSizeConfig, $size, paddingTop);
+
+  .btn__text {
+    line-height: get($buttonSizeConfig, $size, height);
+  }
 }
 
 .btn {
@@ -276,9 +280,11 @@ $downloadButtonConfig: (
   font-family: font(heavy);
   justify-content: center;
   letter-spacing: rem(0.8px);
+  line-height: 100%;
   outline: none;
   overflow: hidden;
   position: relative;
+  text-align: center;
   text-transform: uppercase;
   transition: background 0.1s ease-in-out, border 0.1s ease-in-out, color 0.1s ease-in-out, transform 0.2s ease-in-out;
   white-space: nowrap;
@@ -295,7 +301,6 @@ $downloadButtonConfig: (
 
   .btn__text {
     font-family: font(heavy);
-    line-height: 100%;
     margin-top: rem(2px);
     position: relative;
     transition: transform 0.25s cubic-bezier(0.694, 0.048, 0.335, 1);
