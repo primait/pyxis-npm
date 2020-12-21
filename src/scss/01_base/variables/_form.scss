@@ -3,7 +3,8 @@ $formRowStyleConfig: (
   backgroundHover: color(background, dark),
   borderRadius: rem(8px),
   gutter: rem(10px),
-  padding: rem(10px), 
+  padding: rem(10px),
+  columnWidth: rem(170px),
 ) !default;
 
 $formFieldStyleConfig: (

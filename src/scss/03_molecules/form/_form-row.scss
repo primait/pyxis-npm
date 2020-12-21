@@ -51,6 +51,14 @@ $formRowAppendConfig: (
       grid-template-columns: 30% [mandatory-label] 1fr [mandatory-content] 15% 1fr;
     }
   }
+
+  &.is-vertical {
+    display: block;
+    width: 100%;
+    @include mq(small) {
+      width: auto;
+    }
+  }
 }
 
 .form-row__item {
@@ -130,5 +138,19 @@ $formRowAppendConfig: (
 
   @include mq(small) {
     top: 0;
+  }
+}
+
+.form-row__item__column {
+  width: 100%;
+
+  @include mq(small) {
+    width: get($formRowStyleConfig, columnWidth);
+  }
+
+  &:last-child {
+    @include mq(small) {
+      margin-left: get($formRowStyleConfig, gutter);
+    }
   }
 }
