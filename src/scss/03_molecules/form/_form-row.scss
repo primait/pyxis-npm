@@ -81,7 +81,7 @@ $formRowAppendConfig: (
 
   @include mq(small) {
     align-items: center;
-    flex: 0 0 calc(70% - #{rem(20px)});
+    flex: 0 0 calc(69% - #{rem(20px)});
   }
 
   @include mq(large) {
