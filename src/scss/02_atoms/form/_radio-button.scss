@@ -17,6 +17,12 @@ $radioButtonConfig: (
   selected: (
     backgroundColor: color(brandAlt, light),
   ),
+  disabled: (
+    background: rgba(color(shape, base), 0.3),
+    borderColor: transparent,
+    color: rgba(color(text, dark), 0.5),
+    opacity: .6,
+  ),
   breakpoints: (
     base: (
       marginLeft: 0,
@@ -82,6 +88,18 @@ $radioButtonConfig: (
   &.is-selected {
     background-color: get($radioButtonConfig, selected, backgroundColor);
     border-color: get($formFieldStateConfig, focus, stateColor);
+
+    &[disabled],
+    &.is-disabled {
+      background-color: get($radioButtonConfig, selected, backgroundColor);
+      border-color: get($formFieldStateConfig, focus, stateColor);
+      color: get($radioButtonConfig, disabled, color);
+      opacity: get($radioButtonConfig, disabled, opacity);
+
+      &:before {
+        display: none;
+      }
+    }
   }
 
   &.has-warning {
@@ -90,6 +108,18 @@ $radioButtonConfig: (
 
   &.has-error {
     border-color: get($formFieldStateConfig, error, stateColor);
+  }
+
+  &[disabled],
+  &.is-disabled {
+    background-color: get($radioButtonConfig, disabled, background);
+    border-color: get($radioButtonConfig, disabled, borderColor);
+    color: get($radioButtonConfig, disabled, color);
+    opacity: get($radioButtonConfig, disabled, opacity);
+    cursor: default;
+    &:before {
+      display: none;
+    }
   }
 
   &.is-large {
