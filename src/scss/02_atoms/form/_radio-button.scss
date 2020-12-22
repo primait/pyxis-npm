@@ -21,7 +21,7 @@ $radioButtonConfig: (
     background: rgba(color(shape, base), 0.3),
     borderColor: transparent,
     color: rgba(color(text, dark), 0.5),
-    opacity: .6,
+    opacity: 0.6,
   ),
   breakpoints: (
     base: (
@@ -89,16 +89,17 @@ $radioButtonConfig: (
     background-color: get($radioButtonConfig, selected, backgroundColor);
     border-color: get($formFieldStateConfig, focus, stateColor);
 
-    &[disabled],
-    &.is-disabled {
-      background-color: get($radioButtonConfig, selected, backgroundColor);
-      border-color: get($formFieldStateConfig, focus, stateColor);
-      color: get($radioButtonConfig, disabled, color);
-      opacity: get($radioButtonConfig, disabled, opacity);
+  }
 
-      &:before {
-        display: none;
-      }
+  &.is-selected[disabled],
+  &.is-selected.is-disabled {
+    background-color: get($radioButtonConfig, selected, backgroundColor);
+    border-color: get($formFieldStateConfig, focus, stateColor);
+    color: get($radioButtonConfig, disabled, color);
+    opacity: get($radioButtonConfig, disabled, opacity);
+
+    &:before {
+      display: none;
     }
   }
 

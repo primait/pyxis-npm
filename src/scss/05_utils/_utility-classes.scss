@@ -179,14 +179,14 @@ $utilityClasses: (
 
 @each $amount in get($spaceUtility, amounts) {
   @each $direction in get($spaceUtility, directions) {
-    .margin-#{$direction}--#{$amount} {
-      @include space-rule("margin-#{$direction}", $amount);
+    .margin-#{$direction}--#{$amount * 10} {
+      @include spaceRule("margin-#{$direction}", $amount);
     }
 
     @each $bpKey in get($spaceUtility, breakpoints) {
-      .margin-#{$direction}--#{$amount}-on-bp-#{$bpKey} {
+      .margin-#{$direction}--#{$amount * 10}-on-bp-#{$bpKey} {
         @include mq($bpKey) {
-          @include space-rule("margin-#{$direction}", $amount);
+          @include spaceRule("margin-#{$direction}", $amount);
         }
       }
     }

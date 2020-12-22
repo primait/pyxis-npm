@@ -23,10 +23,10 @@ $containers: (
   xlarge: 1370px,
 ) !default;
 
-$spaceUnit: 10px;
+$spaceUnit: 10px !default;
 
 $spaceUtility: (
-  amounts: ( 1, 2, 3, 5, 8 ),
-  directions: ( top, bottom ),
-  breakpoints: ( large ),
-);
+  amounts: ( 1, 2, 4, 6, 8 ),
+  directions: ( top, bottom, left, right ),
+  breakpoints: $breakpoints,
+) !default;
