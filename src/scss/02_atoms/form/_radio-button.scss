@@ -115,8 +115,9 @@ $radioButtonConfig: (
     background-color: get($radioButtonConfig, disabled, background);
     border-color: get($radioButtonConfig, disabled, borderColor);
     color: get($radioButtonConfig, disabled, color);
-    opacity: get($radioButtonConfig, disabled, opacity);
     cursor: default;
+    opacity: get($radioButtonConfig, disabled, opacity);
+
     &:before {
       display: none;
     }
