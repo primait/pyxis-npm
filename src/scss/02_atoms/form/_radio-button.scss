@@ -124,20 +124,14 @@ $radioButtonConfig: (
     }
   }
 
-  &.is-large {
-    flex: inherit;
-    min-height: rem(70px);
-    min-width: rem(120px);
-
-    @include mq(large) {
-      min-width: rem(150px);
-    }
-  }
-
   &.has-subtitle {
     @include mq(small) {
       min-width: rem(250px);
     }
+  }
+
+  .form-row[data-children-count="1"] & {
+    max-width: rem(150px);
   }
 }
 
