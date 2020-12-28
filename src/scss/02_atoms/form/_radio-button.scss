@@ -40,7 +40,7 @@ $radioButtonConfig: (
   min-height: get($formFieldStyleConfig, height);
   width: 100%;
 
-  @include mq(medium) {
+  @include mq(small) {
     display: flex;
     flex-flow: row;
     flex-wrap: nowrap;
@@ -132,13 +132,11 @@ $radioButtonConfig: (
     @include mq(large) {
       min-width: rem(150px);
     }
+  }
 
-    &:first-child {
-      margin-left: rem(30px);
-
-      @include mq(large) {
-        margin-left: rem(-65px);
-      }
+  &.has-subtitle {
+    @include mq(small) {
+      min-width: rem(250px);
     }
   }
 }
