@@ -28,7 +28,11 @@ $radioButtonConfig: (
       marginLeft: 0,
       marginTop: rem(10px),
     ),
-    medium: (
+    xsmall: (
+      marginLeft: 0,
+      marginTop: rem(10px),
+    ),
+    small: (
       marginLeft: rem(20px),
       marginTop: 0,
     )
@@ -36,15 +40,17 @@ $radioButtonConfig: (
 ) !default;
 
 .form-radio-button-options {
-  display: block;
+  display: flex;
   min-height: get($formFieldStyleConfig, height);
   width: 100%;
+  flex-flow: column;
+  align-items: center;
 
   @include mq(small) {
-    display: flex;
     flex-flow: row;
     flex-wrap: nowrap;
     justify-content: center;
+    align-items: stretch;
   }
 }
 
@@ -67,6 +73,7 @@ $radioButtonConfig: (
   padding-right: get($radioButtonConfig, paddingRight);
   padding-top: get($radioButtonConfig, paddingTop);
   transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  width: 100%;
 
   &:hover {
     border-color: get($formFieldStateConfig, focus, stateColor);
@@ -131,7 +138,9 @@ $radioButtonConfig: (
   }
 
   .form-row[data-children-count="1"] & {
-    max-width: rem(150px);
+    @include mq(small) {
+      max-width: rem(150px);
+    }
   }
 }
 
