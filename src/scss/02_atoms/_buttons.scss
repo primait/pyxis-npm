@@ -45,6 +45,7 @@ $callOutButtonConfig: (
   background: color(action),
   borderColor: transparent,
   color: color(textAlt, light),
+  strokeColor: color(textAlt, light),
   hover: (
     background: color(action, dark),
     borderColor: transparent,
@@ -62,6 +63,7 @@ $primaryButtonConfig: (
   background: color(brandAlt),
   borderColor: transparent,
   color: color(textAlt, light),
+  strokeColor: color(textAlt, light),
   hover: (
     background: color(brandAlt, dark),
     borderColor: transparent,
@@ -79,6 +81,7 @@ $primaryAltButtonConfig: (
   background: color(background),
   borderColor: transparent,
   color: color(text, dark),
+  strokeColor: color(text, dark),
   hover: (
     background: rgba(color(background), 0.8),
     borderColor: transparent,
@@ -96,6 +99,7 @@ $secondaryButtonConfig: (
   background: transparent,
   borderColor: color(brandAlt),
   color: color(brandAlt),
+  strokeColor: color(brandAlt),
   hover: (
     background: rgba(color(brandAlt), 0.1),
     borderColor: color(brandAlt),
@@ -113,6 +117,7 @@ $secondaryAltButtonConfig: (
   background: transparent,
   borderColor: color(background),
   color: color(background),
+  strokeColor: color(background),
   hover: (
     background: rgba(color(background), 0.1),
     borderColor: rgba(color(background), 0.8),
@@ -130,6 +135,7 @@ $tertiaryButtonConfig: (
   background: transparent,
   borderColor: color(shape),
   color: color(brandAlt),
+  strokeColor: color(brandAlt),
   hover: (
     background: rgba(color(brandAlt), 0.1),
     borderColor: color(brandAlt),
@@ -147,6 +153,7 @@ $tertiaryAltButtonConfig: (
   background: transparent,
   borderColor: rgba(color(background), 0.5),
   color: color(background),
+  strokeColor: color(background),
   hover: (
     background: rgba(color(background), 0.1),
     borderColor: rgba(color(background), 0.3),
@@ -318,6 +325,28 @@ $downloadButtonConfig: (
   }
 }
 
+.is-loading {
+  @include iconLoader(get($buttonLoaderConfig, strokeColor));
+
+  &:after {
+    animation: buttonLoader 1s linear infinite;
+  }
+
+  .btn__text {
+    margin-right: rem(10px);
+    transform: translateX(-10px);
+  }
+
+  @keyframes buttonLoader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+}
+
 .btn--primary {
   @include buttonKind($primaryButtonConfig);
   transition: border-color ease 0s 0s, background-color ease 0s 0s, transform 0.2s ease-in-out;
@@ -356,26 +385,50 @@ $downloadButtonConfig: (
       }
     }
   }
+
+  &.is-loading {
+    @include iconLoader(get($primaryButtonConfig, strokeColor));
+  }
 }
 
 .btn--primary-alt {
   @include buttonKind($primaryAltButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($primaryAltButtonConfig, strokeColor));
+  }
 }
 
 .btn--secondary {
   @include buttonKind($secondaryButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($secondaryButtonConfig, strokeColor));
+  }
 }
 
 .btn--secondary-alt {
   @include buttonKind($secondaryAltButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($secondaryAltButtonConfig, strokeColor));
+  }
 }
 
 .btn--tertiary {
   @include buttonKind($tertiaryButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($tertiaryButtonConfig, strokeColor));
+  }
 }
 
 .btn--tertiary-alt {
   @include buttonKind($tertiaryAltButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($tertiaryAltButtonConfig, strokeColor));
+  }
 }
 
 .btn--callout {
@@ -390,6 +443,13 @@ $downloadButtonConfig: (
 
   &.btn--small {
     @include iconCallout(color(textAlt, light));
+  }
+
+  &.is-loading {
+    @include iconLoader(get($callOutButtonConfig, strokeColor));
+
+    &:before { content: none; }
+    &:after { opacity: 1; }
   }
 }
 
