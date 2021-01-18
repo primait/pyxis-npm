@@ -40,17 +40,17 @@ $radioButtonConfig: (
 ) !default;
 
 .form-radio-button-options {
+  align-items: center;
   display: flex;
+  flex-flow: column;
   min-height: get($formFieldStyleConfig, height);
   width: 100%;
-  flex-flow: column;
-  align-items: center;
 
   @include mq(small) {
+    align-items: stretch;
     flex-flow: row;
     flex-wrap: nowrap;
     justify-content: center;
-    align-items: stretch;
   }
 }
 
@@ -90,6 +90,10 @@ $radioButtonConfig: (
 
   &.has-subtitle {
     justify-content: flex-start;
+
+    @include mq(small) {
+      min-width: rem(250px);
+    }
   }
 
   &.is-selected {
@@ -128,12 +132,6 @@ $radioButtonConfig: (
 
     &:before {
       display: none;
-    }
-  }
-
-  &.has-subtitle {
-    @include mq(small) {
-      min-width: rem(250px);
     }
   }
 

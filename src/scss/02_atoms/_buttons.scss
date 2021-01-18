@@ -524,6 +524,7 @@ $btnsBreakpoints: xsmall small medium large;
   border-radius: get($downloadButtonConfig, borderRadius);
   border-style: solid;
   border-width: get($downloadButtonConfig, borderWidth);
+  display: flex;
   flex-direction: column;
   height: inherit;
   justify-content: center;
