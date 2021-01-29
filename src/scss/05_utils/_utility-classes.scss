@@ -183,8 +183,8 @@ $utilityClasses: (
       @include spaceRule("margin-#{$direction}", $amount);
     }
 
-    @each $bpKey in get($spaceUtility, breakpoints) {
-      .margin-#{$direction}--#{$amount * 10}-on-bp-#{$bpKey} {
+    @each $bpKey, $bpSize in $breakpoints {
+      .margin-#{$direction}--#{$amount * 10}-from-bp-#{$bpKey} {
         @include mq($bpKey) {
           @include spaceRule("margin-#{$direction}", $amount);
         }

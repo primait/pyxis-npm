@@ -7,6 +7,9 @@ $accordionConfig: (
     paddingLeft: rem(20px),
     fontSize: size(small),
     fontFamily: font(base),
+    content: (
+      paddingRight: rem(5px),
+    )
   ),
   accordionContent: (
     paddingTop: 0,
@@ -115,6 +118,11 @@ $darkAccordionConfig: (
   padding-top: get($accordionConfig, accordionToggle, paddingTop);
   text-decoration: none;
   width: 100%;
+}
+
+
+.accordion__toggle__content {
+  padding-right: get($accordionConfig, accordionToggle, content, paddingRight);
 }
 
 .accordion__toggle__icon {
