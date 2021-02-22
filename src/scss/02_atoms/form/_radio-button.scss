@@ -102,18 +102,6 @@ $radioButtonConfig: (
 
   }
 
-  &.is-selected[disabled],
-  &.is-selected.is-disabled {
-    background-color: get($radioButtonConfig, selected, backgroundColor);
-    border-color: get($formFieldStateConfig, focus, stateColor);
-    color: get($radioButtonConfig, disabled, color);
-    opacity: get($radioButtonConfig, disabled, opacity);
-
-    &:before {
-      display: none;
-    }
-  }
-
   &.has-warning {
     border-color: get($formFieldStateConfig, warning, stateColor);
   }
@@ -128,6 +116,18 @@ $radioButtonConfig: (
     border-color: get($radioButtonConfig, disabled, borderColor);
     color: get($radioButtonConfig, disabled, color);
     cursor: default;
+    opacity: get($radioButtonConfig, disabled, opacity);
+
+    &:before {
+      display: none;
+    }
+  }
+
+  &.is-selected[disabled],
+  &.is-selected.is-disabled {
+    background-color: get($radioButtonConfig, selected, backgroundColor);
+    border-color: get($formFieldStateConfig, focus, stateColor);
+    color: get($radioButtonConfig, disabled, color);
     opacity: get($radioButtonConfig, disabled, opacity);
 
     &:before {

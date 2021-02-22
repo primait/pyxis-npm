@@ -5,6 +5,7 @@ $formRowStyleConfig: (
   gutter: rem(10px),
   padding: rem(10px),
   columnWidth: rem(170px),
+  gridBaseWidth: 33%,
 ) !default;
 
 $formFieldStyleConfig: (
