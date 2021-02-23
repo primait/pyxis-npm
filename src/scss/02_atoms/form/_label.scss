@@ -49,8 +49,13 @@ $formLabelConfig: (
   text-align: left;
   width: 100%;
 
+  .is-vertical & {
+    font-size: size(small);
+  }
+
   @include mq(small) {
     align-items: center;
+    font-size: get($formLabelConfig, fontSize);
     justify-content: flex-end;
     text-align: right;
   }

@@ -17,12 +17,22 @@ $radioButtonConfig: (
   selected: (
     backgroundColor: color(brandAlt, light),
   ),
+  disabled: (
+    background: rgba(color(shape, base), 0.3),
+    borderColor: transparent,
+    color: rgba(color(text, dark), 0.5),
+    opacity: 0.6,
+  ),
   breakpoints: (
     base: (
       marginLeft: 0,
       marginTop: rem(10px),
     ),
-    medium: (
+    xsmall: (
+      marginLeft: 0,
+      marginTop: rem(10px),
+    ),
+    small: (
       marginLeft: rem(20px),
       marginTop: 0,
     )
@@ -30,12 +40,14 @@ $radioButtonConfig: (
 ) !default;
 
 .form-radio-button-options {
-  display: block;
+  align-items: center;
+  display: flex;
+  flex-flow: column;
   min-height: get($formFieldStyleConfig, height);
   width: 100%;
 
-  @include mq(medium) {
-    display: flex;
+  @include mq(small) {
+    align-items: stretch;
     flex-flow: row;
     flex-wrap: nowrap;
     justify-content: center;
@@ -61,6 +73,7 @@ $radioButtonConfig: (
   padding-right: get($radioButtonConfig, paddingRight);
   padding-top: get($radioButtonConfig, paddingTop);
   transition: border 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  width: 100%;
 
   &:hover {
     border-color: get($formFieldStateConfig, focus, stateColor);
@@ -77,11 +90,16 @@ $radioButtonConfig: (
 
   &.has-subtitle {
     justify-content: flex-start;
+
+    @include mq(small) {
+      min-width: rem(250px);
+    }
   }
 
   &.is-selected {
     background-color: get($radioButtonConfig, selected, backgroundColor);
     border-color: get($formFieldStateConfig, focus, stateColor);
+
   }
 
   &.has-warning {
@@ -90,6 +108,37 @@ $radioButtonConfig: (
 
   &.has-error {
     border-color: get($formFieldStateConfig, error, stateColor);
+  }
+
+  &[disabled],
+  &.is-disabled {
+    background-color: get($radioButtonConfig, disabled, background);
+    border-color: get($radioButtonConfig, disabled, borderColor);
+    color: get($radioButtonConfig, disabled, color);
+    cursor: default;
+    opacity: get($radioButtonConfig, disabled, opacity);
+
+    &:before {
+      display: none;
+    }
+  }
+
+  &.is-selected[disabled],
+  &.is-selected.is-disabled {
+    background-color: get($radioButtonConfig, selected, backgroundColor);
+    border-color: get($formFieldStateConfig, focus, stateColor);
+    color: get($radioButtonConfig, disabled, color);
+    opacity: get($radioButtonConfig, disabled, opacity);
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .form-row[data-children-count="1"] & {
+    @include mq(small) {
+      max-width: rem(150px);
+    }
   }
 }
 

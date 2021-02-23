@@ -8,7 +8,7 @@
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "build:dev": "./node_modules/.bin/webpack --mode development",
     "build:prod": "./node_modules/.bin/webpack --mode production",
-    "serve": "node_modules/.bin/webpack-dev-server --mode development"
+    "serve": "node_modules/.bin/webpack-dev-server --mode development --host 0.0.0.0"
   },
   "repository": {
     "type": "git",

@@ -5,6 +5,7 @@ $buttonSizeConfig: (
     height: rem(40px),
     minWidth: rem(160px),
     fontSize: size(small),
+    lineHeight: rem(38px),
     paddingTop: 0,
     paddingRight: rem(25px),
     paddingBottom: 0,
@@ -14,8 +15,9 @@ $buttonSizeConfig: (
     borderRadius: rem(80px),
     borderWidth: rem(2px),
     height: rem(36px),
-    minWidth: rem(120px),
+    minWidth: rem(130px),
     fontSize: size(xsmall),
+    lineHeight: rem(34px),
     paddingTop: 0,
     paddingRight: rem(25px),
     paddingBottom: 0,
@@ -27,6 +29,7 @@ $buttonSizeConfig: (
     height: rem(28px),
     minWidth: rem(100px),
     fontSize: size(xsmall),
+    lineHeight: rem(26px),
     paddingTop: 0,
     paddingRight: rem(15px),
     paddingBottom: 0,
@@ -42,6 +45,7 @@ $callOutButtonConfig: (
   background: color(action),
   borderColor: transparent,
   color: color(textAlt, light),
+  strokeColor: color(textAlt, light),
   hover: (
     background: color(action, dark),
     borderColor: transparent,
@@ -59,6 +63,7 @@ $primaryButtonConfig: (
   background: color(brandAlt),
   borderColor: transparent,
   color: color(textAlt, light),
+  strokeColor: color(textAlt, light),
   hover: (
     background: color(brandAlt, dark),
     borderColor: transparent,
@@ -76,6 +81,7 @@ $primaryAltButtonConfig: (
   background: color(background),
   borderColor: transparent,
   color: color(text, dark),
+  strokeColor: color(text, dark),
   hover: (
     background: rgba(color(background), 0.8),
     borderColor: transparent,
@@ -93,6 +99,7 @@ $secondaryButtonConfig: (
   background: transparent,
   borderColor: color(brandAlt),
   color: color(brandAlt),
+  strokeColor: color(brandAlt),
   hover: (
     background: rgba(color(brandAlt), 0.1),
     borderColor: color(brandAlt),
@@ -110,6 +117,7 @@ $secondaryAltButtonConfig: (
   background: transparent,
   borderColor: color(background),
   color: color(background),
+  strokeColor: color(background),
   hover: (
     background: rgba(color(background), 0.1),
     borderColor: rgba(color(background), 0.8),
@@ -127,6 +135,7 @@ $tertiaryButtonConfig: (
   background: transparent,
   borderColor: color(shape),
   color: color(brandAlt),
+  strokeColor: color(brandAlt),
   hover: (
     background: rgba(color(brandAlt), 0.1),
     borderColor: color(brandAlt),
@@ -144,6 +153,7 @@ $tertiaryAltButtonConfig: (
   background: transparent,
   borderColor: rgba(color(background), 0.5),
   color: color(background),
+  strokeColor: color(background),
   hover: (
     background: rgba(color(background), 0.1),
     borderColor: rgba(color(background), 0.3),
@@ -266,22 +276,25 @@ $downloadButtonConfig: (
   padding-left: get($buttonSizeConfig, $size, paddingLeft);
   padding-right: get($buttonSizeConfig, $size, paddingRight);
   padding-top: get($buttonSizeConfig, $size, paddingTop);
+
+  .btn__text {
+    line-height: get($buttonSizeConfig, $size, lineHeight);
+  }
 }
 
 .btn {
   @include buttonSize(base);
-  align-content: center;
-  align-items: center;
-  align-self: center;
   border-style: solid;
   cursor: pointer;
-  display: flex;
+  display: inline-block;
   font-family: font(heavy);
   justify-content: center;
   letter-spacing: rem(0.8px);
+  line-height: 100%;
   outline: none;
   overflow: hidden;
   position: relative;
+  text-align: center;
   text-transform: uppercase;
   transition: background 0.1s ease-in-out, border 0.1s ease-in-out, color 0.1s ease-in-out, transform 0.2s ease-in-out;
   white-space: nowrap;
@@ -298,15 +311,43 @@ $downloadButtonConfig: (
 
   .btn__text {
     font-family: font(heavy);
-    line-height: 100%;
     margin-top: rem(2px);
     position: relative;
     transition: transform 0.25s cubic-bezier(0.694, 0.048, 0.335, 1);
     z-index: zIndex(buttonText);
   }
+
+  &.is-flex {
+    align-content: center;
+    align-items: center;
+    align-self: center;
+    display: flex;
+  }
 }
 
-.btn.btn--primary {
+.is-loading {
+  @include iconLoader(get($buttonLoaderConfig, strokeColor));
+
+  &:after {
+    animation: buttonLoader 1s linear infinite;
+  }
+
+  .btn__text {
+    margin-right: rem(10px);
+    transform: translateX(-10px);
+  }
+
+  @keyframes buttonLoader {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+}
+
+.btn--primary {
   @include buttonKind($primaryButtonConfig);
   transition: border-color ease 0s 0s, background-color ease 0s 0s, transform 0.2s ease-in-out;
 
@@ -344,26 +385,50 @@ $downloadButtonConfig: (
       }
     }
   }
+
+  &.is-loading {
+    @include iconLoader(get($primaryButtonConfig, strokeColor));
+  }
 }
 
 .btn--primary-alt {
   @include buttonKind($primaryAltButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($primaryAltButtonConfig, strokeColor));
+  }
 }
 
 .btn--secondary {
   @include buttonKind($secondaryButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($secondaryButtonConfig, strokeColor));
+  }
 }
 
 .btn--secondary-alt {
   @include buttonKind($secondaryAltButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($secondaryAltButtonConfig, strokeColor));
+  }
 }
 
 .btn--tertiary {
   @include buttonKind($tertiaryButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($tertiaryButtonConfig, strokeColor));
+  }
 }
 
 .btn--tertiary-alt {
   @include buttonKind($tertiaryAltButtonConfig);
+
+  &.is-loading {
+    @include iconLoader(get($tertiaryAltButtonConfig, strokeColor));
+  }
 }
 
 .btn--callout {
@@ -378,6 +443,13 @@ $downloadButtonConfig: (
 
   &.btn--small {
     @include iconCallout(color(textAlt, light));
+  }
+
+  &.is-loading {
+    @include iconLoader(get($callOutButtonConfig, strokeColor));
+
+    &:before { content: none; }
+    &:after { opacity: 1; }
   }
 }
 
@@ -452,6 +524,7 @@ $btnsBreakpoints: xsmall small medium large;
   border-radius: get($downloadButtonConfig, borderRadius);
   border-style: solid;
   border-width: get($downloadButtonConfig, borderWidth);
+  display: flex;
   flex-direction: column;
   height: inherit;
   justify-content: center;

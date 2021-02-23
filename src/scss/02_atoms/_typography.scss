@@ -1,4 +1,5 @@
 h1,
+h2,
 h3,
 h4,
 h5,
@@ -15,7 +16,6 @@ h1 {
 }
 
 h2 {
-  font-family: font(light);
   @include fontSize(large);
 
   @include mq(large) {
@@ -24,13 +24,13 @@ h2 {
 }
 
 h3 {
-  @include fontSize(large);
+  @include fontSize(medium);
 
   @include mq(medium) {
-    @include fontSize(xlarge);
+    @include fontSize(large);
   }
 }
 
 h4 {
-  @include fontSize(medium);
+  @include fontSize(base);
 }

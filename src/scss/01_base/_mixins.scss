@@ -75,3 +75,14 @@
     }
   }
 }
+
+// Writes an any space attribute rules.
+// @param {String} $spaceRule
+// @param {String} $spaceUnit
+@mixin spaceRule($rule, $unit) {
+  @if (isSetOrDie($unit) and isSetOrDie($spaceUnit)) {
+    #{$rule}: rem($unit * $spaceUnit);
+  } @else {
+    @warn "value ‘#{$unit}’ invalid";
+  }
+}
