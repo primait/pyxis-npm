@@ -120,11 +120,6 @@ $darkAccordionConfig: (
   width: 100%;
 }
 
-
-.accordion__toggle__content {
-  padding-right: get($accordionConfig, accordionToggle, content, paddingRight);
-}
-
 .accordion__toggle__icon {
   align-items: center;
   border: rem(1px) solid transparent;
