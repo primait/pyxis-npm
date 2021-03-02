@@ -2,6 +2,15 @@
 
 MVP of a visual regression testing suite using Cypress.
 
+## Usage
+
+In your local environment:
+
+```sh
+yarn serve
+yarn cy:run
+```
+
 ## TL;DR: Cypress pros and cons
 
 Pros:
@@ -12,7 +21,7 @@ Cons:
 
 - `cypress-plugin-snapshots` is so immature that we may be better served by a separate CLI tool step
 - Due to `cypress-plugin-snapshots`, diff is only available when using `yarn cy:open`
--
+- Reliance on locally installed browsers (unless we use `cypress:included` docker image both in CI and locally)
 
 ## Does it work well in CI?
 
