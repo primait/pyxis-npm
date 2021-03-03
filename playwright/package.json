@@ -1,0 +1,18 @@
+{
+  "name": "pyxis-npm-playwright-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test": "yarn ts-node vrt.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/pixelmatch": "^5.2.2",
+    "@types/pngjs": "^6.0.0",
+    "pixelmatch": "^5.2.1",
+    "playwright": "^1.9.1",
+    "pngjs": "^6.0.0",
+    "ts-node": "^9.1.1"
+  }
+}
