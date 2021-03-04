@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "yarn ts-node vrt.ts"
+    "test": "yarn ts-node test.ts"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",

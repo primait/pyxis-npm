@@ -1,6 +1,6 @@
 # Visual regression testing using Playwright
 
-TL;DR: Playwright forces us to maintain more custom code than Cypress, but may be faster.
+TL;DR: Playwright forces us to maintain a lot more custom code than Cypress, but may be faster.
 
 ## Usage
 
@@ -11,15 +11,21 @@ cd playwright
 yarn test
 ```
 
+To update baseline screenshots if appropriate, run:
+
+```sh
+yarn test -u
+```
+
 ## Do we need to couple it with Jest?
 
-Nope.
+Not really.
 
 An exploration was done about using Jest to handle separate test cases. Here's what I found:
 
+- We don't need Jest's assertion framework since we only care about our custom screenshot diffing
 - Jest made the control flow opaque a.k.a. hard to debug
 - Jest doesn't play too nice with async/await
-- We don't need Jest's assertion framework since we only do our custom screenshot diffing
 
 Also, the suggested [Jest/Playwright integration](https://github.com/playwright-community/jest-playwright) is very immature. It's scarcely documented, and for some (good? I didn't investigate) reason makes tests run unacceptably slow (> 8s per screenshot).
 

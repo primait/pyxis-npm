@@ -23,6 +23,8 @@ const tests: Array<Test> = [
   },
 ];
 
+let allTestsSucceeded = true;
+
 (async () => {
   for (const browserType of config.browsers) {
     const browserName = browserType.name();
@@ -44,14 +46,18 @@ const tests: Array<Test> = [
         });
         const name = `${test.name}-${browserName}-${deviceName}`;
         const buffer = await page.screenshot({ fullPage: true });
-        handleScreenshot(name, buffer);
+        const testSucceeded = handleScreenshot(name, buffer);
+        allTestsSucceeded &&= testSucceeded;
       }
     }
     await browser.close();
   }
+
+  // Exit with a meaningful UNIX exit status
+  process.exit(allTestsSucceeded ? 0 : 1);
 })();
 
-const handleScreenshot = (name, buffer): Boolean => {
+const handleScreenshot = (name, buffer): boolean => {
   const currentPath = screenshotNameToPath(name);
   const baselinePath = screenshotNameToBaselinePath(name);
   const diffPath = screenshotNameToDiffPath(name);
