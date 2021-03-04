@@ -13,10 +13,24 @@ import {
 import { TestDefinition, TestResult, BrowserSpec, Test } from "./types";
 
 const testDefinitions: Array<TestDefinition> = [
-  {
-    name: "Accordion",
-    relativeURL: "src/test/accordions.html",
-  },
+  { name: "Accordion", relativeURL: "src/test/accordions.html" },
+  { name: "Alertmessage", relativeURL: "src/test/alertmessage.html" },
+  { name: "Badges", relativeURL: "src/test/badges.html" },
+  { name: "Buttons", relativeURL: "src/test/buttons.html" },
+  { name: "Containers", relativeURL: "src/test/containers.html" },
+  { name: "Form", relativeURL: "src/test/form.html" },
+  { name: "Hero", relativeURL: "src/test/hero.html" },
+  { name: "Jumbotron", relativeURL: "src/test/jumbotron.html" },
+  { name: "Links", relativeURL: "src/test/links.html" },
+  { name: "List", relativeURL: "src/test/list-chooser.html" },
+  { name: "Loader", relativeURL: "src/test/loader.html" },
+  { name: "Messages", relativeURL: "src/test/messages.html" },
+  { name: "Modal", relativeURL: "src/test/modal.html" },
+  { name: "Pills", relativeURL: "src/test/pills.html" },
+  { name: "Shadows", relativeURL: "src/test/shadows.html" },
+  { name: "Slider", relativeURL: "src/test/slider.html" },
+  { name: "Tooltip", relativeURL: "src/test/tooltip.html" },
+  { name: "Typography", relativeURL: "src/test/typography.html" },
 ];
 
 const main = async () => {
@@ -27,9 +41,7 @@ const main = async () => {
   const testQueue = Array.from(prepareTests(launchedBrowsers));
 
   // Run tests
-  const results = await Promise.all(
-    testQueue.map((testDef) => runVisualRegressionTest(testDef))
-  );
+  const results = await runVisualRegressionTests(testQueue);
 
   // Close browsers
   await Promise.all(launchedBrowsers.map(({ browser }) => browser.close()));
@@ -74,6 +86,13 @@ const prepareTests = function* (launchedBrowsers): Generator<Test> {
   }
 };
 
+const runVisualRegressionTests = async (testQueue: Array<Test>) => {
+  const results = await Promise.all(
+    testQueue.map((testDef) => runVisualRegressionTest(testDef))
+  );
+  return results;
+};
+
 const runVisualRegressionTest = async ({
   browser,
   browserName,
@@ -81,16 +100,26 @@ const runVisualRegressionTest = async ({
   deviceName,
   test,
 }: Test): Promise<TestResult> => {
-  const context = await browser.newContext({ ...device });
-  const page = await context.newPage();
-  await page.goto(config.baseUrl + test.relativeURL, {
-    waitUntil: "networkidle",
-  });
-  const name = `${test.name}-${browserName}-${deviceName}`;
-  const buffer = await page.screenshot({ fullPage: true });
-  const result = handleScreenshot(name, buffer);
-  logTestResultPreview(result);
-  return result;
+  const testName = `${test.name}-${browserName}-${deviceName}`;
+  try {
+    const context = await browser.newContext({ ...device });
+    const page = await context.newPage();
+    await page.goto(config.baseUrl + test.relativeURL, {
+      waitUntil: "networkidle",
+      timeout: 300000, // 5 minutes
+    });
+    const buffer = await page.screenshot({
+      fullPage: true,
+      timeout: 300000, // 5 minutes
+    });
+    const result = handleScreenshot(testName, buffer);
+
+    logTestResultPreview(result);
+    return result;
+  } catch (e) {
+    console.log(testName, e);
+    return { name: testName, comment: "malissimo", succeeded: false };
+  }
 };
 
 const handleScreenshot = (name, buffer): TestResult => {
