@@ -10,9 +10,9 @@ import {
   screenshotNameToDiffPath,
   screenshotNameToPath,
 } from "./helpers";
-import { TestSpec, TestResult } from "./types";
+import { TestDefinition, TestResult, BrowserSpec, Test } from "./types";
 
-const testSpecs: Array<TestSpec> = [
+const testDefinitions: Array<TestDefinition> = [
   {
     name: "Accordion",
     relativeURL: "src/test/accordions.html",
@@ -28,7 +28,7 @@ const main = async () => {
 
   // Run tests
   const results = await Promise.all(
-    testQueue.map((testDef) => runTest(testDef))
+    testQueue.map((testDef) => runVisualRegressionTest(testDef))
   );
 
   // Close browsers
@@ -49,17 +49,16 @@ const main = async () => {
   process.exit(allTestsSucceeded ? 0 : 1);
 };
 
-const prepareBrowsers = async () => {
-  const launchedBrowsers = [];
-  for (const browserType of config.browsers) {
-    const browserName = browserType.name();
-    const browser = await browserType.launch();
-    launchedBrowsers.push({ browser, browserName });
-  }
-  return launchedBrowsers;
+const prepareBrowsers = async (): Promise<Array<BrowserSpec>> => {
+  const browsers = await Promise.all(config.browsers.map((b) => b.launch()));
+  const browserNames = config.browsers.map((b) => b.name());
+  return browsers.map((browser, i) => ({
+    browser,
+    browserName: browserNames[i],
+  }));
 };
 
-const prepareTests = function* (launchedBrowsers) {
+const prepareTests = function* (launchedBrowsers): Generator<Test> {
   for (const { browser, browserName } of launchedBrowsers) {
     for (const { name: deviceName, deviceDescriptor } of config.devices) {
       // Omit `isMobile`: it's not supported in Firefox.
@@ -68,20 +67,20 @@ const prepareTests = function* (launchedBrowsers) {
           ? omitIsMobile(deviceDescriptor)
           : deviceDescriptor;
 
-      for (const test of testSpecs) {
+      for (const test of testDefinitions) {
         yield { browser, browserName, device, deviceName, test };
       }
     }
   }
 };
 
-const runTest = async ({
+const runVisualRegressionTest = async ({
   browser,
   browserName,
   device,
   deviceName,
   test,
-}): Promise<TestResult> => {
+}: Test): Promise<TestResult> => {
   const context = await browser.newContext({ ...device });
   const page = await context.newPage();
   await page.goto(config.baseUrl + test.relativeURL, {
