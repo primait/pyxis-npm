@@ -10,6 +10,9 @@ const deviceNames = [
   "Nexus 10",
 ];
 
+const flagUpdateBaseline =
+  process.argv.includes("-u") || process.argv.includes("--update-baseline");
+
 export default {
   baseUrl: "http://0.0.0.0:8080/",
   browsers: [chromium, firefox, webkit],
@@ -18,5 +21,6 @@ export default {
     deviceDescriptor: devices[deviceName],
   })),
   screenshotsPath: "screenshots/",
+  flagUpdateBaseline,
   tolerance: 0.05,
 };

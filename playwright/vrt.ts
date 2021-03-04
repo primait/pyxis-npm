@@ -1,8 +1,15 @@
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
+import fs from "fs";
 import config from "./config";
-
-const fs = require("fs");
+import {
+  logFailure,
+  logSuccess,
+  omitIsMobile,
+  screenshotNameToBaselinePath,
+  screenshotNameToDiffPath,
+  screenshotNameToPath,
+} from "./helpers";
 
 interface Test {
   name: String;
@@ -15,11 +22,6 @@ const tests: Array<Test> = [
     relativeURL: "src/test/accordions.html",
   },
 ];
-
-const omitIsMobile = (descriptor) => {
-  const { isMobile, ...other } = descriptor;
-  return other;
-};
 
 (async () => {
   for (const browserType of config.browsers) {
@@ -37,7 +39,9 @@ const omitIsMobile = (descriptor) => {
       const page = await context.newPage();
 
       for (const test of tests) {
-        await page.goto(config.baseUrl + test.relativeURL);
+        await page.goto(config.baseUrl + test.relativeURL, {
+          waitUntil: "networkidle",
+        });
         const name = `${test.name}-${browserName}-${deviceName}`;
         const buffer = await page.screenshot({ fullPage: true });
         handleScreenshot(name, buffer);
@@ -47,20 +51,22 @@ const omitIsMobile = (descriptor) => {
   }
 })();
 
-const screenshotNameToPath = (name) => `${config.screenshotsPath}${name}.png`;
-const screenshotNameToBaselinePath = (name) =>
-  `${config.screenshotsPath}${name}.baseline.png`;
-const screenshotNameToDiffPath = (name) =>
-  `${config.screenshotsPath}${name}.diff.png`;
-
 const handleScreenshot = (name, buffer): Boolean => {
   const currentPath = screenshotNameToPath(name);
   const baselinePath = screenshotNameToBaselinePath(name);
   const diffPath = screenshotNameToDiffPath(name);
 
-  // If baseline is missing, current becomes baseline
+  // If flagUpdateBaseline has been passed, update baseline with current
+  if (config.flagUpdateBaseline) {
+    fs.writeFileSync(baselinePath, buffer);
+    logSuccess(`${name} baseline updated`);
+    return true;
+  }
+
+  // If baseline is missing, update baseline with current
   if (!fs.existsSync(baselinePath)) {
     fs.writeFileSync(baselinePath, buffer);
+    logSuccess(`${name} baseline was missing`);
     return true;
   }
 
@@ -83,10 +89,13 @@ const handleScreenshot = (name, buffer): Boolean => {
     }
   );
 
-  const testPassed = result <= config.tolerance;
-  if (!testPassed) {
+  if (!(result <= config.tolerance)) {
     fs.writeFileSync(currentPath, PNG.sync.write(current));
     fs.writeFileSync(diffPath, PNG.sync.write(diff));
+    logFailure(`${name} diff is above ${config.tolerance}`);
+    return false;
   }
-  return testPassed;
+
+  logSuccess(`${name} diff is below ${config.tolerance}`);
+  return true;
 };
