@@ -1,47 +1,32 @@
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
-import fs from "fs";
+import fs from "fs/promises";
 import config from "./config";
 import {
+  disableAnimationsOnPage,
   logTestResult,
   logTestResultPreview,
   omitIsMobile,
-  screenshotNameToBaselinePath,
-  screenshotNameToDiffPath,
-  screenshotNameToPath,
+  testToBaselinePath,
+  testToDiffPath,
+  testToName,
+  testToPath,
+  testToURL,
 } from "./helpers";
-import { TestDefinition, TestResult, BrowserSpec, Test } from "./types";
-
-const testDefinitions: Array<TestDefinition> = [
-  { name: "Accordion", relativeURL: "src/test/accordions.html" },
-  { name: "Alertmessage", relativeURL: "src/test/alertmessage.html" },
-  { name: "Badges", relativeURL: "src/test/badges.html" },
-  { name: "Buttons", relativeURL: "src/test/buttons.html" },
-  { name: "Containers", relativeURL: "src/test/containers.html" },
-  { name: "Form", relativeURL: "src/test/form.html" },
-  { name: "Hero", relativeURL: "src/test/hero.html" },
-  { name: "Jumbotron", relativeURL: "src/test/jumbotron.html" },
-  { name: "Links", relativeURL: "src/test/links.html" },
-  { name: "List", relativeURL: "src/test/list-chooser.html" },
-  { name: "Loader", relativeURL: "src/test/loader.html" },
-  { name: "Messages", relativeURL: "src/test/messages.html" },
-  { name: "Modal", relativeURL: "src/test/modal.html" },
-  { name: "Pills", relativeURL: "src/test/pills.html" },
-  { name: "Shadows", relativeURL: "src/test/shadows.html" },
-  { name: "Slider", relativeURL: "src/test/slider.html" },
-  { name: "Tooltip", relativeURL: "src/test/tooltip.html" },
-  { name: "Typography", relativeURL: "src/test/typography.html" },
-];
+import { TestResult, BrowserSpec, Test } from "./types";
 
 const main = async () => {
-  // Open browsers
+  // Make screenshot folders
+  await prepareFolders();
+
+  // Launch browsers
   const launchedBrowsers = await prepareBrowsers();
 
   // Enqueue tests
-  const testQueue = Array.from(prepareTests(launchedBrowsers));
+  const tests = Array.from(prepareTests(launchedBrowsers));
 
   // Run tests
-  const results = await runVisualRegressionTests(testQueue);
+  const results = await runVisualRegressionTests(tests);
 
   // Close browsers
   await Promise.all(launchedBrowsers.map(({ browser }) => browser.close()));
@@ -49,7 +34,7 @@ const main = async () => {
   // Log results
   process.stdout.write("\n\n");
   for (const result of results) {
-    logTestResult(result);
+    result.succeeded && logTestResult(result);
   }
 
   // Evaluate results
@@ -70,17 +55,27 @@ const prepareBrowsers = async (): Promise<Array<BrowserSpec>> => {
   }));
 };
 
-const prepareTests = function* (launchedBrowsers): Generator<Test> {
-  for (const { browser, browserName } of launchedBrowsers) {
-    for (const { name: deviceName, deviceDescriptor } of config.devices) {
-      // Omit `isMobile`: it's not supported in Firefox.
-      const device =
-        browserName == "firefox"
-          ? omitIsMobile(deviceDescriptor)
-          : deviceDescriptor;
+const prepareFolders = async () => {
+  await Promise.all(
+    config.testDefinitions.map((testDefinition) => {
+      fs.mkdir(`${config.screenshotsPath}${testDefinition.name}/`, {
+        recursive: true, // Prevents failure when folder already exists
+      });
+    })
+  );
+};
 
-      for (const test of testDefinitions) {
-        yield { browser, browserName, device, deviceName, test };
+const prepareTests = function* (launchedBrowsers): Generator<Test> {
+  for (const testDefinition of config.testDefinitions) {
+    for (const { browser, browserName } of launchedBrowsers) {
+      for (const { name: deviceName, deviceDescriptor } of config.devices) {
+        // Omit `isMobile`: it's not supported in Firefox.
+        const device =
+          browserName == "firefox"
+            ? omitIsMobile(deviceDescriptor)
+            : deviceDescriptor;
+
+        yield { browser, browserName, device, deviceName, testDefinition };
       }
     }
   }
@@ -93,54 +88,56 @@ const runVisualRegressionTests = async (testQueue: Array<Test>) => {
   return results;
 };
 
-const runVisualRegressionTest = async ({
-  browser,
-  browserName,
-  device,
-  deviceName,
-  test,
-}: Test): Promise<TestResult> => {
-  const testName = `${test.name}-${browserName}-${deviceName}`;
+const runVisualRegressionTest = async (test: Test): Promise<TestResult> => {
   try {
-    const context = await browser.newContext({ ...device });
+    const context = await test.browser.newContext({ ...test.device });
     const page = await context.newPage();
-    await page.goto(config.baseUrl + test.relativeURL, {
+    await page.goto(testToURL(test), {
       waitUntil: "networkidle",
-      timeout: 300000, // 5 minutes
+      timeout: config.worstCaseTimeout,
     });
+    await disableAnimationsOnPage(page);
+    await page.waitForTimeout(config.renderingTimeout);
     const buffer = await page.screenshot({
       fullPage: true,
-      timeout: 300000, // 5 minutes
+      timeout: config.worstCaseTimeout,
     });
-    const result = handleScreenshot(testName, buffer);
+    const result = await handleScreenshot(test, buffer);
 
     logTestResultPreview(result);
     return result;
-  } catch (e) {
-    console.log(testName, e);
-    return { name: testName, comment: "malissimo", succeeded: false };
+  } catch (error) {
+    // Something unexpected happened: log this error. TODO: handle this properly
+    console.log(testToName(test), error);
+    return {
+      name: testToName(test),
+      comment: "unexpected error",
+      succeeded: false,
+    };
   }
 };
 
-const handleScreenshot = (name, buffer): TestResult => {
-  const currentPath = screenshotNameToPath(name);
-  const baselinePath = screenshotNameToBaselinePath(name);
-  const diffPath = screenshotNameToDiffPath(name);
+const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
+  const name = testToName(test);
+  const baselinePath = testToBaselinePath(test);
 
-  // If flagUpdateBaseline has been passed, update baseline with current
   if (config.flagUpdateBaseline) {
-    fs.writeFileSync(baselinePath, buffer);
+    // flagUpdateBaseline has been passed: update baseline with current
+    await fs.writeFile(baselinePath, buffer);
     return { name, succeeded: true, comment: `baseline updated` };
   }
 
-  // If baseline is missing, update baseline with current
-  if (!fs.existsSync(baselinePath)) {
-    fs.writeFileSync(baselinePath, buffer);
+  let baselineFile;
+  try {
+    baselineFile = await fs.readFile(baselinePath);
+  } catch (error) {
+    // Baseline is missing: update baseline with current
+    await fs.writeFile(baselinePath, buffer);
     return { name, succeeded: true, comment: `baseline was missing` };
   }
 
   const current = PNG.sync.read(buffer);
-  const baseline = PNG.sync.read(fs.readFileSync(baselinePath));
+  const baseline = PNG.sync.read(baselineFile);
   const diff = new PNG({
     width: baseline.width,
     height: baseline.height,
@@ -158,9 +155,12 @@ const handleScreenshot = (name, buffer): TestResult => {
     }
   );
 
-  if (!(result <= config.tolerance)) {
-    fs.writeFileSync(currentPath, PNG.sync.write(current));
-    fs.writeFileSync(diffPath, PNG.sync.write(diff));
+  if (result > config.tolerance) {
+    // Screenshot doesn't match: save current and diff to filesystem
+    await Promise.all([
+      fs.writeFile(testToPath(test), buffer),
+      fs.writeFile(testToDiffPath(test), PNG.sync.write(diff)),
+    ]);
     return {
       name,
       succeeded: false,
@@ -168,6 +168,7 @@ const handleScreenshot = (name, buffer): TestResult => {
     };
   }
 
+  // Screenshot does match: succeed
   return {
     name,
     succeeded: true,

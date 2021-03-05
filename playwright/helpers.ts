@@ -1,20 +1,28 @@
 import chalk from "chalk";
+import { Page } from "playwright";
 import config from "./config";
-import { TestResult } from "./types";
+import { Test, TestResult } from "./types";
 
 export const omitIsMobile = (descriptor) => {
   const { isMobile, ...other } = descriptor;
   return other;
 };
 
-export const screenshotNameToPath = (name) =>
-  `${config.screenshotsPath}${name}.png`;
+export const testToURL = (test: Test) => {
+  return config.baseUrl + test.testDefinition.relativeURL;
+};
 
-export const screenshotNameToBaselinePath = (name) =>
-  `${config.screenshotsPath}${name}.baseline.png`;
+export const testToName = (test: Test) =>
+  `${test.testDefinition.name}/${test.browserName}-${test.deviceName}`;
 
-export const screenshotNameToDiffPath = (name) =>
-  `${config.screenshotsPath}${name}.diff.png`;
+export const testToPath = (test: Test) =>
+  `${config.screenshotsPath}${test.testDefinition.name}/${test.browserName}-${test.deviceName}.png`;
+
+export const testToBaselinePath = (test: Test) =>
+  `${config.screenshotsPath}${test.testDefinition.name}/${test.browserName}-${test.deviceName}.baseline.png`;
+
+export const testToDiffPath = (test: Test) =>
+  `${config.screenshotsPath}${test.testDefinition.name}/${test.browserName}-${test.deviceName}.diff.png`;
 
 export const logTestResult = (result: TestResult) => {
   if (result.succeeded) {
@@ -24,10 +32,51 @@ export const logTestResult = (result: TestResult) => {
   }
 };
 
+const GREEN_MARK = chalk.green("✓");
+const RED_CROSS = chalk.red("✗");
+
 export const logTestResultPreview = (result: TestResult) => {
-  if (result.succeeded) {
-    process.stdout.write(chalk.green("✓"));
-  } else {
-    process.stdout.write(chalk.red("✗"));
-  }
+  process.stdout.write(result.succeeded ? GREEN_MARK : RED_CROSS);
+};
+
+/**
+ * Disable animations (they make visual regression tests non-reproducible)
+ */
+export const disableAnimationsOnPage = async (page: Page) => {
+  await page.addStyleTag({
+    content: `
+
+*,
+*::before,
+*::after {
+  -moz-transition: none !important;
+  transition: none !important;
+  -moz-animation: none !important;
+  animation: none !important;
+}
+
+#jsCookies {
+  display: none!important;
+}
+
+svg,
+img,
+#waves,
+#jsTrustpilotRoot,
+#jsSocietyTypewriterCaret,
+.clock-header__clock,
+.a-trustpilotWidget,
+.plate-number__wrapper.is-fixed {
+    visibility: hidden!important;
+}
+
+.o-jumbotron--animatedBg {
+    background-image: none!important;
+}
+
+.footer {
+    position: relative!important;
+}
+`,
+  });
 };

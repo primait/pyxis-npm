@@ -9,7 +9,7 @@ export interface Test {
   browserName: String;
   device: any;
   deviceName: String;
-  test: TestDefinition;
+  testDefinition: TestDefinition;
 }
 
 export interface TestResult {
