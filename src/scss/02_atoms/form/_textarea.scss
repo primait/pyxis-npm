@@ -3,6 +3,14 @@ $textAreaConfig: (
   padding: rem(15px),
 ) !default;
 
+@mixin textareaState($state) {
+  background-color: get($formFieldStateConfig, $state, background);
+  border-color: get($formFieldStateConfig, $state, stateColor);
+  color: get($formFieldStateConfig, $state, color);
+  opacity: get($formFieldStateConfig, $state, opacity);
+  -webkit-text-fill-color: get($formFieldStateConfig, $state, color);
+}
+
 .form-textarea {
   @include formFieldSizes;
   -webkit-appearance: none;
@@ -22,16 +30,25 @@ $textAreaConfig: (
   -webkit-text-fill-color: get($formFieldStateConfig, default, color);
   transition: background 0.3s, border 0.3s, color 0.3s;
 
+  &.is-valid {
+    @include textareaState(valid);
+  }
+
+  &.has-error {
+    @include textareaState(error);
+  }
+
+  &.has-warning {
+    @include textareaState(warning);
+  }
+
   &:focus {
-    border-color: get($formFieldStateConfig, focus, stateColor);
-    box-shadow: get($formFieldStateConfig, focus, boxShadow);
+    @include textareaState(focus);
   }
 
   &.is-disabled,
   &[disabled] {
-    background-color: get($formFieldStateConfig, disabled, background);
-    border-color: get($formFieldStateConfig, disabled, stateColor);
-    opacity: get($formFieldStateConfig, disabled, opacity);
+    @include textareaState(disabled);
     pointer-events: none;
   }
 }
