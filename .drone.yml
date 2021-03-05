@@ -11,26 +11,17 @@ clone:
 
 steps:
 - name: git-clone
-  image: 595659439703.dkr.ecr.eu-west-1.amazonaws.com/drone-git:1.3-3
+  image: public.ecr.aws/prima/drone-git:1.3-3
   environment:
     PLUGIN_DEPTH: 5
 
-- name: pre-start
-  image: 595659439703.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.16
-  commands:
-  - pre-start-scripts
-  environment:
-    COUNTRY: it
-  depends_on:
-  - git-clone
-
 - name: cache-restore
-  image: 595659439703.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.16
+  image: public.ecr.aws/prima/drone-tools:1.20.1
   commands:
   - . /etc/profile.d/ecs-credentials-endpoint
   - cache-restore
   environment:
-    COUNTRY: it
+    BUCKET_NAME: prima-ci-cache
   volumes:
   - name: ecs
     path: /etc/profile.d/ecs-credentials-endpoint
@@ -42,7 +33,7 @@ steps:
   - git-clone
 
 - name: check-secrets
-  image: 595659439703.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.16
+  image: public.ecr.aws/prima/drone-tools:1.20.1
   commands:
   - . /etc/profile.d/ecs-credentials-endpoint
   - check-secrets-grants
@@ -52,11 +43,18 @@ steps:
   depends_on:
   - git-clone
 
+- name: check-public-docker-images
+  image: public.ecr.aws/prima/drone-tools:1.20.1
+  commands:
+  - check-public-docker-images
+  depends_on:
+  - git-clone
+
 - name: build-image
-  image: 595659439703.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.16
+  image: public.ecr.aws/prima/drone-tools:1.20.1
   commands:
   - sed -i 's/USER node/USER root/g' ./Dockerfile
-  - docker build -t prima/pyxis-npm-ci:1 ./
+  - docker build -t prima/pyxis-npm-ci:${DRONE_COMMIT} ./
   volumes:
   - name: docker
     path: /var/run/docker.sock
@@ -66,17 +64,16 @@ steps:
   - cache-restore
 
 - name: dependencies
-  image: prima/pyxis-npm-ci:1
+  image: prima/pyxis-npm-ci:${DRONE_COMMIT}
   commands:
   - yarn
   environment:
     YARN_CACHE_FOLDER: /drone/src/.cache/yarn
   depends_on:
-  - pre-start
   - build-image
 
 - name: build
-  image: prima/pyxis-npm-ci:1
+  image: prima/pyxis-npm-ci:${DRONE_COMMIT}
   commands:
   - yarn run build:prod
   environment:
@@ -85,12 +82,12 @@ steps:
   - dependencies
 
 - name: cache-save
-  image: 595659439703.dkr.ecr.eu-west-1.amazonaws.com/drone-tools:1.17.16
+  image: public.ecr.aws/prima/drone-tools:1.20.1
   commands:
   - . /etc/profile.d/ecs-credentials-endpoint
   - cache-save .cache node_modules
   environment:
-    COUNTRY: it
+    BUCKET_NAME: prima-ci-cache
   volumes:
   - name: ecs
     path: /etc/profile.d/ecs-credentials-endpoint
@@ -133,7 +130,7 @@ clone:
 
 steps:
 - name: email-failure
-  image: 595659439703.dkr.ecr.eu-west-1.amazonaws.com/drone-email
+  image: public.ecr.aws/prima/drone-email
   settings:
     from: noreply@prima.it
     host: email-smtp.eu-west-1.amazonaws.com
@@ -144,16 +141,18 @@ steps:
       from_secret: email_username
 
 trigger:
-  event:
-  - push
   status:
   - failure
+  target:
+    exclude:
+    - qa
+    - qa-stack
 
 depends_on:
 - default
 
 ---
 kind: signature
-hmac: 0fa2839c5a873894dbea67c8213604f5d2c8255142204d71001cb92aa2ba491b
+hmac: 1958da1a9d7db67870fb9be5833c23d76b9f2de5d1578239c9dbf55ed898482d
 
 ...
