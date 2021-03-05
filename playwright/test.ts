@@ -23,7 +23,7 @@ const main = async () => {
   const launchedBrowsers = await prepareBrowsers();
 
   // Enqueue tests
-  const tests = Array.from(prepareTests(launchedBrowsers));
+  const tests = await prepareTests(launchedBrowsers);
 
   // Run tests
   const results = await runVisualRegressionTests(tests);
@@ -34,7 +34,7 @@ const main = async () => {
   // Log results
   process.stdout.write("\n\n");
   for (const result of results) {
-    result.succeeded && logTestResult(result);
+    !result.succeeded && logTestResult(result);
   }
 
   // Evaluate results
@@ -65,53 +65,60 @@ const prepareFolders = async () => {
   );
 };
 
-const prepareTests = function* (launchedBrowsers): Generator<Test> {
-  for (const testDefinition of config.testDefinitions) {
-    for (const { browser, browserName } of launchedBrowsers) {
-      for (const { name: deviceName, deviceDescriptor } of config.devices) {
-        // Omit `isMobile`: it's not supported in Firefox.
-        const device =
-          browserName == "firefox"
-            ? omitIsMobile(deviceDescriptor)
-            : deviceDescriptor;
+const prepareTests = async (
+  launchedBrowsers: BrowserSpec[]
+): Promise<Array<Test>> => {
+  const tests: Array<Test> = [];
+  for (const { browser, browserName } of launchedBrowsers) {
+    for (const { name: deviceName, device } of config.deviceDefinitions) {
+      const device_ = browserName == "firefox" ? omitIsMobile(device) : device;
+      const context = await browser.newContext({ ...device_ });
 
-        yield { browser, browserName, device, deviceName, testDefinition };
+      for (const testDefinition of config.testDefinitions) {
+        tests.push({
+          browser,
+          browserName,
+          context,
+          deviceName,
+          testDefinition,
+        });
       }
     }
   }
+  return tests;
 };
 
 const runVisualRegressionTests = async (testQueue: Array<Test>) => {
-  const results = await Promise.all(
+  return await Promise.all(
     testQueue.map((testDef) => runVisualRegressionTest(testDef))
   );
-  return results;
 };
 
 const runVisualRegressionTest = async (test: Test): Promise<TestResult> => {
   try {
-    const context = await test.browser.newContext({ ...test.device });
-    const page = await context.newPage();
+    const page = await test.context.newPage();
     await page.goto(testToURL(test), {
       waitUntil: "networkidle",
       timeout: config.worstCaseTimeout,
     });
     await disableAnimationsOnPage(page);
-    await page.waitForTimeout(config.renderingTimeout);
+    await page.waitForTimeout(config.timeoutBeforeScreenshot);
+
+    // Finally, take the actual screenshot
     const buffer = await page.screenshot({
       fullPage: true,
       timeout: config.worstCaseTimeout,
     });
+
     const result = await handleScreenshot(test, buffer);
 
     logTestResultPreview(result);
     return result;
   } catch (error) {
-    // Something unexpected happened: log this error. TODO: handle this properly
-    console.log(testToName(test), error);
+    // Something unexpected happened: log this error
     return {
       name: testToName(test),
-      comment: "unexpected error",
+      comment: `${error}`,
       succeeded: false,
     };
   }
@@ -121,10 +128,12 @@ const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
   const name = testToName(test);
   const baselinePath = testToBaselinePath(test);
 
+  const current = PNG.sync.read(buffer);
+
   if (config.flagUpdateBaseline) {
-    // flagUpdateBaseline has been passed: update baseline with current
-    await fs.writeFile(baselinePath, buffer);
-    return { name, succeeded: true, comment: `baseline updated` };
+    // CLI update flag has been passed: update baseline with current
+    await fs.writeFile(baselinePath, PNG.sync.write(current));
+    return { name, succeeded: true, comment: `baseline updated via flag` };
   }
 
   let baselineFile;
@@ -132,39 +141,53 @@ const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
     baselineFile = await fs.readFile(baselinePath);
   } catch (error) {
     // Baseline is missing: update baseline with current
-    await fs.writeFile(baselinePath, buffer);
+    await fs.writeFile(baselinePath, PNG.sync.write(current));
     return { name, succeeded: true, comment: `baseline was missing` };
   }
 
-  const current = PNG.sync.read(buffer);
   const baseline = PNG.sync.read(baselineFile);
   const diff = new PNG({
     width: baseline.width,
     height: baseline.height,
   });
 
-  const result = pixelmatch(
-    baseline.data,
-    current.data,
-    diff.data,
-    baseline.width,
-    baseline.height,
-    {
-      threshold: config.tolerance,
-      includeAA: true,
-    }
-  );
+  let result, error;
+  try {
+    result = pixelmatch(
+      baseline.data,
+      current.data,
+      diff.data,
+      baseline.width,
+      baseline.height,
+      {
+        threshold: config.threshold,
+        includeAA: true,
+      }
+    );
+  } catch (error_) {
+    error = error_;
+    // Not-fully-loaded or otherwise unstable pages' sizes can differ from baseline
+    // console.log(
+    //   "w",
+    //   baseline.width,
+    //   current.width,
+    //   "h",
+    //   baseline.height,
+    //   current.height
+    // );
+  }
 
-  if (result > config.tolerance) {
-    // Screenshot doesn't match: save current and diff to filesystem
+  if (result > config.threshold || error !== undefined) {
+    // Screenshot didn't match, or an error occurred: save `current` and `diff`
     await Promise.all([
-      fs.writeFile(testToPath(test), buffer),
+      fs.writeFile(testToPath(test), PNG.sync.write(current)),
       fs.writeFile(testToDiffPath(test), PNG.sync.write(diff)),
     ]);
     return {
       name,
       succeeded: false,
-      comment: `diff is above ${config.tolerance}`,
+      comment:
+        `Pixelmatch error: ${error}` || `diff is above ${config.threshold}`,
     };
   }
 
@@ -172,7 +195,7 @@ const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
   return {
     name,
     succeeded: true,
-    comment: `diff is below ${config.tolerance}`,
+    comment: `diff is below ${config.threshold}`,
   };
 };
 

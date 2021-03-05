@@ -1,4 +1,4 @@
-import { Browser } from "playwright";
+import { Browser, BrowserContext } from "playwright";
 
 export interface TestDefinition {
   name: String;
@@ -7,7 +7,7 @@ export interface TestDefinition {
 export interface Test {
   browser: Browser;
   browserName: String;
-  device: any;
+  context: BrowserContext;
   deviceName: String;
   testDefinition: TestDefinition;
 }

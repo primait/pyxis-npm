@@ -17,22 +17,22 @@ const flagUpdateBaseline =
 const config: {
   baseUrl: string;
   browsers: Array<any>;
-  devices: Array<any>;
+  deviceDefinitions: Array<any>;
   flagUpdateBaseline: boolean;
-  renderingTimeout: number;
+  timeoutBeforeScreenshot: number;
   screenshotsPath: string;
   testDefinitions: Array<TestDefinition>;
-  tolerance: number;
+  threshold: number;
   worstCaseTimeout: number;
 } = {
   baseUrl: "http://0.0.0.0:8080/",
   browsers: [chromium, firefox, webkit],
-  devices: deviceNames.map((deviceName) => ({
+  deviceDefinitions: deviceNames.map((deviceName) => ({
     name: deviceName,
-    deviceDescriptor: devices[deviceName],
+    device: devices[deviceName],
   })),
   flagUpdateBaseline,
-  renderingTimeout: 2500, // in ms, time before taking a screenshot
+  timeoutBeforeScreenshot: 10000, // 10s in ms, time to wait after page load before taking a screenshot
   screenshotsPath: "screenshots/",
   testDefinitions: [
     { name: "Accordion", relativeURL: "src/test/accordions.html" },
@@ -54,8 +54,8 @@ const config: {
     { name: "Tooltip", relativeURL: "src/test/tooltip.html" },
     { name: "Typography", relativeURL: "src/test/typography.html" },
   ],
-  tolerance: 0.05,
-  worstCaseTimeout: 300000, // in ms, should be longer than the sane-case runtime for the whole test suite (5 minutes)
+  threshold: 0.1, // Pixelmatch threshold
+  worstCaseTimeout: 600000, // 10min in ms, should be longer than the sane-case runtime for the whole test suite
 };
 
 export default config;

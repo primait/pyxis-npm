@@ -3,8 +3,11 @@ import { Page } from "playwright";
 import config from "./config";
 import { Test, TestResult } from "./types";
 
-export const omitIsMobile = (descriptor) => {
-  const { isMobile, ...other } = descriptor;
+/**
+ * Omit `isMobile` from a device descriptor: it's not supported in Firefox.
+ */
+export const omitIsMobile = (deviceDescriptor) => {
+  const { isMobile, ...other } = deviceDescriptor;
   return other;
 };
 
