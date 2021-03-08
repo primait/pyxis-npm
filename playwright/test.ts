@@ -1,9 +1,11 @@
 import { PNG } from "pngjs";
 import pixelmatch from "pixelmatch";
 import fs from "fs/promises";
+import argv from "./argv";
 import config from "./config";
 import {
-  disableAnimationsOnPage,
+  logDebug,
+  logInfo,
   logTestResult,
   logTestResultPreview,
   omitIsMobile,
@@ -13,7 +15,9 @@ import {
   testToPath,
   testToURL,
 } from "./helpers";
+import { stabilizePage } from "./stabilize-page";
 import { TestResult, BrowserSpec, Test } from "./types";
+import TEST_DEFINITIONS from "./test-definitions";
 
 const main = async () => {
   // Make screenshot folders
@@ -57,7 +61,7 @@ const prepareBrowsers = async (): Promise<Array<BrowserSpec>> => {
 
 const prepareFolders = async () => {
   await Promise.all(
-    config.testDefinitions.map((testDefinition) => {
+    TEST_DEFINITIONS.map((testDefinition) => {
       fs.mkdir(`${config.screenshotsPath}${testDefinition.name}/`, {
         recursive: true, // Prevents failure when folder already exists
       });
@@ -74,7 +78,7 @@ const prepareTests = async (
       const device_ = browserName == "firefox" ? omitIsMobile(device) : device;
       const context = await browser.newContext({ ...device_ });
 
-      for (const testDefinition of config.testDefinitions) {
+      for (const testDefinition of TEST_DEFINITIONS) {
         tests.push({
           browser,
           browserName,
@@ -96,31 +100,33 @@ const runVisualRegressionTests = async (testQueue: Array<Test>) => {
 
 const runVisualRegressionTest = async (test: Test): Promise<TestResult> => {
   try {
+    // Load and stabilize page
+    logDebug(`${testToName(test)}: Loading page`);
     const page = await test.context.newPage();
     await page.goto(testToURL(test), {
       waitUntil: "networkidle",
-      timeout: config.worstCaseTimeout,
+      timeout: config.fullSuiteRuntimeEstimate,
     });
-    await disableAnimationsOnPage(page);
+    await stabilizePage(page);
+
+    // Wait some more to avoid false negatives
+    logDebug(`${testToName(test)}: Waiting to avoid false negatives`);
     await page.waitForTimeout(config.timeoutBeforeScreenshot);
 
     // Finally, take the actual screenshot
+    logDebug(`${testToName(test)}: Page ready. Taking screenshot`);
     const buffer = await page.screenshot({
       fullPage: true,
-      timeout: config.worstCaseTimeout,
+      timeout: config.fullSuiteRuntimeEstimate,
     });
 
-    const result = await handleScreenshot(test, buffer);
-
-    logTestResultPreview(result);
-    return result;
+    // Match the screenshot against baseline
+    const testResult = await handleScreenshot(test, buffer);
+    logTestResultPreview(testResult);
+    return testResult;
   } catch (error) {
-    // Something unexpected happened: log this error
-    return {
-      name: testToName(test),
-      comment: `${error}`,
-      succeeded: false,
-    };
+    // TODO: if the error is a timeout, retry the test
+    handleUnexpectedError({ test, error });
   }
 };
 
@@ -130,10 +136,14 @@ const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
 
   const current = PNG.sync.read(buffer);
 
-  if (config.flagUpdateBaseline) {
+  if (argv.updateBaseline) {
     // CLI update flag has been passed: update baseline with current
-    await fs.writeFile(baselinePath, PNG.sync.write(current));
-    return { name, succeeded: true, comment: `baseline updated via flag` };
+    return await handleBaselineUpdate({
+      baselineWasMissing: false,
+      test,
+      baselinePath,
+      current,
+    });
   }
 
   let baselineFile;
@@ -141,8 +151,12 @@ const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
     baselineFile = await fs.readFile(baselinePath);
   } catch (error) {
     // Baseline is missing: update baseline with current
-    await fs.writeFile(baselinePath, PNG.sync.write(current));
-    return { name, succeeded: true, comment: `baseline was missing` };
+    return await handleBaselineUpdate({
+      baselineWasMissing: true,
+      test,
+      baselinePath,
+      current,
+    });
   }
 
   const baseline = PNG.sync.read(baselineFile);
@@ -151,51 +165,112 @@ const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
     height: baseline.height,
   });
 
-  let result, error;
   try {
-    result = pixelmatch(
+    const diffRatio = pixelmatch(
       baseline.data,
       current.data,
       diff.data,
       baseline.width,
       baseline.height,
       {
-        threshold: config.threshold,
+        threshold: config.pixelmatchThreshold,
         includeAA: true,
       }
     );
-  } catch (error_) {
-    error = error_;
-    // Not-fully-loaded or otherwise unstable pages' sizes can differ from baseline
-    // console.log(
-    //   "w",
-    //   baseline.width,
-    //   current.width,
-    //   "h",
-    //   baseline.height,
-    //   current.height
-    // );
+
+    if (diffRatio > config.pixelmatchThreshold) {
+      // Screenshot wasn't a good enough match: save `current` and `diff`
+      return await handleTestFailure({ test, current, diff });
+    }
+  } catch (error) {
+    return await handlePixelmatchError({ test, current, diff, error });
   }
 
-  if (result > config.threshold || error !== undefined) {
-    // Screenshot didn't match, or an error occurred: save `current` and `diff`
-    await Promise.all([
-      fs.writeFile(testToPath(test), PNG.sync.write(current)),
-      fs.writeFile(testToDiffPath(test), PNG.sync.write(diff)),
-    ]);
-    return {
-      name,
-      succeeded: false,
-      comment:
-        `Pixelmatch error: ${error}` || `diff is above ${config.threshold}`,
-    };
-  }
+  // Screenshot was a good enough match: succeed
+  return handleTestSuccess(name);
+};
 
-  // Screenshot does match: succeed
+const handleBaselineUpdate = async ({
+  baselineWasMissing,
+  test,
+  baselinePath,
+  current,
+}): Promise<TestResult> => {
+  const comment = baselineWasMissing
+    ? "baseline was missing"
+    : "baseline updated via flag";
+  logDebug(`${testToName(test)}: Saving to ${baselinePath} because ${comment}`);
+  await fs.writeFile(baselinePath, PNG.sync.write(current));
   return {
-    name,
+    name: testToName(test),
     succeeded: true,
-    comment: `diff is below ${config.threshold}`,
+    comment,
+  };
+};
+
+/**
+ * Just return a successful TestResult
+ */
+const handleTestSuccess = (testName: string): TestResult => {
+  logDebug(`${testName} success`);
+  return {
+    name: testName,
+    succeeded: true,
+    comment: `diff is below ${config.pixelmatchThreshold}`,
+  };
+};
+
+/**
+ * Write `current` and `diff` to fs, return failure
+ */
+const handleTestFailure = async ({
+  test,
+  current,
+  diff,
+}): Promise<TestResult> => {
+  const comment = `diff is above ${config.pixelmatchThreshold}`;
+  logDebug(`${testToName(test)} failure: ${comment}`);
+  await Promise.all([
+    fs.writeFile(testToPath(test), PNG.sync.write(current)),
+    fs.writeFile(testToDiffPath(test), PNG.sync.write(diff)),
+  ]);
+  return {
+    name: testToName(test),
+    succeeded: false,
+    comment,
+  };
+};
+
+/**
+ * Write `current` and `diff` to fs, return failure
+ */
+const handlePixelmatchError = async ({
+  test,
+  current,
+  diff,
+  error,
+}): Promise<TestResult> => {
+  logInfo(`${testToName(test)} pixelmatch error:`, error);
+  await Promise.all([
+    fs.writeFile(testToPath(test), PNG.sync.write(current)),
+    fs.writeFile(testToDiffPath(test), PNG.sync.write(diff)),
+  ]);
+  return {
+    name: testToName(test),
+    succeeded: false,
+    comment: `Pixelmatch error: ${error}`,
+  };
+};
+
+/**
+ * Something unexpected happened, return failure
+ */
+const handleUnexpectedError = async ({ test, error }): Promise<TestResult> => {
+  logInfo(`${testToName(test)} unexpected error:`, error);
+  return {
+    name: testToName(test),
+    comment: `${error}`,
+    succeeded: false,
   };
 };
 

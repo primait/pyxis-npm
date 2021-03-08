@@ -1,7 +1,19 @@
 import chalk from "chalk";
-import { Page } from "playwright";
+import argv from "./argv";
 import config from "./config";
 import { Test, TestResult } from "./types";
+
+/**
+ * `console.log` wrapper which only logs when verbosity setting is appropriate
+ */
+export const logInfo = (...args: any[]) =>
+  argv.verbose >= 0 && console.log(args);
+
+/**
+ * `console.log` wrapper which only logs when verbosity setting is appropriate
+ */
+export const logDebug = (...args: any[]) =>
+  argv.verbose >= 1 && console.log(args);
 
 /**
  * Omit `isMobile` from a device descriptor: it's not supported in Firefox.
@@ -27,59 +39,18 @@ export const testToBaselinePath = (test: Test) =>
 export const testToDiffPath = (test: Test) =>
   `${config.screenshotsPath}${test.testDefinition.name}/${test.browserName}-${test.deviceName}.diff.png`;
 
-export const logTestResult = (result: TestResult) => {
-  if (result.succeeded) {
-    console.log(chalk.green("✓", result.name), result.comment);
-  } else {
-    console.log(chalk.red("✗", result.name), result.comment);
-  }
-};
+export const logTestResult = (result: TestResult) =>
+  result.succeeded ? logTestSuccess(result) : logTestFailure(result);
+
+const logTestSuccess = (result: TestResult) =>
+  logInfo(`${chalk.green("✓", result.name)} ${result.comment}`);
+
+const logTestFailure = (result: TestResult) =>
+  logInfo(`${chalk.red("✗", result.name)}, ${result.comment}`);
 
 const GREEN_MARK = chalk.green("✓");
 const RED_CROSS = chalk.red("✗");
 
 export const logTestResultPreview = (result: TestResult) => {
   process.stdout.write(result.succeeded ? GREEN_MARK : RED_CROSS);
-};
-
-/**
- * Disable animations (they make visual regression tests non-reproducible)
- */
-export const disableAnimationsOnPage = async (page: Page) => {
-  await page.addStyleTag({
-    content: `
-
-*,
-*::before,
-*::after {
-  -moz-transition: none !important;
-  transition: none !important;
-  -moz-animation: none !important;
-  animation: none !important;
-}
-
-#jsCookies {
-  display: none!important;
-}
-
-svg,
-img,
-#waves,
-#jsTrustpilotRoot,
-#jsSocietyTypewriterCaret,
-.clock-header__clock,
-.a-trustpilotWidget,
-.plate-number__wrapper.is-fixed {
-    visibility: hidden!important;
-}
-
-.o-jumbotron--animatedBg {
-    background-image: none!important;
-}
-
-.footer {
-    position: relative!important;
-}
-`,
-  });
 };

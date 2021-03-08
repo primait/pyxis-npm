@@ -1,9 +1,18 @@
 import { Browser, BrowserContext } from "playwright";
 
+/**
+ * The definition for a visual regression test.
+ *
+ * In the future, this may specify a custom number of timeouts / retries
+ */
 export interface TestDefinition {
   name: String;
   relativeURL: String;
 }
+
+/**
+ * A test that's ready to be executed
+ */
 export interface Test {
   browser: Browser;
   browserName: String;
@@ -18,6 +27,9 @@ export interface TestResult {
   comment: String;
 }
 
+/**
+ * Contains a _launched_ browser and its name
+ */
 export interface BrowserSpec {
   browser: Browser;
   browserName: String;
