@@ -7,13 +7,13 @@ import { Test, TestResult } from "./types";
  * `console.log` wrapper which only logs when verbosity setting is appropriate
  */
 export const logInfo = (...args: any[]) =>
-  argv.verbose >= 0 && console.log(args);
+  argv.verbose >= 0 && console.log(...args);
 
 /**
  * `console.log` wrapper which only logs when verbosity setting is appropriate
  */
 export const logDebug = (...args: any[]) =>
-  argv.verbose >= 1 && console.log(args);
+  argv.verbose >= 1 && console.log(chalk.gray(...args));
 
 /**
  * Omit `isMobile` from a device descriptor: it's not supported in Firefox.
