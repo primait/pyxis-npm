@@ -4,6 +4,18 @@ import config from "./config";
 import { Test, TestResult } from "./types";
 
 /**
+ * Cartesian product of arrays
+ *
+ * e.g. cartesian([1, 2], [A, B], [X]) => [[1, A], [1, B], [2, A], [2, B]]
+ */
+export const cartesian = <aa, bb, cc>(
+  a: Array<aa>,
+  b: Array<bb>,
+  c: Array<cc>
+): Array<[aa, bb, cc]> =>
+  [a, b, c].reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())));
+
+/**
  * `console.log` wrapper which only logs when verbosity setting is appropriate
  */
 export const logInfo = (...args: any[]) =>

@@ -4,6 +4,7 @@ import fs from "fs/promises";
 import argv from "./argv";
 import config from "./config";
 import {
+  cartesian,
   logDebug,
   logInfo,
   logTestResult,
@@ -72,6 +73,11 @@ const prepareFolders = async () => {
 const prepareTests = async (
   launchedBrowsers: BrowserSpec[]
 ): Promise<Array<Test>> => {
+  const combinations = cartesian(
+    launchedBrowsers,
+    config.deviceDefinitions,
+    TEST_DEFINITIONS
+  );
   const tests: Array<Test> = [];
   for (const { browser, browserName } of launchedBrowsers) {
     for (const { name: deviceName, device } of config.deviceDefinitions) {

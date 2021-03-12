@@ -1,19 +1,28 @@
 # Visual regression testing using Playwright
 
-TL;DR: Playwright forces us to maintain a lot more custom code than Cypress, but may be faster.
+## Requirements
 
-Also, it was trivially easy to parallelize.
+- node > 14 (needed for fs promises etc.)
+
+## Installation
+
+```sh
+cd playwright
+yarn
+```
 
 ## Usage
 
 ```sh
+# Serve Pyxis example files
 cd pyxis-npm
 yarn serve
+# Run tests
 cd playwright
 yarn test
 ```
 
-To update baseline screenshots if appropriate, run:
+To update baseline screenshots if the measured differences are not regressions, run:
 
 ```sh
 yarn test -u
@@ -36,22 +45,20 @@ Also, the suggested [Jest/Playwright integration](https://github.com/playwright-
 We can take smaller screenshots. Some test routes don't fill a whole page.
 We can take fewer snapshots: probably not all tests make sense (e.g. multiple devices which fall under the same breakpoints)
 
-## Pros and cons of this solution
+## Comparison with other visual regression testing approaches
 
 Pros:
 
-- Unlike Cypress, it supports Webkit (used by Safari)
-- Seems to be faster than Cypress.
-- Pretty good runtime, ~3.5 minutes, which can be greatly improved, too
-- We can roll our own stuff (test case management, CLI UI, etc.)
+- Faster than Cypress _and_ it additionally supports Webkit (used by Safari)
+- It was trivially easy to make it run multiple tests in parallel, reusing as many resources as possible
+- It's a simple CLI tool with an explicit main control flow, so it's easier to customize compared to opaque main control flow solutions
 
 Cons:
 
-- We _have to_ roll our own stuff, document it, maintain it, be responsible for it when it breaks, deal with the high risk of orphaning that test code suffers from...
+- It's all custom. We have to deal with the burden of documentation, maintainance, fixing, avoiding bit rot...
 - As a testament to the above issue, this implementation currently has some bugs.
 
-## Current bugs
+## Known bugs
 
-- makes my Discord client crash
-- makes my system unresponsive in 10-15s bursts
-- Some (1-2) flaky false negatives every now and then
+- Makes the host OS unresponsive in 10-15s bursts
+- A few flaky false negatives every now and then
