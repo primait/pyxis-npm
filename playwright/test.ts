@@ -4,7 +4,7 @@ import fs from "fs/promises";
 import argv from "./argv";
 import config from "./config";
 import {
-  cartesian,
+  cartesian3Product,
   logDebug,
   logInfo,
   logTestResult,
@@ -73,29 +73,35 @@ const prepareFolders = async () => {
 const prepareTests = async (
   launchedBrowsers: BrowserSpec[]
 ): Promise<Array<Test>> => {
-  const combinations = cartesian(
-    launchedBrowsers,
-    config.deviceDefinitions,
-    TEST_DEFINITIONS
-  );
-  const tests: Array<Test> = [];
-  for (const { browser, browserName } of launchedBrowsers) {
-    for (const { name: deviceName, device } of config.deviceDefinitions) {
-      const device_ = browserName == "firefox" ? omitIsMobile(device) : device;
-      const context = await browser.newContext({ ...device_ });
+  const combinations = [
+    ...cartesian3Product(
+      launchedBrowsers,
+      config.deviceDefinitions,
+      TEST_DEFINITIONS
+    ),
+  ];
 
-      for (const testDefinition of TEST_DEFINITIONS) {
-        tests.push({
+  return Promise.all(
+    combinations.map(
+      async ([
+        { browser, browserName },
+        { device, deviceName },
+        testDefinition,
+      ]) => {
+        const device_ =
+          browserName == "firefox" ? omitIsMobile(device) : device;
+        const context = await browser.newContext({ ...device_ });
+
+        return {
           browser,
           browserName,
           context,
           deviceName,
           testDefinition,
-        });
+        };
       }
-    }
-  }
-  return tests;
+    )
+  );
 };
 
 const runVisualRegressionTests = async (testQueue: Array<Test>) => {

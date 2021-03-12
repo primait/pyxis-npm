@@ -4,16 +4,25 @@ import config from "./config";
 import { Test, TestResult } from "./types";
 
 /**
- * Cartesian product of arrays
+ * Cartesian product of 3 arrays
  *
- * e.g. cartesian([1, 2], [A, B], [X]) => [[1, A], [1, B], [2, A], [2, B]]
+ * e.g. cartesian([1, 2], [A, B], [X]) => [[1, A, X], [1, B, X], [2, A, X], [2, B, X]]
+ *
+ * I was unable to use the cool one-liner flatMap version because I couldn't reliably type it.
  */
-export const cartesian = <aa, bb, cc>(
-  a: Array<aa>,
-  b: Array<bb>,
-  c: Array<cc>
-): Array<[aa, bb, cc]> =>
-  [a, b, c].reduce((a, b) => a.flatMap((d) => b.map((e) => [d, e].flat())));
+export function* cartesian3Product<t0, t1, t2>(
+  a: Array<t0>,
+  b: Array<t1>,
+  c: Array<t2>
+): Generator<[t0, t1, t2]> {
+  for (const ax of a) {
+    for (const bx of b) {
+      for (const cx of c) {
+        yield [ax, bx, cx];
+      }
+    }
+  }
+}
 
 /**
  * `console.log` wrapper which only logs when verbosity setting is appropriate
