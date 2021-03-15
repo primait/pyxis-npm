@@ -554,6 +554,23 @@ $btnsBreakpoints: xsmall small medium large;
   }
 }
 
+.btn--download__icon--svg {
+  align-items: center;
+  color: get($downloadButtonConfig, icon, color);
+  display: flex;
+  font-size: get($downloadButtonConfig, icon, fontSize);
+  height: get($downloadButtonConfig, icon, size);
+  justify-content: center;
+  left: 20px;
+  position: absolute;
+  width: get($downloadButtonConfig, icon, size);
+
+  .btn--download[disabled] &,
+  .btn--download.is-disabled & {
+    color: get($downloadButtonConfig, disabled, color);
+  }
+}
+
 .btn--download__title {
   @include fontSize(get($downloadButtonConfig, title, fontSize), get($downloadButtonConfig, title, lineHeight));
   color: get($downloadButtonConfig, title, color);
