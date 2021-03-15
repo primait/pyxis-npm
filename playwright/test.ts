@@ -7,6 +7,7 @@ import config from "./config";
 import {
   cartesian3Product,
   logDebug,
+  logError,
   logInfo,
   logTestResult,
   logTestResultPreview,
@@ -31,8 +32,16 @@ const main = async () => {
   // Enqueue tests
   const tests = await prepareTests(launchedBrowsers);
 
+  // Filter tests
+  const filteredTests = argv.testFilter ? filterTests(tests) : tests;
+
+  if (filteredTests.length === 0) {
+    logError("No tests match the provided filter");
+    process.exit(0);
+  }
+
   // Run tests
-  const results = await runVisualRegressionTests(tests, argv.poolSize);
+  const results = await runVisualRegressionTests(filteredTests, argv.poolSize);
 
   // Close browsers
   await Promise.all(launchedBrowsers.map(({ browser }) => browser.close()));
@@ -84,7 +93,11 @@ const prepareTests = async (
 
   return Promise.all(
     combinations.map(
-      async ([{ browser, browserName }, { device, name }, testDefinition]) => {
+      async ([
+        { browser, browserName },
+        { device, name: deviceName },
+        testDefinition,
+      ]) => {
         const device_ =
           browserName == "firefox" ? omitIsMobile(device) : device;
         const context = await browser.newContext({ ...device_ });
@@ -93,13 +106,21 @@ const prepareTests = async (
           browser,
           browserName,
           context,
-          deviceName: name,
+          deviceName,
           testDefinition,
         };
       }
     )
   );
 };
+
+/**
+ * Only keep tests where their name includes `argv.testFilter` (case insensitive)
+ */
+const filterTests = (tests: PreparedTest[]): PreparedTest[] =>
+  tests.filter((test) => {
+    testToName(test).toLowerCase().includes(argv.testFilter.toLowerCase());
+  });
 
 /**
  * Runs visual regression tests in parallel, using a pool of the given size
