@@ -1,4 +1,5 @@
 import { PNG } from "pngjs";
+import asyncPool from "tiny-async-pool";
 import pixelmatch from "pixelmatch";
 import fs from "fs/promises";
 import argv from "./argv";
@@ -17,7 +18,7 @@ import {
   testToURL,
 } from "./helpers";
 import { stabilizePage } from "./stabilize-page";
-import { TestResult, BrowserSpec, Test } from "./types";
+import { TestResult, BrowserSpec, PreparedTest } from "./types";
 import TEST_DEFINITIONS from "./test-definitions";
 
 const main = async () => {
@@ -31,7 +32,7 @@ const main = async () => {
   const tests = await prepareTests(launchedBrowsers);
 
   // Run tests
-  const results = await runVisualRegressionTests(tests);
+  const results = await runVisualRegressionTests(tests, argv.poolSize);
 
   // Close browsers
   await Promise.all(launchedBrowsers.map(({ browser }) => browser.close()));
@@ -72,7 +73,7 @@ const prepareFolders = async () => {
 
 const prepareTests = async (
   launchedBrowsers: BrowserSpec[]
-): Promise<Array<Test>> => {
+): Promise<Array<PreparedTest>> => {
   const combinations = [
     ...cartesian3Product(
       launchedBrowsers,
@@ -83,11 +84,7 @@ const prepareTests = async (
 
   return Promise.all(
     combinations.map(
-      async ([
-        { browser, browserName },
-        { device, deviceName },
-        testDefinition,
-      ]) => {
+      async ([{ browser, browserName }, { device, name }, testDefinition]) => {
         const device_ =
           browserName == "firefox" ? omitIsMobile(device) : device;
         const context = await browser.newContext({ ...device_ });
@@ -96,7 +93,7 @@ const prepareTests = async (
           browser,
           browserName,
           context,
-          deviceName,
+          deviceName: name,
           testDefinition,
         };
       }
@@ -104,13 +101,22 @@ const prepareTests = async (
   );
 };
 
-const runVisualRegressionTests = async (testQueue: Array<Test>) => {
-  return await Promise.all(
-    testQueue.map((testDef) => runVisualRegressionTest(testDef))
-  );
+/**
+ * Runs visual regression tests in parallel, using a pool of the given size
+ */
+const runVisualRegressionTests = async (
+  testQueue: Array<PreparedTest>,
+  poolSize: number
+): Promise<TestResult[]> => {
+  return asyncPool(poolSize, testQueue, runVisualRegressionTest);
+  // return await Promise.all(
+  //   testQueue.map((testDef) => runVisualRegressionTest(testDef))
+  // );
 };
 
-const runVisualRegressionTest = async (test: Test): Promise<TestResult> => {
+const runVisualRegressionTest = async (
+  test: PreparedTest
+): Promise<TestResult> => {
   try {
     // Load and stabilize page
     logDebug(`${testToName(test)}: Loading page`);
@@ -142,7 +148,10 @@ const runVisualRegressionTest = async (test: Test): Promise<TestResult> => {
   }
 };
 
-const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
+const handleScreenshot = async (
+  test: PreparedTest,
+  buffer
+): Promise<TestResult> => {
   const name = testToName(test);
   const baselinePath = testToBaselinePath(test);
 

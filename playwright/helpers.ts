@@ -1,7 +1,7 @@
 import chalk from "chalk";
 import argv from "./argv";
 import config from "./config";
-import { Test, TestResult } from "./types";
+import { PreparedTest, TestResult } from "./types";
 
 /**
  * Cartesian product of 3 arrays
@@ -25,6 +25,11 @@ export function* cartesian3Product<t0, t1, t2>(
 }
 
 /**
+ * `console.log` wrapper which always logs, in red.
+ */
+export const logError = (...args: any[]) => console.log(chalk.red(...args));
+
+/**
  * `console.log` wrapper which only logs when verbosity setting is appropriate
  */
 export const logInfo = (...args: any[]) =>
@@ -44,20 +49,20 @@ export const omitIsMobile = (deviceDescriptor) => {
   return other;
 };
 
-export const testToURL = (test: Test) => {
+export const testToURL = (test: PreparedTest) => {
   return config.baseUrl + test.testDefinition.relativeURL;
 };
 
-export const testToName = (test: Test) =>
+export const testToName = (test: PreparedTest) =>
   `${test.testDefinition.name}/${test.browserName}-${test.deviceName}`;
 
-export const testToPath = (test: Test) =>
+export const testToPath = (test: PreparedTest) =>
   `${config.screenshotsPath}${test.testDefinition.name}/${test.browserName}-${test.deviceName}.png`;
 
-export const testToBaselinePath = (test: Test) =>
+export const testToBaselinePath = (test: PreparedTest) =>
   `${config.screenshotsPath}${test.testDefinition.name}/${test.browserName}-${test.deviceName}.baseline.png`;
 
-export const testToDiffPath = (test: Test) =>
+export const testToDiffPath = (test: PreparedTest) =>
   `${config.screenshotsPath}${test.testDefinition.name}/${test.browserName}-${test.deviceName}.diff.png`;
 
 export const logTestResult = (result: TestResult) =>
