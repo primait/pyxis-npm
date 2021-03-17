@@ -181,7 +181,7 @@ $downloadButtonConfig: (
     color: color(brandAlt),
     fontSize: rem(30px),
     size: rem(68px),
-    svgLeft: rem(20px),
+    left: rem(20px),
   ),
   title: (
     color: color(text, dark),
@@ -562,7 +562,7 @@ $btnsBreakpoints: xsmall small medium large;
   font-size: get($downloadButtonConfig, icon, fontSize);
   height: get($downloadButtonConfig, icon, size);
   justify-content: center;
-  left: get($downloadButtonConfig, icon, svgLeft);
+  left: get($downloadButtonConfig, icon, left);
   position: absolute;
   width: get($downloadButtonConfig, icon, size);
 
