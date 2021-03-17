@@ -561,7 +561,7 @@ $btnsBreakpoints: xsmall small medium large;
   font-size: get($downloadButtonConfig, icon, fontSize);
   height: get($downloadButtonConfig, icon, size);
   justify-content: center;
-  left: 20px;
+  left: rem(20px);
   position: absolute;
   width: get($downloadButtonConfig, icon, size);
 
