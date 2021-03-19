@@ -8,13 +8,13 @@
     "test:safe-update-baseline": "yarn ts-node test.ts --pool-size=1 -u -v"
   },
   "devDependencies": {
-    "@types/node": "^14.14.31",
+    "@types/node": "^14.14.35",
     "@types/pixelmatch": "^5.2.2",
     "@types/pngjs": "^6.0.0",
     "@types/yargs": "^16.0.0",
     "chalk": "^4.1.0",
     "pixelmatch": "^5.2.1",
-    "playwright": "^1.9.1",
+    "playwright": "^1.9.2",
     "pngjs": "^6.0.0",
     "ts-node": "^9.1.1"
   },
