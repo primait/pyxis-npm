@@ -27,18 +27,19 @@ export function* cartesian3Product<t0, t1, t2>(
 /**
  * `console.log` wrapper which always logs, in red.
  */
-export const logError = (...args: any[]) => console.log(chalk.red(...args));
+export const logError = (...args: any[]): void =>
+  console.log(chalk.red(...args));
 
 /**
  * `console.log` wrapper which only logs when verbosity setting is appropriate
  */
-export const logInfo = (...args: any[]) =>
+export const logInfo = (...args: any[]): void =>
   argv.verbose >= 0 && console.log(...args);
 
 /**
  * `console.log` wrapper which only logs when verbosity setting is appropriate
  */
-export const logDebug = (...args: any[]) =>
+export const logDebug = (...args: any[]): void =>
   argv.verbose >= 1 && console.log(chalk.gray(...args));
 
 /**

@@ -35,6 +35,12 @@ const main = async () => {
   // Filter tests
   const filteredTests = argv.testFilter ? filterTests(tests) : tests;
 
+  logInfo(
+    `Running ${filteredTests.length} tests, with a concurrency of ${argv.poolSize}`
+  );
+
+  logInfo(`Baseline ${argv.updateBaseline ? "WILL" : "won't"} be updated`);
+
   if (filteredTests.length === 0) {
     logError("No tests match the provided filter");
     process.exit(0);
@@ -117,10 +123,12 @@ const prepareTests = async (
 /**
  * Only keep tests where their name includes `argv.testFilter` (case insensitive)
  */
-const filterTests = (tests: PreparedTest[]): PreparedTest[] =>
-  tests.filter((test) => {
-    testToName(test).toLowerCase().includes(argv.testFilter.toLowerCase());
-  });
+const filterTests = (tests: PreparedTest[]): PreparedTest[] => {
+  const filter = argv.testFilter.toLowerCase();
+  return tests.filter((test) =>
+    testToName(test).toLowerCase().includes(filter)
+  );
+};
 
 /**
  * Runs visual regression tests in parallel, using a pool of the given size

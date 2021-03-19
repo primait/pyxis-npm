@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "yarn ts-node test.ts"
+    "test": "yarn ts-node test.ts",
+    "test:safe-update-baseline": "yarn ts-node test.ts --pool-size=1 -u -v"
   },
   "devDependencies": {
     "@types/node": "^14.14.31",
