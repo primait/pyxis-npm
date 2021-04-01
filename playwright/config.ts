@@ -30,7 +30,7 @@ const config: Config = {
   fullSuiteRuntimeEstimate: 600000, // 10min in ms, should be longer than the sane-case runtime for the whole test suite
   pixelmatchThreshold: 0.1,
   screenshotsPath: "screenshots/",
-  timeoutBeforeScreenshot: 10000, // 10s in ms, time to wait after page load before taking a screenshot
+  timeoutBeforeScreenshot: 20000, // 20s in ms, time to wait after page load before taking a screenshot
 };
 
 export default config;

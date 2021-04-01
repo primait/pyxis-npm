@@ -1,10 +1,13 @@
 import { PNG } from "pngjs";
+import asyncPool from "tiny-async-pool";
 import pixelmatch from "pixelmatch";
 import fs from "fs/promises";
 import argv from "./argv";
 import config from "./config";
 import {
+  cartesian3Product,
   logDebug,
+  logError,
   logInfo,
   logTestResult,
   logTestResultPreview,
@@ -16,7 +19,7 @@ import {
   testToURL,
 } from "./helpers";
 import { stabilizePage } from "./stabilize-page";
-import { TestResult, BrowserSpec, Test } from "./types";
+import { TestResult, BrowserSpec, PreparedTest } from "./types";
 import TEST_DEFINITIONS from "./test-definitions";
 
 const main = async () => {
@@ -29,8 +32,22 @@ const main = async () => {
   // Enqueue tests
   const tests = await prepareTests(launchedBrowsers);
 
+  // Filter tests
+  const filteredTests = argv.testFilter ? filterTests(tests) : tests;
+
+  logInfo(
+    `Running ${filteredTests.length} tests, with a concurrency of ${argv.poolSize}`
+  );
+
+  logInfo(`Baseline ${argv.updateBaseline ? "WILL" : "won't"} be updated`);
+
+  if (filteredTests.length === 0) {
+    logError("No tests match the provided filter");
+    process.exit(0);
+  }
+
   // Run tests
-  const results = await runVisualRegressionTests(tests);
+  const results = await runVisualRegressionTests(filteredTests, argv.poolSize);
 
   // Close browsers
   await Promise.all(launchedBrowsers.map(({ browser }) => browser.close()));
@@ -71,34 +88,64 @@ const prepareFolders = async () => {
 
 const prepareTests = async (
   launchedBrowsers: BrowserSpec[]
-): Promise<Array<Test>> => {
-  const tests: Array<Test> = [];
-  for (const { browser, browserName } of launchedBrowsers) {
-    for (const { name: deviceName, device } of config.deviceDefinitions) {
-      const device_ = browserName == "firefox" ? omitIsMobile(device) : device;
-      const context = await browser.newContext({ ...device_ });
+): Promise<Array<PreparedTest>> => {
+  const combinations = [
+    ...cartesian3Product(
+      launchedBrowsers,
+      config.deviceDefinitions,
+      TEST_DEFINITIONS
+    ),
+  ];
 
-      for (const testDefinition of TEST_DEFINITIONS) {
-        tests.push({
+  return Promise.all(
+    combinations.map(
+      async ([
+        { browser, browserName },
+        { device, name: deviceName },
+        testDefinition,
+      ]) => {
+        const device_ =
+          browserName == "firefox" ? omitIsMobile(device) : device;
+        const context = await browser.newContext({ ...device_ });
+
+        return {
           browser,
           browserName,
           context,
           deviceName,
           testDefinition,
-        });
+        };
       }
-    }
-  }
-  return tests;
-};
-
-const runVisualRegressionTests = async (testQueue: Array<Test>) => {
-  return await Promise.all(
-    testQueue.map((testDef) => runVisualRegressionTest(testDef))
+    )
   );
 };
 
-const runVisualRegressionTest = async (test: Test): Promise<TestResult> => {
+/**
+ * Only keep tests where their name includes `argv.testFilter` (case insensitive)
+ */
+const filterTests = (tests: PreparedTest[]): PreparedTest[] => {
+  const filter = argv.testFilter.toLowerCase();
+  return tests.filter((test) =>
+    testToName(test).toLowerCase().includes(filter)
+  );
+};
+
+/**
+ * Runs visual regression tests in parallel, using a pool of the given size
+ */
+const runVisualRegressionTests = async (
+  testQueue: Array<PreparedTest>,
+  poolSize: number
+): Promise<TestResult[]> => {
+  return asyncPool(poolSize, testQueue, runVisualRegressionTest);
+  // return await Promise.all(
+  //   testQueue.map((testDef) => runVisualRegressionTest(testDef))
+  // );
+};
+
+const runVisualRegressionTest = async (
+  test: PreparedTest
+): Promise<TestResult> => {
   try {
     // Load and stabilize page
     logDebug(`${testToName(test)}: Loading page`);
@@ -130,7 +177,10 @@ const runVisualRegressionTest = async (test: Test): Promise<TestResult> => {
   }
 };
 
-const handleScreenshot = async (test: Test, buffer): Promise<TestResult> => {
+const handleScreenshot = async (
+  test: PreparedTest,
+  buffer
+): Promise<TestResult> => {
   const name = testToName(test);
   const baselinePath = testToBaselinePath(test);
 

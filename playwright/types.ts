@@ -13,7 +13,7 @@ export interface TestDefinition {
 /**
  * A test that's ready to be executed
  */
-export interface Test {
+export interface PreparedTest {
   browser: Browser;
   browserName: String;
   context: BrowserContext;
