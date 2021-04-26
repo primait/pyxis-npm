@@ -324,26 +324,26 @@ $downloadButtonConfig: (
     align-self: center;
     display: flex;
   }
-}
 
-.is-loading {
-  @include iconLoader(get($buttonLoaderConfig, strokeColor));
+  &.is-loading {
+    @include iconLoader(get($buttonLoaderConfig, strokeColor));
 
-  &:after {
-    animation: buttonLoader 1s linear infinite;
-  }
-
-  .btn__text {
-    margin-right: rem(10px);
-    transform: translateX(-10px);
-  }
-
-  @keyframes buttonLoader {
-    from {
-      transform: rotate(0);
+    &:after {
+      animation: buttonLoader 1s linear infinite;
     }
-    to {
-      transform: rotate(359deg);
+
+    .btn__text {
+      margin-right: rem(10px);
+      transform: translateX(-10px);
+    }
+
+    @keyframes buttonLoader {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(359deg);
+      }
     }
   }
 }
@@ -483,6 +483,13 @@ $downloadButtonConfig: (
 
 .btn--tiny {
   @include buttonSize(tiny);
+
+  &.is-loading:after {
+    height: rem(12px);
+    margin-top: rem(-5.4px);
+    right: rem(8px);
+    width: rem(12px);
+  }
 }
 
 $btnsBreakpoints: xsmall small medium large;
