@@ -48,16 +48,26 @@ module.exports = (env, argv) => {
                     include: [path.resolve(__dirname, 'src', 'scss')],
                     use: [
                         { loader: MiniCssExtractPlugin.loader },
-                        { loader: 'css-loader' },
-                        { loader: 'postcss-loader' },
+                        { loader: require.resolve('css-loader') },
                         {
-                            loader: 'sass-loader',
-                            options: {
-                                // implementation: require('sass'),
-                                sourceMap: false,
-                                indentedSyntax: false
-                            }
-                        }
+                          loader: require.resolve('postcss-loader'),
+                          options: {
+                            postcssOptions: {
+                              plugins: ['autoprefixer'],
+                            },
+                          },
+                        },
+                        {
+                          loader: require.resolve('sass-loader'),
+                          options: {
+                            implementation: require('sass'),
+                            sourceMap: false,
+                            sassOptions: {
+                              indentedSyntax: false,
+                              quietDeps: true,
+                            },
+                          },
+                        },
                     ]
                 },
                 {
