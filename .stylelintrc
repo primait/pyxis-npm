@@ -20,7 +20,6 @@
     "font-family-name-quotes": "always-unless-keyword",
     "font-family-no-duplicate-names": true,
     "font-weight-notation": "numeric",
-    "function-calc-no-invalid": true,
     "function-calc-no-unspaced-operator": true,
     "function-comma-space-after": "always",
     "function-url-quotes": "always",
