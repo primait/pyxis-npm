@@ -104,7 +104,7 @@ $tooltipPositions: (
 }
 
 @mixin arrowPosition($position) {
-  #{$position}: calc(100% - #{get($tooltipConfig, arrowSize) / 2});
+  #{$position}: calc(100% - #{math.div(get($tooltipConfig, arrowSize), 2)});
 
   @if $position == top or $position == bottom {
     left: 50%;
