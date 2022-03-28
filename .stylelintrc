@@ -1,5 +1,6 @@
 {
-  "extends": "stylelint-config-recommended",
+  "customSyntax": "postcss-html",
+  "extends": ["stylelint-config-recommended"],
   "plugins": [
     "stylelint-declaration-block-no-ignored-properties",
     "stylelint-order",
@@ -24,8 +25,11 @@
     "function-comma-space-after": "always",
     "function-url-quotes": "always",
     "function-whitespace-after": "always",
+    "function-no-unknown": null,
     "indentation": 2,
+    "keyframes-name-pattern": null,
     "length-zero-no-unit": true,
+    "max-line-length": null,
     "max-nesting-depth": [
       3,
       { "ignoreAtRules": ["media", "mixin", "include", "each", "if", "else"] }
@@ -43,6 +47,7 @@
     "scss/at-rule-no-unknown": true,
     "scss/dollar-variable-colon-space-after": "always",
     "scss/dollar-variable-colon-space-before": "never",
+    "selector-class-pattern": null,
     "selector-pseudo-class-no-unknown": true,
     "selector-pseudo-element-no-unknown": true,
     "selector-type-no-unknown": null,
@@ -65,6 +70,7 @@
     "string-quotes": "double",
     "unit-case": "lower",
     "unit-no-unknown": true,
+    "value-keyword-case": null,
     "value-no-vendor-prefix": null
   }
 }

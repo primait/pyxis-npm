@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $datepickerConfig: (
   backgroundColor: color(background),
   boxShadow: boxShadow(small),
@@ -194,8 +196,8 @@ $pickerConfig: get($datepickerConfig, picker);
   display: flex;
   justify-content: space-between;
   padding-bottom: get($pickerConfig, header, paddingBottom);
-  padding-left: #{uGet($datepickerConfig, paddingLeft) / 2}rem;
-  padding-right: #{uGet($datepickerConfig, paddingRight) / 2}rem;
+  padding-left: #{math.div(uGet($datepickerConfig, paddingLeft), 2)}rem;
+  padding-right: #{math.div(uGet($datepickerConfig, paddingRight), 2)}rem;
   padding-top: get($pickerConfig, header, paddingTop);
 }
 
@@ -257,8 +259,8 @@ $pickerConfig: get($datepickerConfig, picker);
   font-size: get($pickerConfig, daysName, fontSize);
   height: get($pickerConfig, daysName, height);
   justify-content: space-between;
-  padding-left: #{uGet($datepickerConfig, paddingLeft) / 2}rem;
-  padding-right: #{uGet($datepickerConfig, paddingRight) / 2}rem;
+  padding-left: #{math.div(uGet($datepickerConfig, paddingLeft), 2)}rem;
+  padding-right: #{math.div(uGet($datepickerConfig, paddingRight), 2)}rem;
   text-align: center;
 }
 
@@ -269,8 +271,8 @@ $pickerConfig: get($datepickerConfig, picker);
 .datepicker__picker__month {
   overflow: hidden;
   padding-bottom: get($pickerConfig, month, paddingBottom);
-  padding-left: #{uGet($datepickerConfig, paddingLeft) / 2}rem;
-  padding-right: #{uGet($datepickerConfig, paddingRight) / 2}rem;
+  padding-left: #{math.div(uGet($datepickerConfig, paddingLeft), 2)}rem;
+  padding-right: #{math.div(uGet($datepickerConfig, paddingRight), 2)}rem;
   position: relative;
 }
 

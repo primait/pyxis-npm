@@ -11,7 +11,6 @@ const stylelintOptions = {
     emitWarning: true,
     failOnWarning: true,
     ignoreDisables: true,
-    syntax: 'scss',
 }
 
 module.exports = (env, argv) => {

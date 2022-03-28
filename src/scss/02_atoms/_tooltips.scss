@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $tooltipConfig: (
   arrowSize: rem(12px),
   background: color(backgroundAlt, base),
@@ -78,7 +80,7 @@ $tooltipPositions: (
     content: "";
     height: get($tooltipConfig, arrowSize);
     position: absolute;
-    top: #{(uGet($tooltipConfig, arrowSize) / -2)}rem;
+    top: #{math.div(uGet($tooltipConfig, arrowSize), -2)}rem;
     transform: rotate(45deg);
     width: get($tooltipConfig, arrowSize);
   }
