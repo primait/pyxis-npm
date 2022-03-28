@@ -121,7 +121,7 @@ $errorCount: 0;
 // @throws {Warn}
 @function stripUnit($number) {
   @if type-of($number) == "number" and not unitless($number) {
-    @return $number / ($number * 0 + 1);
+    @return math.div($number, $number * 0 + 1);
   } @else {
     @warn "Cannot strip the unit from #{$number}.";
   }

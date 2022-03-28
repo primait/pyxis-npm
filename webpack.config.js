@@ -100,7 +100,7 @@ module.exports = (env, argv) => {
         devServer: {
             compress: false,
             port: 8080,
-            disableHostCheck: true
+            allowedHosts: "all",
         }
     }
 
