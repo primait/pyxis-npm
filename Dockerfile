@@ -1,4 +1,4 @@
-FROM node:lts
+FROM public.ecr.aws/prima/node:16.14.2-2
 
 RUN apt-get update && apt-get install -qqy apt-transport-https && \
     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \

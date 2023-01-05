@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $tooltipConfig: (
   arrowSize: rem(12px),
   background: color(backgroundAlt, base),
@@ -78,7 +80,7 @@ $tooltipPositions: (
     content: "";
     height: get($tooltipConfig, arrowSize);
     position: absolute;
-    top: #{(uGet($tooltipConfig, arrowSize) / -2)}rem;
+    top: #{math.div(uGet($tooltipConfig, arrowSize), -2)}rem;
     transform: rotate(45deg);
     width: get($tooltipConfig, arrowSize);
   }
@@ -102,7 +104,7 @@ $tooltipPositions: (
 }
 
 @mixin arrowPosition($position) {
-  #{$position}: calc(100% - #{get($tooltipConfig, arrowSize) / 2});
+  #{$position}: calc(100% - #{math.div(get($tooltipConfig, arrowSize), 2)});
 
   @if $position == top or $position == bottom {
     left: 50%;

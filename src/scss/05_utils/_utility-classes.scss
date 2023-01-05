@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $utilityClasses: (
   justify-content: (
     flex-start,
@@ -102,8 +104,6 @@ $utilityClasses: (
   }
 }
 
-
-
 @each $color, $tones in $colors {
   @each $colorTone, $colorHex in $tones {
     .bg-#{camelToKebabCase($color)}-#{$colorTone} {
@@ -119,7 +119,7 @@ $utilityClasses: (
 @each $fontKey, $size in $fontSizes {
   .fs-#{$fontKey} {
     font-size: size($fontKey);
-    line-height: lineHeight($fontKey);
+    line-height: lineheight($fontKey);
   }
 }
 
@@ -131,7 +131,7 @@ $utilityClasses: (
 
 @for $i from 0 through 10 {
   .opacity-#{$i} {
-    opacity: $i/10;
+    opacity: math.div($i, 10);
   }
 }
 
@@ -157,10 +157,13 @@ $utilityClasses: (
     .fs-#{$fontKey}-on-bp-#{$bpKey} {
       @if ($bpIndex + 1) <= $bpLength {
         $nextBpKey: nth(nth($breakpoints, ($bpIndex + 1)), 1);
+
         @include mqBetween($bpKey, $nextBpKey) {
           font-size: size($fontKey);
         }
-      } @else {
+      }
+
+      @else {
         @include mq($bpKey) {
           font-size: size($fontKey);
         }

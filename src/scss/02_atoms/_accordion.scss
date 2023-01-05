@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $accordionConfig: (
   borderWidth: rem(1px),
   accordionToggle: (
@@ -137,7 +139,7 @@ $darkAccordionConfig: (
   &:after {
     background: get($accordionConfig, accordionIcon, color);
     content: "";
-    height: #{uGet($accordionConfig, accordionIcon, size) / 2}rem;
+    height: #{math.div(uGet($accordionConfig, accordionIcon, size), 2)}rem;
     position: absolute;
     width: get($accordionConfig, accordionIcon, stroke);
   }

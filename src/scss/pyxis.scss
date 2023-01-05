@@ -8,6 +8,6 @@
   "06_fonts/_root";
 
 // This is useful to break compile cycle while keeping stack trace infos.
-@if($errorCount > 0) {
+@if ($errorCount > 0) {
   @error "Found #{$errorCount} errors. Aborting.";
 }
