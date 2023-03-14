@@ -88,7 +88,7 @@ Example files are stored in `src/test/`. Their pages are reachable @ http://loca
 
 ### Visual regression testing
 
-Recently and automated visual regression testing suite has been added to Pyxis, in the `playwright/` folder. Its [README](playwright/README.md) contains up-to-date info on how to perform automated tests on Pyxis examples, using multiple browsers at multiple screen sizes.
+Recently an automated visual regression testing suite has been added to Pyxis, in the `playwright/` folder. Its [README](playwright/README.md) contains up-to-date info on how to perform automated tests on Pyxis examples, using multiple browsers at multiple screen sizes.
 
 ## Copyright and license
 
