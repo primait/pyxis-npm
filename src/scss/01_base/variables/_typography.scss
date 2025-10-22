@@ -1,26 +1,25 @@
+@import "../helpers";
+
 // Physical address of the fonts-containing folder.
 $fontPath: "../assets/fonts" !default;
 
 $fonts: (
-  light: (
-    "avenirltstd-book",
+  light: ("avenirltstd-book",
     Helvetica,
     Verdana,
     sans-serif,
   ),
-  base: (
-    "avenirltstd-medium",
+  base: ("avenirltstd-medium",
     Helvetica,
     Verdana,
     sans-serif,
   ),
-  heavy: (
-    "avenirltstd-heavy",
+  heavy: ("avenirltstd-heavy",
     Helvetica,
     Verdana,
     sans-serif,
   ),
-) !default;
+  ) !default;
 
 $fontSizeRoot: 16px !default;
 
@@ -33,7 +32,7 @@ $fontSizes: (
   large: rem(22px),
   xlarge: rem(26px),
   xxlarge: rem(32px),
-) !default;
+  ) !default;
 
 $lineHeightRoot: 150% !default;
 
@@ -46,4 +45,4 @@ $lineHeight: (
   large: 1.618,
   xlarge: 1.4,
   xxlarge: 1.4,
-) !default;
+  ) !default;
