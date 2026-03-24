@@ -1,25 +1,36 @@
 # PYXIS-NPM
 
-Pyxis-NPM is the standard way to integrate the Pyxis Design System into your project @Prima.
+> [!WARNING]
+> **This repository is in maintenance mode and must not be used for new projects.**
+>
+> `@prima-assicurazioni/pyxis-npm` is kept only for legacy consumers that still depend on it.
+>
+> **Please migrate to the current Pyxis repository as soon as possible:**  
+> https://github.com/primait/pyxis
 
-To use it in your project as an npm dependency:
+## Status
 
-1. ask the maintainers or devops to add you to the _prima-assicurazioni_ organization on npm
-2. once your invitation is accepted, you can login on your machine by typing `npm login`
-3. then you can simply use pyxis-npm as dependency via `npm install @prima-assicurazioni/pyxis-npm`
+This package is **legacy** and is currently maintained in **maintenance mode**.
 
-[![npm](https://img.shields.io/npm/v/@prima-assicurazioni/pyxis-npm.svg)][npm-link]
-[![npm](https://img.shields.io/npm/dm/@prima-assicurazioni/pyxis-npm.svg)][npm-link]
+That means:
 
-## Pyxis:
+- no new features will be added
+- no new projects should adopt it
+- support is limited to critical fixes and essential maintenance
+- existing consumers should plan a migration to the new Pyxis repository
 
-[Costellazione della bussola](<https://it.wikipedia.org/wiki/Bussola_(costellazione)>)
-![alt text](https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/NGC_2818_by_the_Hubble_Space_Telescope.jpg/1920px-NGC_2818_by_the_Hubble_Space_Telescope.jpg)
+## What to use instead
 
-## Project Structure
+Use the current Pyxis repository instead:
 
-- Pyxis is structured with **BEM** in mind. From a main root entry point (_pyxis.scss_) 4 partials _\_root.scss_ are imported: base, atoms, molecules and organisms
-- Order is important since **all** pyxis partials are built depending on mixins, functions and variables declared in _01_base_.
+**https://github.com/primait/pyxis**
+
+If you are starting a new project, do **not** use this package.
+
+If you are currently using this package, you should plan to migrate away from it as soon as possible.
+
+
+# Legacy README.md
 
 ## How to include Pyxis in your project
 
