@@ -2,7 +2,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: "pyxis-npm"
-  description: "Pyxis-NPM is the standard way to integrate the Pyxis Design"
+  description: "This package is legacy and is currently maintained in maintenance mode. Use Pyxis instead."
 spec:
   type: "library"
   lifecycle: production
