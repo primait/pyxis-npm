@@ -23,6 +23,6 @@
     "watch": "sass --watch src/scss/pyxis.scss dist/pyxis.css --no-source-map"
   },
   "devDependencies": {
-    "sass": "^1.105.0"
+    "sass": "^1.105.1"
   }
 }
